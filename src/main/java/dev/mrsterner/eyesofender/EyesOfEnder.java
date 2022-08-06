@@ -1,6 +1,7 @@
 package dev.mrsterner.eyesofender;
 
-import dev.mrsterner.eyesofender.common.registry.EOEObjects;
+import dev.mrsterner.eyesofender.common.registry.*;
+import eu.midnightdust.lib.config.MidnightConfig;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
@@ -23,6 +24,10 @@ public class EyesOfEnder implements ModInitializer {
 
 	@Override
 	public void onInitialize(ModContainer mod) {
+		MidnightConfig.init(MODID, EyesOfEnderConfig.class);
 		EOEObjects.init();
+		EOEBlockEntityTypes.init();
+		EOEEntityTypes.init();
+		EOEWorldGenerators.init();
 	}
 }
