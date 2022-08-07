@@ -30,7 +30,7 @@ public abstract class HamonAbility {
 	}
 
 	public Identifier getTextureLocation() {
-		return new Identifier(id.getNamespace(), "textures/gui/ability_widgets/effect/" + id.getPath() + ".png");
+		return new Identifier(id.getNamespace(), "textures/gui/ability_widgets/ability/" + id.getPath() + ".png");
 	}
 
 

@@ -37,6 +37,7 @@ public class EyesOfEnder implements ModInitializer {
 		EOEObjects.init();
 		EOEBlockEntityTypes.init();
 		EOEEntityTypes.init();
+		EOEAbilities.init();
 		EOEWorldGenerators.init();
 
 		ServerPlayNetworking.registerGlobalReceiver(AbilityPacket.ID, AbilityPacket::handleFromClient);

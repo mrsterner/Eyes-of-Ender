@@ -27,15 +27,15 @@ public class AbilitySelectionScreen extends Screen {
 	protected void init() {
 		super.init();
 		AbilityUser.of(client.player).ifPresent(user -> {
-			List<Ability> spells = user.getAbilities().stream().filter(Objects::nonNull).collect(Collectors.toList());
-			double angleSize = (Math.PI * 2) / spells.size();
+			List<Ability> abilities = user.getAbilities().stream().filter(Objects::nonNull).collect(Collectors.toList());
+			double angleSize = (Math.PI * 2) / abilities.size();
 			int centerX = width / 2 - totalRadius / 2 + 2;
 			int centerY = height / 2 - totalRadius / 2 + 2;
-			for (int i = 0; i < spells.size(); i++) {
+			for (int i = 0; i < abilities.size(); i++) {
 				double angle = angleSize * i + Math.PI;
 				double x = centerX + (Math.sin(angle) * totalRadius);
 				double y = centerY + (Math.cos(angle) * totalRadius);
-				addDrawableChild(new SelectAbilityWidget((int) Math.round(x), (int) Math.round(y), this, spells.get(i)));
+				addDrawableChild(new SelectAbilityWidget((int) Math.round(x), (int) Math.round(y), this, abilities.get(i)));
 			}
 		});
 	}

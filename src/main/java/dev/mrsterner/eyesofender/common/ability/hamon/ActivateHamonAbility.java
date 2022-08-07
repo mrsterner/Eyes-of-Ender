@@ -1,4 +1,4 @@
-package dev.mrsterner.eyesofender.common.ability;
+package dev.mrsterner.eyesofender.common.ability.hamon;
 
 import dev.mrsterner.eyesofender.EyesOfEnder;
 import dev.mrsterner.eyesofender.api.registry.HamonAbility;
