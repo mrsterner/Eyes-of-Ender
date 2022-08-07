@@ -1,4 +1,4 @@
-package dev.mrsterner.eyesofender.client.model;
+package dev.mrsterner.eyesofender.client.model.entity;
 
 import dev.mrsterner.eyesofender.common.entity.StandEntity;
 import net.minecraft.util.Identifier;

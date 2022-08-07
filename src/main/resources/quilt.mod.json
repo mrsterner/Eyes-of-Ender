@@ -42,6 +42,7 @@
 	"access_widener": "eyesofender.accesswidener",
 	"mixin": "eyesofender.mixins.json",
 	"cardinal-components": [
-		"eyesofender:hamon"
+		"eyesofender:hamon",
+		"eyesofender:stand"
 	]
 }

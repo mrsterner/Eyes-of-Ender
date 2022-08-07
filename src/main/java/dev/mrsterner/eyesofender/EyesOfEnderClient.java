@@ -3,7 +3,7 @@ package dev.mrsterner.eyesofender;
 import com.williambl.early_features.api.LivingEntityEarlyFeatureRendererRegistrationCallback;
 import dev.mrsterner.eyesofender.client.registry.EOEParticleTypes;
 import dev.mrsterner.eyesofender.client.registry.EOESounds;
-import dev.mrsterner.eyesofender.client.renderer.HamonFeatureRenderer;
+import dev.mrsterner.eyesofender.client.renderer.feature.HamonFeatureRenderer;
 import dev.mrsterner.eyesofender.client.AuraEffectManager;
 import dev.mrsterner.eyesofender.client.renderer.StoneMaskArmorRenderer;
 import dev.mrsterner.eyesofender.client.renderer.StoneMaskItemRenderer;

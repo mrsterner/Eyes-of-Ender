@@ -1,4 +1,4 @@
-package dev.mrsterner.eyesofender.client.renderer;
+package dev.mrsterner.eyesofender.client.renderer.feature;
 
 import dev.mrsterner.eyesofender.client.vertexconsumer.HamonVertexConsumerProvider;
 import net.minecraft.client.render.OverlayTexture;

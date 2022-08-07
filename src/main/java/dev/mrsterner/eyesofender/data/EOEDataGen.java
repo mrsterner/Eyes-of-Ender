@@ -10,6 +10,7 @@ public class EOEDataGen implements DataGeneratorEntrypoint {
 		fabricDataGenerator.addProvider(EOERecipeProvider::new);
 		fabricDataGenerator.addProvider(EOEBlockLootTableProvider::new);
 		fabricDataGenerator.addProvider(EOEModelProvider::new);
+		fabricDataGenerator.addProvider(EOEEntityTagProvider::new);
 		fabricDataGenerator.addProvider(
 				new EOEItemTagProvider(fabricDataGenerator,
 						fabricDataGenerator.addProvider(EOEBlockTagProvider::new)));

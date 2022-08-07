@@ -1,6 +1,6 @@
 package dev.mrsterner.eyesofender.mixin.client;
 
-import dev.mrsterner.eyesofender.client.renderer.HamonFeatureRenderer;
+import dev.mrsterner.eyesofender.client.renderer.feature.HamonFeatureRenderer;
 import dev.mrsterner.eyesofender.client.vertexconsumer.HamonVertexConsumerProvider;
 import dev.mrsterner.eyesofender.common.entity.StandEntity;
 import net.minecraft.client.MinecraftClient;

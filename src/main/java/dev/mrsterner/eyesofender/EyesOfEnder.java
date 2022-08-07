@@ -46,7 +46,7 @@ public class EyesOfEnder implements ModInitializer {
 			var nbt = itemStack.getNbt();
 			if (entityHitResult != null && nbt != null && !nbt.contains("Bloody")) {
 				Entity hit = entityHitResult.getEntity();
-				if(hit instanceof VillagerEntity || hit instanceof PlayerEntity){//TODO add tag
+				if(hit.getType().isIn(EOETags.HUMANOIDS)){
 					NbtCompound compound = new NbtCompound();
 					compound.putBoolean("Bloody", true);
 					itemStack.getOrCreateNbt().put("State", compound);
