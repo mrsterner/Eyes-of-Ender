@@ -23,5 +23,6 @@ public class EOEModelProvider extends FabricModelProvider {
 	public void generateItemModels(ItemModelGenerator itemModelGenerator) {
 		itemModelGenerator.register(EOEObjects.STAND_ARROW, Models.GENERATED);
 		itemModelGenerator.register(EOEObjects.STONE_OF_AJA, Models.GENERATED);
+		itemModelGenerator.register(EOEObjects.DAGGER, Models.HANDHELD);
 	}
 }

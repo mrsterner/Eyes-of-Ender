@@ -14,7 +14,8 @@ public class StoneMaskModel extends AnimatedGeoModel<StoneMaskItem> {
 
 	@Override
 	public Identifier getTextureResource(StoneMaskItem object) {
-		return EyesOfEnder.id("textures/item/stone_mask.png");
+		var nbt = object.getDefaultStack().getNbt();
+		return EyesOfEnder.id(nbt != null && nbt.contains("Bloody") ? "textures/item/stone_mask_bloody.png" : "textures/item/stone_mask.png");
 	}
 
 	@Override

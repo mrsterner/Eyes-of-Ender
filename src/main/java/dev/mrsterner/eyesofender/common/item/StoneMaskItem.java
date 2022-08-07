@@ -1,8 +1,13 @@
 package dev.mrsterner.eyesofender.common.item;
 
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ArmorMaterial;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.Hand;
+import net.minecraft.world.World;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
 import software.bernie.geckolib3.core.builder.AnimationBuilder;
@@ -16,6 +21,22 @@ public class StoneMaskItem extends ArmorItem implements IAnimatable {
 
 	public StoneMaskItem(ArmorMaterial material, EquipmentSlot slot, Settings settings) {
 		super(material, slot, settings);
+	}
+
+	@Override
+	public boolean allowNbtUpdateAnimation(PlayerEntity player, Hand hand, ItemStack oldStack, ItemStack newStack) {
+		return false;
+	}
+
+	@Override
+	public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
+		super.inventoryTick(stack, world, entity, slot, selected);
+		if(entity instanceof PlayerEntity player && player.getEquippedStack(EquipmentSlot.HEAD) == this.getDefaultStack()){
+			var nbt = stack.getNbt();
+			if (nbt != null && nbt.contains("Bloody")) {
+
+			}
+		}
 	}
 
 	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {

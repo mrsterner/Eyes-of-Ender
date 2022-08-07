@@ -6,6 +6,8 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
+import net.minecraft.item.SwordItem;
+import net.minecraft.item.ToolMaterials;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
@@ -19,8 +21,9 @@ public class EOEObjects {
 	public static final Item STAND_ARROW = register("stand_arrow", new Item(gen()));
 	public static final Item STONE_OF_AJA = register("stone_of_aja", new Item(gen()));
     public static final Item STONE_MASK = register("stone_mask", new StoneMaskItem(EOEMaterials.VAMPIRE_ARMOR , EquipmentSlot.HEAD, gen()));
+	public static final Item DAGGER = register("dagger", new SwordItem(ToolMaterials.IRON, 2, -3F, gen()));
 
-    private static Item.Settings gen() {
+	private static Item.Settings gen() {
 		return new Item.Settings().group(EyesOfEnder.EOE_GROUP);
 	}
 
