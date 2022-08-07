@@ -6,12 +6,12 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Predicate;
 
-public abstract class HamonAbility {
+public abstract class AbilityEffect {
 	private final Identifier id;
 	private final Predicate<LivingEntity> abilityPredicate;
 	private final int color;
 
-	public HamonAbility(Identifier id, @Nullable Predicate<LivingEntity> abilityPredicate, int color) {
+	public AbilityEffect(Identifier id, @Nullable Predicate<LivingEntity> abilityPredicate, int color) {
 		this.id = id;
 		this.abilityPredicate = abilityPredicate == null ? (living) -> true : abilityPredicate;
 		this.color = color;

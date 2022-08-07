@@ -1,6 +1,7 @@
 package dev.mrsterner.eyesofender;
 
 import dev.mrsterner.eyesofender.common.networking.packet.AbilityPacket;
+import dev.mrsterner.eyesofender.common.networking.packet.SyncAbilityUserDataPacket;
 import dev.mrsterner.eyesofender.common.registry.*;
 import eu.midnightdust.lib.config.MidnightConfig;
 import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
@@ -40,6 +41,7 @@ public class EyesOfEnder implements ModInitializer {
 		EOEAbilities.init();
 		EOEWorldGenerators.init();
 
+		ServerPlayNetworking.registerGlobalReceiver(SyncAbilityUserDataPacket.ID, SyncAbilityUserDataPacket::handleFromClient);
 		ServerPlayNetworking.registerGlobalReceiver(AbilityPacket.ID, AbilityPacket::handleFromClient);
 
 		AttackEntityCallback.EVENT.register(this::stainStoneMask);
