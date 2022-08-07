@@ -3,12 +3,9 @@ package dev.mrsterner.eyesofender.data;
 import dev.mrsterner.eyesofender.common.registry.EOEObjects;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
-import net.minecraft.block.Blocks;
 import net.minecraft.data.client.ItemModelGenerator;
 import net.minecraft.data.client.model.BlockStateModelGenerator;
-import net.minecraft.data.client.model.ModelIds;
 import net.minecraft.data.client.model.Models;
-import net.minecraft.item.Items;
 
 public class EOEModelProvider extends FabricModelProvider {
 	public EOEModelProvider(FabricDataGenerator dataGenerator) {

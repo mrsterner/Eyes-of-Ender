@@ -1,12 +1,11 @@
 package dev.mrsterner.eyesofender;
 
-import dev.mrsterner.eyesofender.common.item.DaggerItem;
+import dev.mrsterner.eyesofender.common.networking.packet.AbilityPacket;
 import dev.mrsterner.eyesofender.common.registry.*;
 import eu.midnightdust.lib.config.MidnightConfig;
 import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.passive.VillagerEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
@@ -19,6 +18,8 @@ import org.jetbrains.annotations.Nullable;
 import org.quiltmc.loader.api.ModContainer;
 import org.quiltmc.qsl.base.api.entrypoint.ModInitializer;
 import org.quiltmc.qsl.item.group.api.QuiltItemGroup;
+import org.quiltmc.qsl.networking.api.ServerPlayNetworking;
+import software.bernie.example.GeckoLibMod;
 
 public class EyesOfEnder implements ModInitializer {
 	public static final String MODID = "eyesofender";
@@ -31,11 +32,14 @@ public class EyesOfEnder implements ModInitializer {
 
 	@Override
 	public void onInitialize(ModContainer mod) {
+		GeckoLibMod.DISABLE_IN_DEV = true;
 		MidnightConfig.init(MODID, EyesOfEnderConfig.class);
 		EOEObjects.init();
 		EOEBlockEntityTypes.init();
 		EOEEntityTypes.init();
 		EOEWorldGenerators.init();
+
+		ServerPlayNetworking.registerGlobalReceiver(AbilityPacket.ID, AbilityPacket::handleFromClient);
 
 		AttackEntityCallback.EVENT.register(this::stainStoneMask);
 	}
