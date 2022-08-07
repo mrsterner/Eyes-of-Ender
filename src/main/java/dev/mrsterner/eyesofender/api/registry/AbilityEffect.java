@@ -17,11 +17,11 @@ public abstract class AbilityEffect {
 		this.color = color;
 	}
 
-	public boolean canCast(LivingEntity caster) {
-		return abilityPredicate.test(caster);
+	public boolean canCast(LivingEntity user) {
+		return abilityPredicate.test(user);
 	}
 
-	public int getColor(@Nullable LivingEntity caster) {
+	public int getColor(@Nullable LivingEntity user) {
 		return color;
 	}
 

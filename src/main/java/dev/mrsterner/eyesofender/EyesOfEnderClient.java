@@ -2,7 +2,7 @@ package dev.mrsterner.eyesofender;
 
 import com.williambl.early_features.api.LivingEntityEarlyFeatureRendererRegistrationCallback;
 import dev.mrsterner.eyesofender.api.interfaces.AbilityUser;
-import dev.mrsterner.eyesofender.client.registry.EOEKeyBindings;
+import dev.mrsterner.eyesofender.client.gui.AbilityClientHandler;
 import dev.mrsterner.eyesofender.client.registry.EOEParticleTypes;
 import dev.mrsterner.eyesofender.client.registry.EOESounds;
 import dev.mrsterner.eyesofender.client.renderer.feature.HamonFeatureRenderer;
@@ -32,7 +32,7 @@ public class EyesOfEnderClient implements ClientModInitializer {
 	public void onInitializeClient(ModContainer mod) {
 		EOEParticleTypes.init();
 		EOESounds.init();
-		EOEKeyBindings.init();
+		AbilityClientHandler.init();
 
 		ClientPlayNetworking.registerGlobalReceiver(AbilityPacket.ID, AbilityPacket::handle);
 		ClientPlayNetworking.registerGlobalReceiver(SyncAbilityUserDataPacket.ID, (client, networkHandler, packetByteBuf, sender) -> {

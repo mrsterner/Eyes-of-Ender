@@ -10,7 +10,6 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
@@ -50,11 +49,6 @@ public abstract class PlayerEntityMixin extends LivingEntity implements AbilityU
 	private void tickAbilityCooldown(CallbackInfo info) {
 		if (dataTracker != null && getAbilityCooldown() > 0) {
 			setAbilityCooldown(getAbilityCooldown() - 1);
-		}
-		Ability[] abilities = new Ability[this.getMaxAbilities()];
-		if(abilities[0] == null){
-			abilities[0] = new Ability(EOEAbilities.ACTIVATE, 1);
-			this.getAbilities().add(0, abilities[0]);
 		}
 	}
 

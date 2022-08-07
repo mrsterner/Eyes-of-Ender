@@ -18,19 +18,19 @@ import org.quiltmc.qsl.networking.api.client.ClientPlayNetworking;
 public class SyncAbilityUserDataPacket {
 	public static final Identifier ID = EyesOfEnder.id("sync_ability");
 
-	public static void send(boolean client, PlayerEntity user, AbilityUser caster) {
+	public static void send(boolean client, PlayerEntity player, AbilityUser user) {
 		PacketByteBuf data = new PacketByteBuf(Unpooled.buffer());
-		NbtCompound abilityCompound = NbtUtils.writeAbilityData(caster, new NbtCompound());
+		NbtCompound abilityCompound = NbtUtils.writeAbilityData(user, new NbtCompound());
 		data.writeNbt(abilityCompound);
 		if (client) {
 			ClientPlayNetworking.send(ID, data);
 		} else {
-			ServerPlayNetworking.send((ServerPlayerEntity) user, ID, data);
+			ServerPlayNetworking.send((ServerPlayerEntity) player, ID, data);
 		}
 	}
 
 	public static void handleFromClient(MinecraftServer server, ServerPlayerEntity player, ServerPlayNetworkHandler handler, PacketByteBuf packetByteBuf, PacketSender sender) {
 		NbtCompound tag = packetByteBuf.readNbt();
-		server.execute(() -> AbilityUser.of(player).ifPresent(caster -> NbtUtils.readAbilityData(caster, tag)));
+		server.execute(() -> AbilityUser.of(player).ifPresent(user -> NbtUtils.readAbilityData(user, tag)));
 	}
 }

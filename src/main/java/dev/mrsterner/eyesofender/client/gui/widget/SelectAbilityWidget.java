@@ -3,7 +3,7 @@ package dev.mrsterner.eyesofender.client.gui.widget;
 import com.mojang.blaze3d.systems.RenderSystem;
 import dev.mrsterner.eyesofender.EyesOfEnder;
 import dev.mrsterner.eyesofender.client.gui.AbilitySelectionScreen;
-import dev.mrsterner.eyesofender.client.registry.EOEKeyBindings;
+import dev.mrsterner.eyesofender.client.gui.AbilityClientHandler;
 import dev.mrsterner.eyesofender.common.ability.Ability;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.narration.NarrationMessageBuilder;
@@ -51,14 +51,14 @@ public class SelectAbilityWidget extends ClickableWidget {
 	@Override
 	public void onClick(double mouseX, double mouseY) {
 		if (!isSelected()) {
-			EOEKeyBindings.selectedAbility = ability;
+			AbilityClientHandler.selectedAbility = ability;
 		} else {
-			EOEKeyBindings.selectedAbility = null;
+			AbilityClientHandler.selectedAbility = null;
 		}
 	}
 
 	private boolean isSelected() {
-		return EOEKeyBindings.selectedAbility == ability;
+		return AbilityClientHandler.selectedAbility == ability;
 	}
 
 	@Override

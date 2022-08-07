@@ -4,7 +4,6 @@ import com.mojang.blaze3d.platform.InputUtil;
 import dev.mrsterner.eyesofender.EyesOfEnder;
 import dev.mrsterner.eyesofender.api.interfaces.AbilityUser;
 import dev.mrsterner.eyesofender.client.gui.widget.SelectAbilityWidget;
-import dev.mrsterner.eyesofender.client.registry.EOEKeyBindings;
 import dev.mrsterner.eyesofender.common.ability.Ability;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.client.MinecraftClient;
@@ -54,7 +53,7 @@ public class AbilitySelectionScreen extends Screen {
 	}
 
 	private boolean isAbilitySelectionKeyPressed() {
-		return InputUtil.isKeyPressed(MinecraftClient.getInstance().getWindow().getHandle(), KeyBindingHelper.getBoundKeyOf(EOEKeyBindings.abilitySelectionKey).getKeyCode());
+		return InputUtil.isKeyPressed(MinecraftClient.getInstance().getWindow().getHandle(), KeyBindingHelper.getBoundKeyOf(AbilityClientHandler.abilitySelectionKey).getKeyCode());
 	}
 
 	@Override

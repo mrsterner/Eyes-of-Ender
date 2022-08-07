@@ -1,9 +1,8 @@
-package dev.mrsterner.eyesofender.client.registry;
+package dev.mrsterner.eyesofender.client.gui;
 
 import com.mojang.blaze3d.platform.InputUtil;
 import dev.mrsterner.eyesofender.EyesOfEnder;
 import dev.mrsterner.eyesofender.api.interfaces.AbilityUser;
-import dev.mrsterner.eyesofender.client.gui.AbilitySelectionScreen;
 import dev.mrsterner.eyesofender.client.gui.hud.HamonAbilityHUD;
 import dev.mrsterner.eyesofender.common.ability.Ability;
 import dev.mrsterner.eyesofender.common.networking.packet.AbilityPacket;
@@ -17,7 +16,7 @@ import org.quiltmc.qsl.lifecycle.api.client.event.ClientTickEvents;
 import net.minecraft.client.option.KeyBind;
 import org.quiltmc.qsl.networking.api.client.ClientLoginConnectionEvents;
 
-public class EOEKeyBindings {
+public class AbilityClientHandler {
 	public static KeyBind abilitySelectionKey;
 	public static KeyBind useKey;
 	public static Ability selectedAbility;
@@ -40,9 +39,9 @@ public class EOEKeyBindings {
 				"category." + EyesOfEnder.MODID
 		));
 
-		ClientLoginConnectionEvents.INIT.register((handler, client) -> EOEKeyBindings.selectedAbility = null);
-		ClientTickEvents.START.register(EOEKeyBindings::selectAbility);
-		HudRenderCallback.EVENT.register(EOEKeyBindings::renderHud);
+		ClientLoginConnectionEvents.INIT.register((handler, client) -> AbilityClientHandler.selectedAbility = null);
+		ClientTickEvents.START.register(AbilityClientHandler::selectAbility);
+		HudRenderCallback.EVENT.register(AbilityClientHandler::renderHud);
 	}
 
 	private static void renderHud(MatrixStack matrixStack, float tickDelta) {
