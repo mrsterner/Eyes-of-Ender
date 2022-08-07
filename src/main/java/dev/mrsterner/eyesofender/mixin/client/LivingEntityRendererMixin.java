@@ -31,7 +31,7 @@ public abstract class LivingEntityRendererMixin<T extends LivingEntity, M extend
 
 	@Inject(method = "render(Lnet/minecraft/entity/LivingEntity;FFLnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;I)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/entity/feature/FeatureRenderer;render(Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;ILnet/minecraft/entity/Entity;FFFFFF)V"), locals = LocalCapture.CAPTURE_FAILSOFT)
 	public void eoe$hamon(T livingEntity, float f, float g, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, CallbackInfo info, float h, float j, float k, float m, float l, float n, float o, MinecraftClient minecraftClient, boolean bl, boolean bl2, boolean bl3, RenderLayer renderLayer, Iterator<FeatureRenderer<T, M>> var19, FeatureRenderer<T, M> featureRenderer) {
-		if(true){//TODO add condition, change rgba values
+		if(false){//TODO add condition, change rgba values
 			float aura = 20;
 			int[] auraColour = HamonFeatureRenderer.getRgbF(0xfff32a);
 			featureRenderer.render(matrixStack, new HamonVertexConsumerProvider(vertexConsumerProvider, auraColour[0], auraColour[1], auraColour[2], (int) (aura * 255)), i, livingEntity, o, n, g, l, k, m);

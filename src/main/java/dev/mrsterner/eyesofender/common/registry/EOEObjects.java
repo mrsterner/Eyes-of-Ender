@@ -1,7 +1,9 @@
 package dev.mrsterner.eyesofender.common.registry;
 
 import dev.mrsterner.eyesofender.EyesOfEnder;
+import dev.mrsterner.eyesofender.common.item.StoneMaskItem;
 import net.minecraft.block.Block;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.util.Identifier;
@@ -15,8 +17,10 @@ public class EOEObjects {
 	public static final Map<Item, Identifier> ITEMS = new LinkedHashMap<>();
 
 	public static final Item STAND_ARROW = register("stand_arrow", new Item(gen()));
+	public static final Item STONE_OF_AJA = register("stone_of_aja", new Item(gen()));
+    public static final Item STONE_MASK = register("stone_mask", new StoneMaskItem(EOEMaterials.VAMPIRE_ARMOR , EquipmentSlot.HEAD, gen()));
 
-	private static Item.Settings gen() {
+    private static Item.Settings gen() {
 		return new Item.Settings().group(EyesOfEnder.EOE_GROUP);
 	}
 

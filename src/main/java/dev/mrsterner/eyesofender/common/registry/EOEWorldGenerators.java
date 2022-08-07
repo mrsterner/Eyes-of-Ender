@@ -1,7 +1,6 @@
 package dev.mrsterner.eyesofender.common.registry;
 
 import net.minecraft.util.registry.Registry;
-import net.minecraft.world.gen.feature.ConfiguredFeature;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.FeatureConfig;
 import net.minecraft.world.gen.feature.util.ConfiguredFeatureUtil;
