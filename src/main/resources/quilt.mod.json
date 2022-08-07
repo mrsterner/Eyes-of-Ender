@@ -21,7 +21,8 @@
 		"entrypoints": {
 			"init": "dev.mrsterner.eyesofender.EyesOfEnder",
 			"client_init": "dev.mrsterner.eyesofender.EyesOfEnderClient",
-			"fabric-datagen": "dev.mrsterner.eyesofender.data.EOEDataGen"
+			"fabric-datagen": "dev.mrsterner.eyesofender.data.EOEDataGen",
+			"cardinal-components": "dev.mrsterner.eyesofender.common.registry.EOEComponents"
 		},
 		"depends": [
 			{
@@ -38,5 +39,6 @@
 			}
 		]
 	},
+	"access_widener": "eyesofender.accesswidener",
 	"mixin": "eyesofender.mixins.json"
 }
