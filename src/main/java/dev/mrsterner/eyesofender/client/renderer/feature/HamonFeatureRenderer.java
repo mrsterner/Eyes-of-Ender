@@ -25,7 +25,7 @@ public class HamonFeatureRenderer<T extends LivingEntity, M extends EntityModel<
 
 	@Override
 	public void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, T entity, float limbAngle, float limbDistance, float tickDelta, float animationProgress, float headYaw, float headPitch) {
-		float aura = 20;
+		float aura = 10;//TODO 20;
 		if(aura > 0)
 			renderAura(matrices, vertexConsumers, entity, light, limbAngle, limbDistance, tickDelta, animationProgress, headYaw, headPitch, (int) (aura * 255), getRgbF(0xfff32a));
 	}
