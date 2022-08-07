@@ -26,6 +26,24 @@ public class EOEAbilities {
 	public static final HamonAbility SENDO_WAVE_KICK = new SendoWaveKickAbility();
 	public static final HamonAbility ZOOM_PUNCH = new ZoomPunchAbility();
 
+	//Advanced
+	public static final HamonAbility HAMON_BEAT = new HamonBeatOverdriveAbility();
+	public static final HamonAbility LIFE_MAGNET = new LifeMagnetAbility();
+	public static final HamonAbility TORNADO = new TornadoOverdiveAbility();
+	public static final HamonAbility REBUFF = new RebuffOverdriveAbility();
+	public static final HamonAbility INDIGO = new IndigoOverdriveAbility();
+	public static final HamonAbility THUNDER = new ThunderSplitAbility();
+	public static final HamonAbility THUNDER_CROSS = new ThunderCrossSplitAbility();
+
+	//Master
+	public static final HamonAbility AFTERIMAGE = new HamonAfterimagesAbility();
+	public static final HamonAbility PRECOGNITION = new PrecognitionAbility();
+	public static final HamonAbility SLOWED_AGE = new SlowedAgeingAbility();
+	public static final HamonAbility HYPNOSIS = new HamonHypnosisAbility();
+	public static final HamonAbility ORANGE = new OrangeOverdriveAbility();
+	public static final HamonAbility CUTTER = new HamonCutterAbility();
+	public static final HamonAbility DETECTOR = new HamonDetectorAbility();
+
 	public static void init(){
 		register(ACTIVATE);
 		register(IMBUE);
@@ -41,7 +59,21 @@ public class EOEAbilities {
 		register(METALSILVER);
 		register(SENDO_OVERDRIVE);
 		register(SENDO_WAVE_KICK);
+		register(HAMON_BEAT);
+		register(LIFE_MAGNET);
 		register(ZOOM_PUNCH);
+		register(TORNADO);
+		register(REBUFF);
+		register(INDIGO);
+		register(THUNDER);
+		register(THUNDER_CROSS);
+		register(AFTERIMAGE);
+		register(PRECOGNITION);
+		register(SLOWED_AGE);
+		register(HYPNOSIS);
+		register(ORANGE);
+		register(CUTTER);
+		register(DETECTOR);
 	}
 
 	private static void register(HamonAbility ability) {
