@@ -25,13 +25,28 @@ public class DebugStick extends Item {
 
 	@Override
 	public TypedActionResult<ItemStack> use(World world, PlayerEntity player, Hand hand) {
-		if(true){
+		if(!player.isSneaking()){
 			AbilityUser.of(player).ifPresent(user -> {
-				Ability ability = new Ability(EOEAbilities.ACTIVATE, 1);
-				user.getAbilities().add(0, ability);
-				System.out.println(ability);
-			});
+				user.getAbilities().clear();
+				ArrayList<Ability> ability = new ArrayList<>();
+				ability.add(0, new Ability(EOEAbilities.ACTIVATE, 1));
+				ability.add(1, new Ability(EOEAbilities.OVERDRIVE, 1));
+				ability.add(2, new Ability(EOEAbilities.AFTERIMAGE, 1));
+				ability.add(3, new Ability(EOEAbilities.INDIGO, 1));
+				ability.add(4, new Ability(EOEAbilities.ORANGE, 1));
 
+				for(int i = 0; ability.size() > i; i++){
+					user.getAbilities().add(i, ability.get(i));
+					System.out.println("Ability Added: " + ability.get(i).hamonAbility.getId());
+				}
+				player.swingHand(hand);
+			});
+		}else{
+			AbilityUser.of(player).ifPresent(user -> {
+				user.getAbilities().clear();
+				System.out.println("Abilities Cleared");
+				player.swingHand(hand);
+			});
 		}
 		return super.use(world, player, hand);
 	}
@@ -39,6 +54,7 @@ public class DebugStick extends Item {
 	@Override
 	public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
 		tooltip.add(Text.translatable(EyesOfEnder.MODID + ".debug.entry1").formatted(Formatting.GRAY));
+		tooltip.add(Text.translatable(EyesOfEnder.MODID + ".debug.entry2").formatted(Formatting.GRAY));
 		super.appendTooltip(stack, world, tooltip, context);
 	}
 }

@@ -3,6 +3,7 @@ package dev.mrsterner.eyesofender;
 import dev.mrsterner.eyesofender.common.networking.packet.AbilityPacket;
 import dev.mrsterner.eyesofender.common.networking.packet.SyncAbilityUserDataPacket;
 import dev.mrsterner.eyesofender.common.registry.*;
+import dev.mrsterner.eyesofender.common.utils.EOEUtils;
 import eu.midnightdust.lib.config.MidnightConfig;
 import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
 import net.minecraft.entity.Entity;
@@ -20,13 +21,16 @@ import org.quiltmc.loader.api.ModContainer;
 import org.quiltmc.qsl.base.api.entrypoint.ModInitializer;
 import org.quiltmc.qsl.item.group.api.QuiltItemGroup;
 import org.quiltmc.qsl.networking.api.ServerPlayNetworking;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import software.bernie.example.GeckoLibMod;
 
 public class EyesOfEnder implements ModInitializer {
 	public static final String MODID = "eyesofender";
 	public static final QuiltItemGroup EOE_GROUP = QuiltItemGroup.builder(EyesOfEnder.id("items")).icon(() -> new ItemStack(EOEObjects.STAND_ARROW)).build();
+	public static final Logger LOGGER = LoggerFactory.getLogger("Eyes of Ender");
 
-	public static Identifier id(String name) {
+    public static Identifier id(String name) {
 		return new Identifier(EyesOfEnder.MODID, name);
 	}
 
@@ -53,7 +57,7 @@ public class EyesOfEnder implements ModInitializer {
 			var nbt = itemStack.getNbt();
 			if (entityHitResult != null && nbt != null && !nbt.contains("Bloody")) {
 				Entity hit = entityHitResult.getEntity();
-				if(hit.getType().isIn(EOETags.HUMANOIDS)){
+				if(hit.getType().isIn(EOEUtils.Tags.HUMANOIDS)){
 					NbtCompound compound = new NbtCompound();
 					compound.putBoolean("Bloody", true);
 					itemStack.getOrCreateNbt().put("State", compound);

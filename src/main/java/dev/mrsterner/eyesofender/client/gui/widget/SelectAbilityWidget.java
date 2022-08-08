@@ -2,12 +2,16 @@ package dev.mrsterner.eyesofender.client.gui.widget;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import dev.mrsterner.eyesofender.EyesOfEnder;
+import dev.mrsterner.eyesofender.client.AuraEffectManager;
 import dev.mrsterner.eyesofender.client.gui.AbilitySelectionScreen;
 import dev.mrsterner.eyesofender.client.gui.AbilityClientHandler;
+import dev.mrsterner.eyesofender.client.registry.EOEShaders;
 import dev.mrsterner.eyesofender.common.ability.Ability;
+import dev.mrsterner.eyesofender.common.utils.RenderUtils;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.narration.NarrationMessageBuilder;
 import net.minecraft.client.gui.widget.ClickableWidget;
+import net.minecraft.client.render.ShaderProgram;
 import net.minecraft.client.util.ChatNarratorManager;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
@@ -35,7 +39,12 @@ public class SelectAbilityWidget extends ClickableWidget {
 		RenderSystem.enableDepthTest();
 		drawTexture(matrices, this.x + 1, this.y + 1, 0, 0, this.width - 2, this.height - 2, 26, 26);
 		RenderSystem.setShaderTexture(0, ability.hamonAbility.getTextureLocation());
-		drawTexture(matrices, this.x + 5, this.y + 5, 0, 0, 18, 18, 18, 18);
+		ShaderProgram shader = EOEShaders.DISTORTED_TEXTURE.getInstance().get();
+		shader.getUniformOrDefault("FreqX").setFloat(15f);
+		shader.getUniformOrDefault("FreqY").setFloat(15f);
+		shader.getUniformOrDefault("Speed").setFloat(1500f);
+		shader.getUniformOrDefault("Amplitude").setFloat(75f);
+		RenderUtils.blit(matrices, EOEShaders.DISTORTED_TEXTURE, x + 5, y + 5, 18, 18, 1, 1, 1, 1, 0, 0, 18f);
 		if (isHoveredOrFocused() && hoverTicks < 20) {
 			hoverTicks++;
 		} else if (hoverTicks > 0) {
