@@ -1,6 +1,6 @@
 package dev.mrsterner.eyesofender.mixin.client;
 
-import dev.mrsterner.eyesofender.common.entity.StandEntity;
+import dev.mrsterner.eyesofender.common.entity.BaseStandEntity;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumerProvider;
@@ -36,7 +36,7 @@ public abstract class LivingEntityRendererMixin<T extends LivingEntity, M extend
 
 	@Inject(method = "render*", at = @At("HEAD"))
 	private void render(T livingEntity, float yaw, float tickDelta, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, CallbackInfo callbackInfo) {
-		StandEntity stand = null;//TODO add stand getter
+		BaseStandEntity stand = null;//TODO add stand getter
 		if(stand != null){
 			stand.motionCalc = new Vec3d(livingEntity.getX() - livingEntity.prevX, livingEntity.getY() - livingEntity.prevY,livingEntity.getZ() - livingEntity.prevZ);
 			MinecraftClient.getInstance().getEntityRenderDispatcher().getRenderer(stand).render(stand, yaw, tickDelta, matrixStack, vertexConsumerProvider, i);

@@ -1,7 +1,7 @@
 package dev.mrsterner.eyesofender.common.registry;
 
 import dev.mrsterner.eyesofender.EyesOfEnder;
-import dev.mrsterner.eyesofender.common.entity.StandEntity;
+import dev.mrsterner.eyesofender.common.entity.BaseStandEntity;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityDimensions;
@@ -16,11 +16,11 @@ import java.util.Map;
 public class EOEEntityTypes {
 	private static final Map<EntityType<?>, Identifier> ENTITY_TYPES = new LinkedHashMap<>();
 
-	public static final EntityType<StandEntity> LESHON = register("leshon", FabricEntityTypeBuilder
-			.<StandEntity>createMob()
+	public static final EntityType<BaseStandEntity> LESHON = register("leshon", FabricEntityTypeBuilder
+			.<BaseStandEntity>createMob()
 			.spawnGroup(SpawnGroup.MISC)
-			.entityFactory(StandEntity::new)
-			.defaultAttributes(StandEntity::createAttributes)
+			.entityFactory(BaseStandEntity::new)
+			.defaultAttributes(BaseStandEntity::createAttributes)
 			.dimensions(EntityDimensions.fixed(1f, 3f))
 			.build());
 
