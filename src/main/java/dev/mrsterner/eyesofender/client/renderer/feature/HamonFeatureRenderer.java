@@ -2,7 +2,6 @@ package dev.mrsterner.eyesofender.client.renderer.feature;
 
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import dev.mrsterner.eyesofender.EyesOfEnder;
-import dev.mrsterner.eyesofender.client.registry.EOERenderLayers;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumerProvider;
@@ -12,8 +11,6 @@ import net.minecraft.client.render.entity.model.EntityModel;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.MathHelper;
-
 
 public class HamonFeatureRenderer<T extends LivingEntity, M extends EntityModel<T>> extends FeatureRenderer<T, M> {
 	private final FeatureRenderer<T, M>[] otherFeatureRenderers;

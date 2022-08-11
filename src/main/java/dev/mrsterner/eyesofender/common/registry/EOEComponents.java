@@ -1,7 +1,6 @@
 package dev.mrsterner.eyesofender.common.registry;
 
 import dev.mrsterner.eyesofender.EyesOfEnder;
-import dev.mrsterner.eyesofender.common.components.entity.HamonComponent;
 import dev.mrsterner.eyesofender.common.components.entity.StandComponent;
 import dev.onyxstudios.cca.api.v3.component.Component;
 import dev.onyxstudios.cca.api.v3.component.ComponentKey;
@@ -14,12 +13,10 @@ import dev.onyxstudios.cca.api.v3.world.WorldComponentInitializer;
 import net.minecraft.entity.player.PlayerEntity;
 
 public class EOEComponents implements EntityComponentInitializer, WorldComponentInitializer {
-	public static final ComponentKey<HamonComponent> HAMON_COMPONENT = createComponent("hamon", HamonComponent.class);
 	public static final ComponentKey<StandComponent> STAND_COMPONENT = createComponent("stand", StandComponent.class);
 
 	@Override
 	public void registerEntityComponentFactories(EntityComponentFactoryRegistry registry) {
-		registry.beginRegistration(PlayerEntity.class, HAMON_COMPONENT).respawnStrategy(RespawnCopyStrategy.ALWAYS_COPY).end(HamonComponent::new);
 		registry.beginRegistration(PlayerEntity.class, STAND_COMPONENT).respawnStrategy(RespawnCopyStrategy.ALWAYS_COPY).end(StandComponent::new);
 	}
 

@@ -1,10 +1,9 @@
 package dev.mrsterner.eyesofender.mixin.entity;
 
-import dev.mrsterner.eyesofender.api.interfaces.AbilityUser;
-import dev.mrsterner.eyesofender.api.registry.AbilityEffect;
-import dev.mrsterner.eyesofender.common.ability.Ability;
+import dev.mrsterner.eyesofender.api.interfaces.HamonUser;
+import dev.mrsterner.eyesofender.api.registry.HamonKnowledge;
+import dev.mrsterner.eyesofender.common.ability.HamonAbility;
 import dev.mrsterner.eyesofender.common.networking.packet.SyncAbilityUserDataPacket;
-import dev.mrsterner.eyesofender.common.registry.EOEAbilities;
 import dev.mrsterner.eyesofender.common.utils.NbtUtils;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -27,13 +26,12 @@ import static dev.mrsterner.eyesofender.common.utils.EOEUtils.DataTrackers.MAX_A
 
 @SuppressWarnings("ConstantConditions")
 @Mixin(PlayerEntity.class)
-public abstract class PlayerEntityMixin extends LivingEntity implements AbilityUser {
-
+public abstract class PlayerEntityMixin extends LivingEntity implements HamonUser {
 
 	@Unique
-	private final List<Ability> abilities = new ArrayList<>();
+	private final List<HamonAbility> abilities = new ArrayList<>();
 	@Unique
-	private final Set<AbilityEffect> learnedEffects = new HashSet<>();
+	private final Set<HamonKnowledge> learnedKnowledge = new HashSet<>();
 
 	protected PlayerEntityMixin(EntityType<? extends LivingEntity> entityType, World world) {
 		super(entityType, world);
@@ -47,16 +45,16 @@ public abstract class PlayerEntityMixin extends LivingEntity implements AbilityU
 
 	@Inject(method = "tick()V", at = @At("TAIL"))
 	private void tickAbilityCooldown(CallbackInfo info) {
-		if (dataTracker != null && getAbilityCooldown() > 0) {
-			setAbilityCooldown(getAbilityCooldown() - 1);
+		if (dataTracker != null && getHamonAbilityCooldown() > 0) {
+			setHamonAbilityCooldown(getHamonAbilityCooldown() - 1);
 		}
 	}
 
 	@Inject(method = "writeCustomDataToNbt", at = @At("TAIL"))
 	private void writeEOEData(NbtCompound compoundTag, CallbackInfo info) {
 		NbtCompound tag = new NbtCompound();
-		tag.putInt("MaxAbilities", getMaxAbilities());
-		tag.putInt("AbilityCooldown", getAbilityCooldown());
+		tag.putInt("MaxAbilities", getMaxHamonAbilities());
+		tag.putInt("AbilityCooldown", getHamonAbilityCooldown());
 		NbtUtils.writeAbilityData(this, tag);
 		compoundTag.put("Data", tag);
 	}
@@ -65,49 +63,49 @@ public abstract class PlayerEntityMixin extends LivingEntity implements AbilityU
 	public void readEOEData(NbtCompound compoundTag, CallbackInfo info) {
 		NbtCompound tag = (NbtCompound) compoundTag.get("Data");
 		if (tag != null) {
-			setMaxAbilities(tag.getInt("MaxAbilities"));
-			setAbilityCooldown(tag.getInt("AbilityCooldown"));
+			setMaxHamonAbilities(tag.getInt("MaxAbilities"));
+			setHamonAbilityCooldown(tag.getInt("AbilityCooldown"));
 			NbtUtils.readAbilityData(this, tag);
 		}
 	}
 
 	@Override
-	public int getMaxAbilities() {
+	public int getMaxHamonAbilities() {
 		return dataTracker.get(MAX_ABILITIES);
 	}
 
 	@Override
-	public void setMaxAbilities(int amount) {
+	public void setMaxHamonAbilities(int amount) {
 		dataTracker.set(MAX_ABILITIES, amount);
 	}
 
 	@Override
-	public List<Ability> getAbilities() {
+	public List<HamonAbility> getHamonAbilities() {
 		return abilities;
 	}
 
 	@Override
-	public Set<AbilityEffect> getLearnedEffects() {
-		return learnedEffects;
+	public Set<HamonKnowledge> getLearnedHamonKnowledge() {
+		return learnedKnowledge;
 	}
 
 	@Override
-	public void learnEffect(AbilityEffect effect) {
-		learnedEffects.add(effect);
+	public void learnHamonKnowledge(HamonKnowledge effect) {
+		learnedKnowledge.add(effect);
 	}
 
 	@Override
-	public int getAbilityCooldown() {
+	public int getHamonAbilityCooldown() {
 		return dataTracker.get(ABILITY_COOLDOWN);
 	}
 
 	@Override
-	public void setAbilityCooldown(int ticks) {
+	public void setHamonAbilityCooldown(int ticks) {
 		this.dataTracker.set(ABILITY_COOLDOWN, ticks);
 	}
 
 	@Override
-	public void syncAbilityData() {
+	public void syncHamonAbilityData() {
 		if (!world.isClient) {
 			SyncAbilityUserDataPacket.send(false, (PlayerEntity) (Object) this, this);
 		}

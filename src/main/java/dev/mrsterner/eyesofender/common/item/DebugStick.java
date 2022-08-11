@@ -1,8 +1,8 @@
 package dev.mrsterner.eyesofender.common.item;
 
 import dev.mrsterner.eyesofender.EyesOfEnder;
-import dev.mrsterner.eyesofender.api.interfaces.AbilityUser;
-import dev.mrsterner.eyesofender.common.ability.Ability;
+import dev.mrsterner.eyesofender.api.interfaces.HamonUser;
+import dev.mrsterner.eyesofender.common.ability.HamonAbility;
 import dev.mrsterner.eyesofender.common.registry.EOEAbilities;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.player.PlayerEntity;
@@ -26,24 +26,24 @@ public class DebugStick extends Item {
 	@Override
 	public TypedActionResult<ItemStack> use(World world, PlayerEntity player, Hand hand) {
 		if(!player.isSneaking()){
-			AbilityUser.of(player).ifPresent(user -> {
-				user.getAbilities().clear();
-				ArrayList<Ability> ability = new ArrayList<>();
-				ability.add(0, new Ability(EOEAbilities.ACTIVATE, 1));
-				ability.add(1, new Ability(EOEAbilities.OVERDRIVE, 1));
-				ability.add(2, new Ability(EOEAbilities.AFTERIMAGE, 1));
-				ability.add(3, new Ability(EOEAbilities.INDIGO, 1));
-				ability.add(4, new Ability(EOEAbilities.ORANGE, 1));
+			HamonUser.of(player).ifPresent(user -> {
+				user.getHamonAbilities().clear();
+				ArrayList<HamonAbility> hamonAbility = new ArrayList<>();
+				hamonAbility.add(0, new HamonAbility(EOEAbilities.ACTIVATE, 1));
+				hamonAbility.add(1, new HamonAbility(EOEAbilities.OVERDRIVE, 1));
+				hamonAbility.add(2, new HamonAbility(EOEAbilities.AFTERIMAGE, 1));
+				hamonAbility.add(3, new HamonAbility(EOEAbilities.INDIGO, 1));
+				hamonAbility.add(4, new HamonAbility(EOEAbilities.ORANGE, 1));
 
-				for(int i = 0; ability.size() > i; i++){
-					user.getAbilities().add(i, ability.get(i));
-					System.out.println("Ability Added: " + ability.get(i).hamonAbility.getId());
+				for(int i = 0; hamonAbility.size() > i; i++){
+					user.getHamonAbilities().add(i, hamonAbility.get(i));
+					System.out.println("Ability Added: " + hamonAbility.get(i).hamonKnowledge.getId());
 				}
 				player.swingHand(hand);
 			});
 		}else{
-			AbilityUser.of(player).ifPresent(user -> {
-				user.getAbilities().clear();
+			HamonUser.of(player).ifPresent(user -> {
+				user.getHamonAbilities().clear();
 				System.out.println("Abilities Cleared");
 				player.swingHand(hand);
 			});

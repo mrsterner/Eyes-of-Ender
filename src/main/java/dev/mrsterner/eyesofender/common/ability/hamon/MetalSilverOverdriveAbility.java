@@ -1,9 +1,9 @@
 package dev.mrsterner.eyesofender.common.ability.hamon;
 
 import dev.mrsterner.eyesofender.EyesOfEnder;
-import dev.mrsterner.eyesofender.api.registry.AbilityEffect;
+import dev.mrsterner.eyesofender.api.registry.HamonKnowledge;
 
-public class MetalSilverOverdriveAbility extends AbilityEffect {
+public class MetalSilverOverdriveAbility extends HamonKnowledge {
 
 	public MetalSilverOverdriveAbility() {
 		super(EyesOfEnder.id("metal_silver_overdrive"), null, 0xF5CE8C);

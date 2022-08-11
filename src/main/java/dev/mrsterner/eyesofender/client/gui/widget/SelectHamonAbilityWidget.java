@@ -2,10 +2,10 @@ package dev.mrsterner.eyesofender.client.gui.widget;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import dev.mrsterner.eyesofender.EyesOfEnder;
-import dev.mrsterner.eyesofender.client.gui.AbilitySelectionScreen;
-import dev.mrsterner.eyesofender.client.gui.AbilityClientHandler;
+import dev.mrsterner.eyesofender.client.gui.HamonAbilitySelectionScreen;
+import dev.mrsterner.eyesofender.client.gui.HamonAbilityClientHandler;
 import dev.mrsterner.eyesofender.client.registry.EOEShaders;
-import dev.mrsterner.eyesofender.common.ability.Ability;
+import dev.mrsterner.eyesofender.common.ability.HamonAbility;
 import dev.mrsterner.eyesofender.common.utils.RenderUtils;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.narration.NarrationMessageBuilder;
@@ -15,14 +15,14 @@ import net.minecraft.client.util.ChatNarratorManager;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 
-public class SelectAbilityWidget extends ClickableWidget {
-	public Ability ability;
-	public AbilitySelectionScreen screen;
+public class SelectHamonAbilityWidget extends ClickableWidget {
+	public HamonAbility hamonAbility;
+	public HamonAbilitySelectionScreen screen;
 	private int hoverTicks = 0;
 
-	public SelectAbilityWidget(int x, int y, AbilitySelectionScreen screen, Ability ability) {
+	public SelectHamonAbilityWidget(int x, int y, HamonAbilitySelectionScreen screen, HamonAbility hamonAbility) {
 		super(x, y, 28, 28, ChatNarratorManager.NO_TITLE);
-		this.ability = ability;
+		this.hamonAbility = hamonAbility;
 		this.screen = screen;
 		this.active = true;
 	}
@@ -30,14 +30,14 @@ public class SelectAbilityWidget extends ClickableWidget {
 	@Override
 	public void renderButton(MatrixStack matrices, int mouseX, int mouseY, float delta) {
 		MinecraftClient minecraftClient = MinecraftClient.getInstance();
-		RenderSystem.setShaderTexture(0, getTexture(ability.hamonLevel));
+		RenderSystem.setShaderTexture(0, getTexture(hamonAbility.hamonLevel));
 		this.alpha = (screen.openTicks + MinecraftClient.getInstance().getTickDelta()) / 5F;
 		RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, Math.min(isHoveredOrFocused() || isSelected() ? 1 : 0.5F, this.alpha));
 		RenderSystem.enableBlend();
 		RenderSystem.defaultBlendFunc();
 		RenderSystem.enableDepthTest();
 		drawTexture(matrices, this.x + 1, this.y + 1, 0, 0, this.width - 2, this.height - 2, 26, 26);
-		RenderSystem.setShaderTexture(0, ability.hamonAbility.getTextureLocation());
+		RenderSystem.setShaderTexture(0, hamonAbility.hamonKnowledge.getTextureLocation());
 		ShaderProgram shader = EOEShaders.DISTORTED_TEXTURE.getInstance().get();
 		shader.getUniformOrDefault("FreqX").setFloat(15f);
 		shader.getUniformOrDefault("FreqY").setFloat(15f);
@@ -59,14 +59,14 @@ public class SelectAbilityWidget extends ClickableWidget {
 	@Override
 	public void onClick(double mouseX, double mouseY) {
 		if (!isSelected()) {
-			AbilityClientHandler.selectedAbility = ability;
+			HamonAbilityClientHandler.selectedHamonAbility = hamonAbility;
 		} else {
-			AbilityClientHandler.selectedAbility = null;
+			HamonAbilityClientHandler.selectedHamonAbility = null;
 		}
 	}
 
 	private boolean isSelected() {
-		return AbilityClientHandler.selectedAbility == ability;
+		return HamonAbilityClientHandler.selectedHamonAbility == hamonAbility;
 	}
 
 	@Override

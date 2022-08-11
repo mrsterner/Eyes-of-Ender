@@ -1,7 +1,7 @@
 package dev.mrsterner.eyesofender.common.networking.packet;
 
 import dev.mrsterner.eyesofender.EyesOfEnder;
-import dev.mrsterner.eyesofender.common.ability.Ability;
+import dev.mrsterner.eyesofender.common.ability.HamonAbility;
 import io.netty.buffer.Unpooled;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -44,17 +44,17 @@ public class AbilityPacket {
 
 	@Environment(EnvType.CLIENT)
 	public static void handle(MinecraftClient client, ClientPlayNetworkHandler networkHandler, PacketByteBuf packetByteBuf, PacketSender sender) {
-		Ability ability = Ability.fromTag(packetByteBuf.readNbt());
+		HamonAbility hamonAbility = HamonAbility.fromTag(packetByteBuf.readNbt());
 		Entity entity = client.world.getEntityById(packetByteBuf.readInt());
 		if (entity instanceof LivingEntity) {
-			client.execute(() -> ability.use((LivingEntity) entity));
+			client.execute(() -> hamonAbility.use((LivingEntity) entity));
 		}
 	}
 
 	public static void handleFromClient(MinecraftServer server, ServerPlayerEntity player, ServerPlayNetworkHandler handler, PacketByteBuf packetByteBuf, PacketSender sender) {
-		Ability ability = Ability.fromTag(packetByteBuf.readNbt());
-		if (ability != null) {
-			server.execute(() -> ability.use(player));
+		HamonAbility hamonAbility = HamonAbility.fromTag(packetByteBuf.readNbt());
+		if (hamonAbility != null) {
+			server.execute(() -> hamonAbility.use(player));
 		}
 	}
 }

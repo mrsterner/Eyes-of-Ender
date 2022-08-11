@@ -1,7 +1,7 @@
 package dev.mrsterner.eyesofender.common.networking.packet;
 
 import dev.mrsterner.eyesofender.EyesOfEnder;
-import dev.mrsterner.eyesofender.api.interfaces.AbilityUser;
+import dev.mrsterner.eyesofender.api.interfaces.HamonUser;
 import dev.mrsterner.eyesofender.common.utils.NbtUtils;
 import io.netty.buffer.Unpooled;
 import net.minecraft.entity.player.PlayerEntity;
@@ -18,7 +18,7 @@ import org.quiltmc.qsl.networking.api.client.ClientPlayNetworking;
 public class SyncAbilityUserDataPacket {
 	public static final Identifier ID = EyesOfEnder.id("sync_ability");
 
-	public static void send(boolean client, PlayerEntity player, AbilityUser user) {
+	public static void send(boolean client, PlayerEntity player, HamonUser user) {
 		PacketByteBuf data = new PacketByteBuf(Unpooled.buffer());
 		NbtCompound abilityCompound = NbtUtils.writeAbilityData(user, new NbtCompound());
 		data.writeNbt(abilityCompound);
@@ -31,6 +31,6 @@ public class SyncAbilityUserDataPacket {
 
 	public static void handleFromClient(MinecraftServer server, ServerPlayerEntity player, ServerPlayNetworkHandler handler, PacketByteBuf packetByteBuf, PacketSender sender) {
 		NbtCompound tag = packetByteBuf.readNbt();
-		server.execute(() -> AbilityUser.of(player).ifPresent(user -> NbtUtils.readAbilityData(user, tag)));
+		server.execute(() -> HamonUser.of(player).ifPresent(user -> NbtUtils.readAbilityData(user, tag)));
 	}
 }

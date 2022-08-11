@@ -1,8 +1,8 @@
 package dev.mrsterner.eyesofender;
 
 import com.williambl.early_features.api.LivingEntityEarlyFeatureRendererRegistrationCallback;
-import dev.mrsterner.eyesofender.api.interfaces.AbilityUser;
-import dev.mrsterner.eyesofender.client.gui.AbilityClientHandler;
+import dev.mrsterner.eyesofender.api.interfaces.HamonUser;
+import dev.mrsterner.eyesofender.client.gui.HamonAbilityClientHandler;
 import dev.mrsterner.eyesofender.client.registry.EOEParticleTypes;
 import dev.mrsterner.eyesofender.client.registry.EOESounds;
 import dev.mrsterner.eyesofender.client.renderer.feature.HamonFeatureRenderer;
@@ -12,8 +12,6 @@ import dev.mrsterner.eyesofender.common.networking.packet.AbilityPacket;
 import dev.mrsterner.eyesofender.common.networking.packet.SyncAbilityUserDataPacket;
 import dev.mrsterner.eyesofender.common.registry.EOEObjects;
 import dev.mrsterner.eyesofender.common.utils.NbtUtils;
-import ladysnake.satin.api.event.EntitiesPreRenderCallback;
-import ladysnake.satin.api.event.ShaderEffectRenderCallback;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.entity.PlayerEntityRenderer;
 import net.minecraft.nbt.NbtCompound;
@@ -30,12 +28,12 @@ public class EyesOfEnderClient implements ClientModInitializer {
 	public void onInitializeClient(ModContainer mod) {
 		EOEParticleTypes.init();
 		EOESounds.init();
-		AbilityClientHandler.init();
+		HamonAbilityClientHandler.init();
 
 		ClientPlayNetworking.registerGlobalReceiver(AbilityPacket.ID, AbilityPacket::handle);
 		ClientPlayNetworking.registerGlobalReceiver(SyncAbilityUserDataPacket.ID, (client, networkHandler, packetByteBuf, sender) -> {
 			NbtCompound tag = packetByteBuf.readNbt();
-			client.execute(() -> AbilityUser.of(client.player).ifPresent(user -> NbtUtils.readAbilityData(user, tag)));
+			client.execute(() -> HamonUser.of(client.player).ifPresent(user -> NbtUtils.readAbilityData(user, tag)));
 		});
 
 		ClientTickEvents.END.register(ClientTickHandler::clientTickEnd);

@@ -6,12 +6,12 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Predicate;
 
-public abstract class AbilityEffect {
+public abstract class HamonKnowledge {
 	private final Identifier id;
 	private final Predicate<LivingEntity> abilityPredicate;
 	private final int color;
 
-	public AbilityEffect(Identifier id, @Nullable Predicate<LivingEntity> abilityPredicate, int color) {
+	public HamonKnowledge(Identifier id, @Nullable Predicate<LivingEntity> abilityPredicate, int color) {
 		this.id = id;
 		this.abilityPredicate = abilityPredicate == null ? (living) -> true : abilityPredicate;
 		this.color = color;
@@ -32,6 +32,4 @@ public abstract class AbilityEffect {
 	public Identifier getTextureLocation() {
 		return new Identifier(id.getNamespace(), "textures/gui/ability_widgets/ability/" + id.getPath() + ".png");
 	}
-
-
 }
