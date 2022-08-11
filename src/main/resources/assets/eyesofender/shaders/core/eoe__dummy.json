@@ -4,8 +4,8 @@
     "srcrgb": "srcalpha",
     "dstrgb": "1-srcalpha"
   },
-  "vertex": "eoe__dummy",
-  "fragment": "eoe__dummy",
+  "vertex": "eyesofender:eoe__dummy",
+  "fragment": "eyesofender:eoe__hamon",
   "attributes": [
     "Position",
     "Color",

@@ -2,7 +2,6 @@ package dev.mrsterner.eyesofender.client.gui.widget;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import dev.mrsterner.eyesofender.EyesOfEnder;
-import dev.mrsterner.eyesofender.client.AuraEffectManager;
 import dev.mrsterner.eyesofender.client.gui.AbilitySelectionScreen;
 import dev.mrsterner.eyesofender.client.gui.AbilityClientHandler;
 import dev.mrsterner.eyesofender.client.registry.EOEShaders;

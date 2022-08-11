@@ -14,5 +14,6 @@ void main() {
     if (color.a == 0.0) {
         discard;
     }
+    color.a = 0.5;
     fragColor = ColorModulator.rgba * vertexColor.rgba;
 }

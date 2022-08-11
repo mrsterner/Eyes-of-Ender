@@ -1,13 +1,18 @@
 package dev.mrsterner.eyesofender.client.renderer.feature;
 
-import dev.mrsterner.eyesofender.client.vertexconsumer.HamonVertexConsumerProvider;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+import dev.mrsterner.eyesofender.EyesOfEnder;
+import dev.mrsterner.eyesofender.client.registry.EOERenderLayers;
 import net.minecraft.client.render.OverlayTexture;
+import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.feature.FeatureRenderer;
 import net.minecraft.client.render.entity.feature.FeatureRendererContext;
 import net.minecraft.client.render.entity.model.EntityModel;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.math.MathHelper;
 
 
 public class HamonFeatureRenderer<T extends LivingEntity, M extends EntityModel<T>> extends FeatureRenderer<T, M> {
@@ -19,27 +24,16 @@ public class HamonFeatureRenderer<T extends LivingEntity, M extends EntityModel<
 		this.otherFeatureRenderers = otherFeatureRenderers;
 	}
 
-	public static int[] getRgbF(int colour) {
-		return new int[]{(colour >> 16 & 255), (colour >> 8 & 255), (colour & 255)};
-	}
+
+
+	private static final Identifier SKIN = EyesOfEnder.id("textures/entity/hamon/yellow.png");
 
 	@Override
 	public void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, T entity, float limbAngle, float limbDistance, float tickDelta, float animationProgress, float headYaw, float headPitch) {
-		float aura = 10;//TODO 20;
-		if(aura > 0)
-			renderAura(matrices, vertexConsumers, entity, light, limbAngle, limbDistance, tickDelta, animationProgress, headYaw, headPitch, (int) (aura * 255), getRgbF(0xfff32a));
-	}
-
-	private void renderAura(MatrixStack matrices, VertexConsumerProvider vertexConsumers, T entity, int light, float limbAngle, float limbDistance, float tickDelta, float animationProgress, float headYaw, float headPitch, int aura, int[] auraColour) {
-		float scale = 1F;
-		var auraConsumerProvider = new HamonVertexConsumerProvider(vertexConsumers, auraColour[0], auraColour[1], auraColour[2], aura);
+		float f = (float)entity.age + tickDelta;
 		matrices.push();
-		matrices.scale(scale, scale, scale);
-		for(FeatureRenderer<T, M> renderer : otherFeatureRenderers)
-			renderer.render(matrices, auraConsumerProvider, light, entity, limbAngle, limbDistance, tickDelta, animationProgress, headYaw, headPitch);
-
-		matrices.translate(0D, -((entity.getHeight() * scale) * 0.5D - entity.getHeight() * 0.5D), 0D);
-		getContextModel().render(matrices, auraConsumerProvider.getBuffer(this.getTexture(entity)), light, OverlayTexture.DEFAULT_UV, 1F, 1F, 1F, 1F);
+		VertexConsumer vertexConsumer = vertexConsumers.getBuffer(RenderLayer.getEnergySwirl(SKIN, f * 0.01F, f * 0.01F % 1.0F));
+		this.getContextModel().render(matrices, vertexConsumer, light, OverlayTexture.DEFAULT_UV, 0.5F, 0.5F, 0.5F, 0.25F);
 		matrices.pop();
 	}
 }

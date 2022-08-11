@@ -9,7 +9,6 @@
   "client": [
     "access.FramebufferAccessor",
     "client.GameRendererMixin",
-    "client.HeldItemRendererMixin",
     "client.LivingEntityRendererMixin"
   ],
   "injectors": {

@@ -33,7 +33,7 @@ uniform float GameTime;
 
 
 float wobble(vec2 pair) {
-     return (sin(dot(pair.xy, vec2(10,100)) * 0.25) - 0.5) * 2;
+     return (sin(dot(pair.xy, vec2(10,100)) * 0.25) - 0.5) / 2;
 }
 
 void main() {
