@@ -15,7 +15,7 @@ import org.quiltmc.qsl.networking.api.PacketSender;
 import org.quiltmc.qsl.networking.api.ServerPlayNetworking;
 import org.quiltmc.qsl.networking.api.client.ClientPlayNetworking;
 
-public class SyncAbilityUserDataPacket {
+public class SyncHamonUserDataPacket {
 	public static final Identifier ID = EyesOfEnder.id("sync_ability");
 
 	public static void send(boolean client, PlayerEntity player, HamonUser user) {

@@ -3,7 +3,7 @@ package dev.mrsterner.eyesofender.mixin.entity;
 import dev.mrsterner.eyesofender.api.interfaces.HamonUser;
 import dev.mrsterner.eyesofender.api.registry.HamonKnowledge;
 import dev.mrsterner.eyesofender.common.ability.HamonAbility;
-import dev.mrsterner.eyesofender.common.networking.packet.SyncAbilityUserDataPacket;
+import dev.mrsterner.eyesofender.common.networking.packet.SyncHamonUserDataPacket;
 import dev.mrsterner.eyesofender.common.utils.NbtUtils;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -107,7 +107,7 @@ public abstract class PlayerEntityMixin extends LivingEntity implements HamonUse
 	@Override
 	public void syncHamonAbilityData() {
 		if (!world.isClient) {
-			SyncAbilityUserDataPacket.send(false, (PlayerEntity) (Object) this, this);
+			SyncHamonUserDataPacket.send(false, (PlayerEntity) (Object) this, this);
 		}
 	}
 

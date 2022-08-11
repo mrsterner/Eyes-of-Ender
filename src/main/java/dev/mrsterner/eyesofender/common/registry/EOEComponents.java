@@ -2,6 +2,7 @@ package dev.mrsterner.eyesofender.common.registry;
 
 import dev.mrsterner.eyesofender.EyesOfEnder;
 import dev.mrsterner.eyesofender.common.components.entity.StandComponent;
+import dev.mrsterner.eyesofender.common.components.entity.TimeStopComponent;
 import dev.onyxstudios.cca.api.v3.component.Component;
 import dev.onyxstudios.cca.api.v3.component.ComponentKey;
 import dev.onyxstudios.cca.api.v3.component.ComponentRegistry;
@@ -14,6 +15,8 @@ import net.minecraft.entity.player.PlayerEntity;
 
 public class EOEComponents implements EntityComponentInitializer, WorldComponentInitializer {
 	public static final ComponentKey<StandComponent> STAND_COMPONENT = createComponent("stand", StandComponent.class);
+	public static final ComponentKey<TimeStopComponent> TIME_STOP_COMPONENT = createComponent("time_stop", TimeStopComponent.class);
+
 
 	@Override
 	public void registerEntityComponentFactories(EntityComponentFactoryRegistry registry) {

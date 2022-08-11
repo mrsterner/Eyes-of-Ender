@@ -4,12 +4,22 @@
   "package": "dev.mrsterner.eyesofender.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
+    "HorseEntityMixin",
+    "ServerWorldMixin",
+    "WorldChunkMixin",
+    "entity.LivingEntityMixin",
+    "entity.MinecartEntityMixin",
+    "entity.PigEntityMixin",
     "entity.PlayerEntityMixin"
   ],
   "client": [
     "access.FramebufferAccessor",
+    "client.ClientPlayerEntityMixin",
+    "client.ClientWorldMixin",
     "client.GameRendererMixin",
-    "client.LivingEntityRendererMixin"
+    "client.LivingEntityRendererMixin",
+    "client.ParticleManagerMixin",
+    "client.WorldRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1

@@ -21,7 +21,7 @@ import org.quiltmc.qsl.networking.api.PlayerLookup;
 import org.quiltmc.qsl.networking.api.ServerPlayNetworking;
 import org.quiltmc.qsl.networking.api.client.ClientPlayNetworking;
 
-public class AbilityPacket {
+public class HamonAbilityPacket {
 	public static final Identifier ID = EyesOfEnder.id("ability");
 
 	public static void send(LivingEntity user, NbtCompound abilityTag) {

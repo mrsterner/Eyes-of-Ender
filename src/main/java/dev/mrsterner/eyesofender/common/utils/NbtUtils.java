@@ -2,7 +2,7 @@ package dev.mrsterner.eyesofender.common.utils;
 
 import dev.mrsterner.eyesofender.api.interfaces.HamonUser;
 import dev.mrsterner.eyesofender.common.ability.HamonAbility;
-import dev.mrsterner.eyesofender.common.registry.EOEAbilities;
+import dev.mrsterner.eyesofender.common.registry.EOEHamonAbilities;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.nbt.NbtString;
@@ -26,7 +26,7 @@ public class NbtUtils {
 		addDefaultAbilities(user);
 	}
 	private static void addDefaultAbilities(HamonUser user) {
-		user.getLearnedHamonKnowledge().add(EOEAbilities.ACTIVATE);
-		user.getLearnedHamonKnowledge().add(EOEAbilities.OVERDRIVE);
+		user.getLearnedHamonKnowledge().add(EOEHamonAbilities.ACTIVATE);
+		user.getLearnedHamonKnowledge().add(EOEHamonAbilities.OVERDRIVE);
 	}
 }

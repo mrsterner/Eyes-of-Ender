@@ -3,7 +3,7 @@ package dev.mrsterner.eyesofender.common.item;
 import dev.mrsterner.eyesofender.EyesOfEnder;
 import dev.mrsterner.eyesofender.api.interfaces.HamonUser;
 import dev.mrsterner.eyesofender.common.ability.HamonAbility;
-import dev.mrsterner.eyesofender.common.registry.EOEAbilities;
+import dev.mrsterner.eyesofender.common.registry.EOEHamonAbilities;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -29,11 +29,11 @@ public class DebugStick extends Item {
 			HamonUser.of(player).ifPresent(user -> {
 				user.getHamonAbilities().clear();
 				ArrayList<HamonAbility> hamonAbility = new ArrayList<>();
-				hamonAbility.add(0, new HamonAbility(EOEAbilities.ACTIVATE, 1));
-				hamonAbility.add(1, new HamonAbility(EOEAbilities.OVERDRIVE, 1));
-				hamonAbility.add(2, new HamonAbility(EOEAbilities.AFTERIMAGE, 1));
-				hamonAbility.add(3, new HamonAbility(EOEAbilities.INDIGO, 1));
-				hamonAbility.add(4, new HamonAbility(EOEAbilities.ORANGE, 1));
+				hamonAbility.add(0, new HamonAbility(EOEHamonAbilities.ACTIVATE, 1));
+				hamonAbility.add(1, new HamonAbility(EOEHamonAbilities.OVERDRIVE, 1));
+				hamonAbility.add(2, new HamonAbility(EOEHamonAbilities.AFTERIMAGE, 1));
+				hamonAbility.add(3, new HamonAbility(EOEHamonAbilities.INDIGO, 1));
+				hamonAbility.add(4, new HamonAbility(EOEHamonAbilities.ORANGE, 1));
 
 				for(int i = 0; hamonAbility.size() > i; i++){
 					user.getHamonAbilities().add(i, hamonAbility.get(i));

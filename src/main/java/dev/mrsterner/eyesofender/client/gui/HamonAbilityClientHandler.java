@@ -5,7 +5,7 @@ import dev.mrsterner.eyesofender.EyesOfEnder;
 import dev.mrsterner.eyesofender.api.interfaces.HamonUser;
 import dev.mrsterner.eyesofender.client.gui.hud.HamonAbilityHUD;
 import dev.mrsterner.eyesofender.common.ability.HamonAbility;
-import dev.mrsterner.eyesofender.common.networking.packet.AbilityPacket;
+import dev.mrsterner.eyesofender.common.networking.packet.HamonAbilityPacket;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.minecraft.client.MinecraftClient;
@@ -58,7 +58,7 @@ public class HamonAbilityClientHandler {
 			minecraftClient.setScreen(new HamonAbilitySelectionScreen());
 		} else if (minecraftClient.player != null && selectedHamonAbility != null) {
 			if (useKey.wasPressed() && HamonUser.of(minecraftClient.player).map(HamonUser::getHamonAbilityCooldown).orElse(0) <= 0) {
-				AbilityPacket.sendFromClientPlayer(minecraftClient.player, selectedHamonAbility.toTag(new NbtCompound()));
+				HamonAbilityPacket.sendFromClientPlayer(minecraftClient.player, selectedHamonAbility.toTag(new NbtCompound()));
 			} else if (minecraftClient.player.isDead()) {
 				selectedHamonAbility = null;
 			}

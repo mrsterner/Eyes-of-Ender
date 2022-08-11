@@ -4,7 +4,7 @@ import dev.mrsterner.eyesofender.api.registry.HamonKnowledge;
 import dev.mrsterner.eyesofender.common.ability.hamon.*;
 import net.minecraft.util.registry.Registry;
 
-public class EOEAbilities {
+public class EOEHamonAbilities {
 	//Basic
 	public static final HamonKnowledge ACTIVATE = new ActivateHamonAbility();
 	public static final HamonKnowledge IMBUE = new ImbueAbility();
