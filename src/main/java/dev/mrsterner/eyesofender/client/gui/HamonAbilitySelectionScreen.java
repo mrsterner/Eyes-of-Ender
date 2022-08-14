@@ -25,18 +25,20 @@ public class HamonAbilitySelectionScreen extends Screen {
 	@Override
 	protected void init() {
 		super.init();
-		HamonUser.of(client.player).ifPresent(user -> {
-			List<HamonAbility> abilities = user.getHamonAbilities().stream().filter(Objects::nonNull).collect(Collectors.toList());
-			double angleSize = (Math.PI * 2) / abilities.size();
-			int centerX = width / 2 - totalRadius / 2 + 2;
-			int centerY = height / 2 - totalRadius / 2 + 2;
-			for (int i = 0; i < abilities.size(); i++) {
-				double angle = angleSize * i + Math.PI;
-				double x = centerX + (Math.sin(angle) * totalRadius);
-				double y = centerY + (Math.cos(angle) * totalRadius);
-				addDrawableChild(new SelectHamonAbilityWidget((int) Math.round(x), (int) Math.round(y), this, abilities.get(i)));
-			}
-		});
+		if (client != null) {
+			HamonUser.of(client.player).ifPresent(user -> {
+				List<HamonAbility> abilities = user.getHamonAbilities().stream().filter(Objects::nonNull).toList();
+				double angleSize = (Math.PI * 2) / abilities.size();
+				int centerX = width / 2 - totalRadius / 2 + 2;
+				int centerY = height / 2 - totalRadius / 2 + 2;
+				for (int i = 0; i < abilities.size(); i++) {
+					double angle = angleSize * i + Math.PI;
+					double x = centerX + (Math.sin(angle) * totalRadius);
+					double y = centerY + (Math.cos(angle) * totalRadius);
+					addDrawableChild(new SelectHamonAbilityWidget((int) Math.round(x), (int) Math.round(y), this, abilities.get(i)));
+				}
+			});
+		}
 	}
 
 

@@ -50,11 +50,7 @@ public class HamonAbilityClientHandler {
 	}
 
 	private static void selectAbility(MinecraftClient minecraftClient) {
-		if (abilitySelectionKey.isPressed()){
-			System.out.println(HamonUser.of(minecraftClient.player).map(abilityUser -> !abilityUser.getHamonAbilities().isEmpty()));
-		}
 		if (abilitySelectionKey.isPressed() && minecraftClient.currentScreen == null && HamonUser.of(minecraftClient.player).map(abilityUser -> !abilityUser.getHamonAbilities().isEmpty()).orElse(false)) {
-			System.out.println("ScreenOpwen");
 			minecraftClient.setScreen(new HamonAbilitySelectionScreen());
 		} else if (minecraftClient.player != null && selectedHamonAbility != null) {
 			if (useKey.wasPressed() && HamonUser.of(minecraftClient.player).map(HamonUser::getHamonAbilityCooldown).orElse(0) <= 0) {

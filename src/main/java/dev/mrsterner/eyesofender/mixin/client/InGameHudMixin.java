@@ -45,9 +45,7 @@ public abstract class InGameHudMixin extends DrawableHelper {
     @Inject(method = "renderStatusBars", at = @At(value = "INVOKE", shift = At.Shift.AFTER, ordinal = 0, target = "Lnet/minecraft/client/MinecraftClient;getProfiler()Lnet/minecraft/util/profiler/Profiler;"))
     private void eyesOfEnder$renderHamon(MatrixStack matrices, CallbackInfo callbackInfo) {
         PlayerEntity player = getCameraPlayer();
-
-        if(player instanceof HamonUser hamonUser && hamonUser.getHamonLevel() != Hamon.EMPTY) {
-
+        HamonUser.of(player).filter(hamonUser -> hamonUser.getHamonLevel() != Hamon.EMPTY).ifPresent(hamonUser -> {
             if(this.ticks % 4 == 0 && hamonFade < 1.0F && EOEUtils.canHamonBreath(player)){
                 hamonFade = hamonFade + 0.1F;
             }
@@ -63,11 +61,8 @@ public abstract class InGameHudMixin extends DrawableHelper {
             RenderSystem.depthMask(true);
             RenderSystem.disableBlend();
             matrices.pop();
-        }
+        });
     }
-
-
-
 
 
     private void renderHamon(MatrixStack matrices, int hamonBreath, int x, int y) {
