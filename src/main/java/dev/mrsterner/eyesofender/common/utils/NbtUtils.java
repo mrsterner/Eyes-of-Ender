@@ -11,7 +11,7 @@ public class NbtUtils {
 	public static NbtCompound writeAbilityData(HamonUser user, NbtCompound tag) {
 		NbtList abilities = new NbtList();
 		user.getHamonAbilities().forEach((ability) -> abilities.add(ability == null ? new NbtCompound() : ability.toTag(new NbtCompound())));
-		tag.put("AbilityList", abilities);
+		tag.put(EOEUtils.Nbt.ABILITY_LIST, abilities);
 		NbtList effects = new NbtList();
 		user.getLearnedHamonKnowledge().forEach((effect) -> effects.add(NbtString.of(effect.getId().toString())));
 		tag.put("Effect", effects);
@@ -20,8 +20,8 @@ public class NbtUtils {
 
 	public static void readAbilityData(HamonUser user, NbtCompound tag) {
 		user.getHamonAbilities().clear();
-		for (int i = 0; i < tag.getList("AbilityList", 10).size(); i++) {
-			user.getHamonAbilities().add(i, HamonAbility.fromTag((NbtCompound) tag.getList("AbilityList", 10).get(i)));
+		for (int i = 0; i < tag.getList(EOEUtils.Nbt.ABILITY_LIST, 10).size(); i++) {
+			user.getHamonAbilities().add(i, HamonAbility.fromTag((NbtCompound) tag.getList(EOEUtils.Nbt.ABILITY_LIST, 10).get(i)));
 		}
 		addDefaultAbilities(user);
 	}

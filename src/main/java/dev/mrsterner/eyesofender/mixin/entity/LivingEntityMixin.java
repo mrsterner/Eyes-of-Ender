@@ -33,7 +33,7 @@ public abstract class LivingEntityMixin extends Entity {
     @Inject(method = "tick", at = @At("TAIL"))
     private void tick(CallbackInfo callbackInfo) {
         if (world.isClient) {
-            if (TimeStopUtils.getTimeStoppedTicks(world) == 1) {
+            if (world != null && TimeStopUtils.getTimeStoppedTicks(world) == 1) {
                 this.playSound(EOESoundEvents.THE_WORLD_END, this.getSoundVolume(), this.getSoundPitch());
             }
         }
@@ -42,6 +42,6 @@ public abstract class LivingEntityMixin extends Entity {
     @Redirect(method = "travel", at = @At(value = "INVOKE", target = "Lnet/minecraft/enchantment/EnchantmentHelper;getDepthStrider(Lnet/minecraft/entity/LivingEntity;)I"))
     private int doNotGetPushedAroundByWater(LivingEntity entity) {
         ClientWorld world = MinecraftClient.getInstance().world;
-        return TimeStopUtils.getTimeStoppedTicks(world) > 0 && TimeStopUtils.isInRangeOfTimeStop(TimeStopUtils.getTimeStopper(world)) ? 3 : EnchantmentHelper.getDepthStrider(entity);
+        return world != null && TimeStopUtils.getTimeStoppedTicks(world) > 0 && TimeStopUtils.isInRangeOfTimeStop(TimeStopUtils.getTimeStopper(world)) ? 3 : EnchantmentHelper.getDepthStrider(entity);
     }
 }

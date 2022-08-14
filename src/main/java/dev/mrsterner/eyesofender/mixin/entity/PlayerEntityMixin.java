@@ -1,9 +1,11 @@
 package dev.mrsterner.eyesofender.mixin.entity;
 
+import dev.mrsterner.eyesofender.api.enums.Hamon;
 import dev.mrsterner.eyesofender.api.interfaces.HamonUser;
 import dev.mrsterner.eyesofender.api.registry.HamonKnowledge;
 import dev.mrsterner.eyesofender.common.ability.HamonAbility;
 import dev.mrsterner.eyesofender.common.networking.packet.SyncHamonUserDataPacket;
+import dev.mrsterner.eyesofender.common.utils.EOEUtils;
 import dev.mrsterner.eyesofender.common.utils.NbtUtils;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -29,9 +31,13 @@ import static dev.mrsterner.eyesofender.common.utils.EOEUtils.DataTrackers.MAX_A
 public abstract class PlayerEntityMixin extends LivingEntity implements HamonUser {
 
 	@Unique
-	private final List<HamonAbility> abilities = new ArrayList<>();
+	private List<HamonAbility> abilities = new ArrayList<>();
 	@Unique
-	private final Set<HamonKnowledge> learnedKnowledge = new HashSet<>();
+	private Set<HamonKnowledge> learnedKnowledge = new HashSet<>();
+	@Unique
+	private int hamonBreath = 10; //TODO change to 0
+	@Unique
+	private Hamon hamonLevel = Hamon.BASIC; //TODO change to EMPTY
 
 	protected PlayerEntityMixin(EntityType<? extends LivingEntity> entityType, World world) {
 		super(entityType, world);
@@ -53,8 +59,9 @@ public abstract class PlayerEntityMixin extends LivingEntity implements HamonUse
 	@Inject(method = "writeCustomDataToNbt", at = @At("TAIL"))
 	private void writeEOEData(NbtCompound compoundTag, CallbackInfo info) {
 		NbtCompound tag = new NbtCompound();
-		tag.putInt("MaxAbilities", getMaxHamonAbilities());
-		tag.putInt("AbilityCooldown", getHamonAbilityCooldown());
+		tag.putInt(EOEUtils.Nbt.MAX_ABILITIES, getMaxHamonAbilities());
+		tag.putInt(EOEUtils.Nbt.ABILITY_COOLDOWN, getHamonAbilityCooldown());
+		tag.putInt(EOEUtils.Nbt.HAMON_BREATH, getHamonBreath());
 		NbtUtils.writeAbilityData(this, tag);
 		compoundTag.put("Data", tag);
 	}
@@ -63,8 +70,9 @@ public abstract class PlayerEntityMixin extends LivingEntity implements HamonUse
 	public void readEOEData(NbtCompound compoundTag, CallbackInfo info) {
 		NbtCompound tag = (NbtCompound) compoundTag.get("Data");
 		if (tag != null) {
-			setMaxHamonAbilities(tag.getInt("MaxAbilities"));
-			setHamonAbilityCooldown(tag.getInt("AbilityCooldown"));
+			setMaxHamonAbilities(tag.getInt(EOEUtils.Nbt.MAX_ABILITIES));
+			setHamonAbilityCooldown(tag.getInt(EOEUtils.Nbt.ABILITY_COOLDOWN));
+			setHamonBreath(tag.getInt(EOEUtils.Nbt.HAMON_BREATH));
 			NbtUtils.readAbilityData(this, tag);
 		}
 	}
@@ -111,5 +119,24 @@ public abstract class PlayerEntityMixin extends LivingEntity implements HamonUse
 		}
 	}
 
+	@Override
+	public int getHamonBreath() {
+		return hamonBreath;
+	}
 
+	@Override
+	public void setHamonBreath(int amount) {
+		this.hamonBreath = getHamonBreath() + amount;
+	}
+
+
+	@Override
+	public Hamon getHamonLevel() {
+		return hamonLevel;
+	}
+
+	@Override
+	public void setHamonLevel(Hamon hamonLevel) {
+		this.hamonLevel = hamonLevel;
+	}
 }

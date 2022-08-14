@@ -6,11 +6,9 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.fluid.Fluid;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.chunk.WorldChunk;
-import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -22,7 +20,7 @@ public class ServerWorldMixin {
 
     @Inject(method = "tickEntity", at = @At("HEAD"), cancellable = true)
     void doNotTickEntityWhenTimeIsStopped(Entity entity, CallbackInfo ci) {
-        if (TimeStopUtils.getTimeStoppedTicks(entity.world) > 0 && TimeStopUtils.isInRangeOfTimeStop(entity)) {
+        if (entity.world != null && TimeStopUtils.getTimeStoppedTicks(entity.world) > 0 && TimeStopUtils.isInRangeOfTimeStop(entity)) {
             entity.prevHorizontalSpeed = entity.horizontalSpeed;
             entity.prevPitch = entity.getPitch();
             entity.prevYaw = entity.getYaw();
@@ -46,7 +44,7 @@ public class ServerWorldMixin {
     @Inject(method = "tickBlock", at = @At("HEAD"), cancellable = true)
     private void doNotTickBlock (BlockPos pos, Block block, CallbackInfo ci) {
         ClientWorld world = MinecraftClient.getInstance().world;
-        if (TimeStopUtils.getTimeStoppedTicks(world) > 0 && TimeStopUtils.isInRangeOfTimeStop(TimeStopUtils.getTimeStopper(world))){
+        if (world != null && TimeStopUtils.getTimeStoppedTicks(world) > 0 && TimeStopUtils.isInRangeOfTimeStop(TimeStopUtils.getTimeStopper(world))){
             ci.cancel();
         }
     }
@@ -54,7 +52,7 @@ public class ServerWorldMixin {
     @Inject(method = "tickChunk", at = @At("HEAD"), cancellable = true)
     private void tickChunk (WorldChunk chunk, int randomTickSpeed, CallbackInfo ci) {
         ClientWorld world = MinecraftClient.getInstance().world;
-        if (TimeStopUtils.getTimeStoppedTicks(world) > 0 && TimeStopUtils.isInRangeOfTimeStop(TimeStopUtils.getTimeStopper(world))){
+        if (world != null && TimeStopUtils.getTimeStoppedTicks(world) > 0 && TimeStopUtils.isInRangeOfTimeStop(TimeStopUtils.getTimeStopper(world))){
             ci.cancel();
         }
     }
@@ -64,7 +62,7 @@ public class ServerWorldMixin {
     @Inject(method = "tickPassenger", at = @At("HEAD"), cancellable = true)
     private void doNotTickPassenger (Entity vehicle, Entity passenger, CallbackInfo ci) {
         ClientWorld world = MinecraftClient.getInstance().world;
-        if (TimeStopUtils.getTimeStoppedTicks(world) > 0 && TimeStopUtils.isInRangeOfTimeStop(TimeStopUtils.getTimeStopper(world))){
+        if (world != null && TimeStopUtils.getTimeStoppedTicks(world) > 0 && TimeStopUtils.isInRangeOfTimeStop(TimeStopUtils.getTimeStopper(world))){
             ci.cancel();
         }
     }
@@ -72,7 +70,7 @@ public class ServerWorldMixin {
     @Inject(method = "tickSpawners", at = @At("HEAD"), cancellable = true)
     private void doNotTickSpawners (boolean spawnMonsters, boolean spawnAnimals, CallbackInfo ci) {
         ClientWorld world = MinecraftClient.getInstance().world;
-        if (TimeStopUtils.getTimeStoppedTicks(world) > 0 && TimeStopUtils.isInRangeOfTimeStop(TimeStopUtils.getTimeStopper(world))){
+        if (world != null && TimeStopUtils.getTimeStoppedTicks(world) > 0 && TimeStopUtils.isInRangeOfTimeStop(TimeStopUtils.getTimeStopper(world))){
             ci.cancel();
         }
     }

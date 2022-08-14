@@ -25,7 +25,7 @@ public class ParticleManagerMixin {
 
     @Inject(method = "tickParticle", at = @At("HEAD"), cancellable = true)
     void doNotTickParticleWhenTimeStopped(Particle particle, CallbackInfo ci) {
-        if (TimeStopUtils.getTimeStoppedTicks(world) > 0) {
+        if (world != null && TimeStopUtils.getTimeStoppedTicks(world) > 0) {
             PlayerEntity timeStopper = TimeStopUtils.getTimeStopper(world);
             ParticleAccessor particle1 = (ParticleAccessor) particle;
             if (timeStopper == null || timeStopper.squaredDistanceTo(particle1.getX(), particle1.getY(), particle1.getZ()) < 4096) {

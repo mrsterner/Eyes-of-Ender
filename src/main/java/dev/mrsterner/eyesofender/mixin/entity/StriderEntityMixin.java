@@ -16,7 +16,7 @@ public abstract class StriderEntityMixin {
 
     @Inject(method = "interactMob", at = @At("HEAD"), cancellable = true)
     private void NoStriderForYou(PlayerEntity player, Hand hand, CallbackInfoReturnable<ActionResult> cir) {
-        if(TimeStopUtils.getTimeStoppedTicks(player.world) > 0 && TimeStopUtils.isInRangeOfTimeStop(player)){
+        if(player.world != null && TimeStopUtils.getTimeStoppedTicks(player.world) > 0 && TimeStopUtils.isInRangeOfTimeStop(player)){
             cir.setReturnValue(ActionResult.PASS);
         }
     }

@@ -20,6 +20,13 @@ public class EOEUtils {
 		public static final TagKey<EntityType<?>> HUMANOIDS = TagKey.of(Registry.ENTITY_TYPE_KEY, EyesOfEnder.id("humanoid"));
 
 	}
+	public static class Nbt {
+		public static final String MAX_ABILITIES = "MaxAbilities";
+		public static final String ABILITY_COOLDOWN = "AbilityCooldown";
+		public static final String HAMON_BREATH = "HamonBreath";
+		public static final String ABILITY_LIST = "AbilityList";
+
+	}
 
 	public static NbtCompound getTagCompoundSafe(ItemStack stack) {
 		NbtCompound tagCompound = stack.getNbt();

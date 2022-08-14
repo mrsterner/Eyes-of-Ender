@@ -15,7 +15,7 @@ public abstract class BoatEntityMixin {
 
     @Inject(method = "interact", at = @At("HEAD"), cancellable = true)
     private void NoBoatForYou(PlayerEntity player, Hand hand, CallbackInfoReturnable<ActionResult> cir) {
-        if(TimeStopUtils.getTimeStoppedTicks(player.world) > 0){
+        if(player.world != null && TimeStopUtils.getTimeStoppedTicks(player.world) > 0){
             cir.setReturnValue(ActionResult.PASS);
         }
     }

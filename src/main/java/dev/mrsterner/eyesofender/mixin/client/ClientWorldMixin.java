@@ -32,7 +32,7 @@ public class ClientWorldMixin {
 
     @Inject(method = "tickEntity", at = @At("HEAD"), cancellable = true)
     private void doNotTickEntityWhenTimeIsStopped(Entity entity, CallbackInfo ci) {
-        if (TimeStopUtils.getTimeStoppedTicks(entity.world) > 0 && TimeStopUtils.isInRangeOfTimeStop(entity) && !(entity instanceof PlayerEntity)) {
+        if (entity.world != null && TimeStopUtils.getTimeStoppedTicks(entity.world) > 0 && TimeStopUtils.isInRangeOfTimeStop(entity) && !(entity instanceof PlayerEntity)) {
             entity.prevHorizontalSpeed = entity.horizontalSpeed;
             entity.prevPitch = entity.getPitch();
             entity.prevYaw = entity.getYaw();
@@ -62,7 +62,7 @@ public class ClientWorldMixin {
 
     @Inject(method = "addParticle(Lnet/minecraft/particle/ParticleEffect;DDDDDD)V", at = @At("HEAD"), cancellable = true)
     private void doNotSpawnParticles(ParticleEffect parameters, double x, double y, double z, double velocityX, double velocityY, double velocityZ, CallbackInfo ci) {
-        if (TimeStopUtils.getTimeStoppedTicks(client.world) > 0 && TimeStopUtils.isInRangeOfTimeStop(getTimeStopper(client.world))){
+        if (client.world != null && TimeStopUtils.getTimeStoppedTicks(client.world) > 0 && TimeStopUtils.isInRangeOfTimeStop(getTimeStopper(client.world))){
             ci.cancel();
         }
     }

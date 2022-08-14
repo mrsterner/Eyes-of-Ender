@@ -5,7 +5,6 @@ import com.mojang.datafixers.util.Pair;
 import dev.mrsterner.eyesofender.EyesOfEnder;
 import dev.mrsterner.eyesofender.client.shader.ExtendedShader;
 import dev.mrsterner.eyesofender.client.shader.ShaderInstance;
-import net.minecraft.client.render.RenderPhase;
 import net.minecraft.client.render.ShaderProgram;
 import net.minecraft.resource.ResourceManager;
 

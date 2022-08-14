@@ -1,5 +1,6 @@
 package dev.mrsterner.eyesofender.api.interfaces;
 
+import dev.mrsterner.eyesofender.api.enums.Hamon;
 import dev.mrsterner.eyesofender.api.registry.HamonKnowledge;
 import dev.mrsterner.eyesofender.common.ability.HamonAbility;
 
@@ -31,4 +32,13 @@ public interface HamonUser {
 	void setHamonAbilityCooldown(int ticks);
 
 	void syncHamonAbilityData();
+
+	int getHamonBreath();
+
+	void setHamonBreath(int amount);
+
+	Hamon getHamonLevel();
+
+	void setHamonLevel(Hamon hamonLevel);
+
 }

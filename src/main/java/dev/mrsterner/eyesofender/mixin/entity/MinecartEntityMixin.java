@@ -16,7 +16,7 @@ public abstract class MinecartEntityMixin {
 
     @Inject(method = "interact", at = @At("HEAD"), cancellable = true)
     private void NoMinecartForYou(PlayerEntity player, Hand hand, CallbackInfoReturnable<ActionResult> cir) {
-        if(TimeStopUtils.getTimeStoppedTicks(player.world) > 0 && TimeStopUtils.isInRangeOfTimeStop(player)){
+        if(player.world != null && TimeStopUtils.getTimeStoppedTicks(player.world) > 0 && TimeStopUtils.isInRangeOfTimeStop(player)){
             cir.setReturnValue(ActionResult.PASS);
         }
     }

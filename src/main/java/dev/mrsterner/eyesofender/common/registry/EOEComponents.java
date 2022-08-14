@@ -25,7 +25,7 @@ public class EOEComponents implements EntityComponentInitializer, WorldComponent
 
 	@Override
 	public void registerWorldComponentFactories(WorldComponentFactoryRegistry registry) {
-
+		registry.register(TIME_STOP_COMPONENT, TimeStopComponent::new);
 	}
 
 	private static <T extends Component> ComponentKey<T> createComponent(String name, Class<T> component) {

@@ -27,7 +27,6 @@ import org.jetbrains.annotations.Nullable;
 import org.quiltmc.loader.api.ModContainer;
 import org.quiltmc.qsl.base.api.entrypoint.ModInitializer;
 import org.quiltmc.qsl.item.group.api.QuiltItemGroup;
-import org.quiltmc.qsl.lifecycle.api.event.ServerTickEvents;
 import org.quiltmc.qsl.lifecycle.api.event.ServerWorldTickEvents;
 import org.quiltmc.qsl.networking.api.ServerPlayNetworking;
 import org.slf4j.Logger;
@@ -76,7 +75,7 @@ public class EyesOfEnder implements ModInitializer {
 	 * @return
 	 */
 	private ActionResult damageInTimeStop(PlayerEntity player, World world, Hand hand, Entity entity, @Nullable EntityHitResult entityHitResult) {
-		if (!player.isSpectator() && TimeStopUtils.getTimeStoppedTicks(world) > 0 && !world.isClient) {
+		if (!player.isSpectator() && world != null && TimeStopUtils.getTimeStoppedTicks(world) > 0 && !world.isClient) {
 			float damageAlready = damages.getOrDefault(entity, new Pair<>(null, 0f)).getSecond();
 			damages.put(entity, new Pair<>(player, (float) player.getAttributeValue(EntityAttributes.GENERIC_ATTACK_DAMAGE) + damageAlready));
 			return ActionResult.SUCCESS;
@@ -90,7 +89,7 @@ public class EyesOfEnder implements ModInitializer {
 	 * @param serverWorld
 	 */
 	private void timeStopper(MinecraftServer minecraftServer, ServerWorld serverWorld) {
-		if (TimeStopUtils.getTimeStoppedTicks(serverWorld) < 0 && !damages.isEmpty()) {
+		if (serverWorld != null && TimeStopUtils.getTimeStoppedTicks(serverWorld) < 0 && !damages.isEmpty()) {
 			damages.forEach((entity, playerAndDamage) -> entity.damage(EntityDamageSource.player(playerAndDamage.getFirst()), playerAndDamage.getSecond()));
 			damages.clear();
 		}

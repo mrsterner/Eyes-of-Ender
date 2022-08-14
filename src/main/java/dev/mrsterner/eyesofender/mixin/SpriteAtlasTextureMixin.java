@@ -16,9 +16,7 @@ public class SpriteAtlasTextureMixin {
     @Inject(method = "tickAnimatedSprites", at = @At("HEAD"), cancellable = true)
     void doNotTickAnimatedTextures (CallbackInfo ci) {
         ClientWorld world = MinecraftClient.getInstance().world;
-        if (world == null)
-            return;
-        if (TimeStopUtils.getTimeStoppedTicks(world) > 0 && TimeStopUtils.isInRangeOfTimeStop(getTimeStopper(world))){
+        if (world != null && TimeStopUtils.getTimeStoppedTicks(world) > 0 && TimeStopUtils.isInRangeOfTimeStop(getTimeStopper(world))){
             ci.cancel();
         }
     }

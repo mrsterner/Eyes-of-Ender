@@ -55,7 +55,7 @@ public class WorldRendererMixin {
             at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/entity/EntityRenderDispatcher;render(Lnet/minecraft/entity/Entity;DDDFFLnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;I)V"))
     private void doNotDeltaTickEntityWhenTimeIsStopped(Args args) {
         Entity entity = args.get(0);
-        if(TimeStopUtils.getTimeStoppedTicks(world) > 0 && TimeStopUtils.isInRangeOfTimeStop(entity)){
+        if(world != null && TimeStopUtils.getTimeStoppedTicks(world) > 0 && TimeStopUtils.isInRangeOfTimeStop(entity)){
             if(entity instanceof PlayerEntity){
                 /*
                 if(StandUtils.getStand((PlayerEntity) entity) != Stand.THE_WORLD && StandUtils.getStand((PlayerEntity) entity) != Stand.STAR_PLATINUM){

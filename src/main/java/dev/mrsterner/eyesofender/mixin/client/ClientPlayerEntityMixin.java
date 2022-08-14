@@ -5,9 +5,7 @@ import dev.mrsterner.eyesofender.common.utils.TimeStopUtils;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.world.ClientWorld;
-import net.minecraft.entity.MovementType;
 import net.minecraft.network.encryption.PlayerPublicKey;
-import net.minecraft.util.math.Vec3d;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -22,7 +20,7 @@ public class ClientPlayerEntityMixin extends AbstractClientPlayerEntity {
 
     @Inject(method = "tickMovement", at = @At("HEAD"), cancellable = true)
     protected void doNotLetPlayersMoveWhenTimeIsStopped(CallbackInfo ci) {
-        if (TimeStopUtils.getTimeStoppedTicks(world) > 0 && TimeStopUtils.isInRangeOfTimeStop(this)) {//TODO add more conditions to determine if the player can move during timestop
+        if (world != null && TimeStopUtils.getTimeStoppedTicks(world) > 0 && TimeStopUtils.isInRangeOfTimeStop(this)) {//TODO add more conditions to determine if the player can move during timestop
             ci.cancel();
         }
     }
