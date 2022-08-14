@@ -14,7 +14,7 @@ import static dev.mrsterner.eyesofender.common.utils.TimeStopUtils.getTimeStoppe
 @Mixin(SpriteAtlasTexture.class)
 public class SpriteAtlasTextureMixin {
     @Inject(method = "tickAnimatedSprites", at = @At("HEAD"), cancellable = true)
-    void doNotTickAnimatedTextures (CallbackInfo ci) {
+    private void eyesOfEnder$doNotTickAnimatedTextures (CallbackInfo ci) {
         ClientWorld world = MinecraftClient.getInstance().world;
         if (world != null && TimeStopUtils.getTimeStoppedTicks(world) > 0 && TimeStopUtils.isInRangeOfTimeStop(getTimeStopper(world))){
             ci.cancel();

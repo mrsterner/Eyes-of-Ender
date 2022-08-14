@@ -30,12 +30,12 @@ public abstract class LivingEntityRendererMixin<T extends LivingEntity, M extend
 
 
 	@Inject(method = "render(Lnet/minecraft/entity/LivingEntity;FFLnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;I)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/entity/feature/FeatureRenderer;render(Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;ILnet/minecraft/entity/Entity;FFFFFF)V"), locals = LocalCapture.CAPTURE_FAILSOFT)
-	public void eoe$hamon(T livingEntity, float f, float g, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, CallbackInfo info, float h, float j, float k, float m, float l, float n, float o, MinecraftClient minecraftClient, boolean bl, boolean bl2, boolean bl3, RenderLayer renderLayer, Iterator<FeatureRenderer<T, M>> var19, FeatureRenderer<T, M> featureRenderer) {
+	public void eyesOfEnder$hamon(T livingEntity, float f, float g, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, CallbackInfo info, float h, float j, float k, float m, float l, float n, float o, MinecraftClient minecraftClient, boolean bl, boolean bl2, boolean bl3, RenderLayer renderLayer, Iterator<FeatureRenderer<T, M>> var19, FeatureRenderer<T, M> featureRenderer) {
 
 	}
 
 	@Inject(method = "render*", at = @At("HEAD"))
-	private void render(T livingEntity, float yaw, float tickDelta, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, CallbackInfo callbackInfo) {
+	private void eyesOfEnder$render(T livingEntity, float yaw, float tickDelta, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, CallbackInfo callbackInfo) {
 		BaseStandEntity stand = null;//TODO add stand getter
 		if(stand != null){
 			stand.motionCalc = new Vec3d(livingEntity.getX() - livingEntity.prevX, livingEntity.getY() - livingEntity.prevY,livingEntity.getZ() - livingEntity.prevZ);

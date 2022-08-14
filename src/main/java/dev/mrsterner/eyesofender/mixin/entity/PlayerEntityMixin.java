@@ -44,20 +44,20 @@ public abstract class PlayerEntityMixin extends LivingEntity implements HamonUse
 	}
 
 	@Inject(method = "initDataTracker()V", at = @At("TAIL"))
-	private void addDataTrackers(CallbackInfo info) {
+	private void eyesOfEnder$addDataTrackers(CallbackInfo info) {
 		dataTracker.startTracking(ABILITY_COOLDOWN, 0);
 		dataTracker.startTracking(MAX_ABILITIES, 9);
 	}
 
 	@Inject(method = "tick()V", at = @At("TAIL"))
-	private void tickAbilityCooldown(CallbackInfo info) {
+	private void eyesOfEnder$tickAbilityCooldown(CallbackInfo info) {
 		if (dataTracker != null && getHamonAbilityCooldown() > 0) {
 			setHamonAbilityCooldown(getHamonAbilityCooldown() - 1);
 		}
 	}
 
 	@Inject(method = "writeCustomDataToNbt", at = @At("TAIL"))
-	private void writeEOEData(NbtCompound compoundTag, CallbackInfo info) {
+	private void eyesOfEnder$writeEOEData(NbtCompound compoundTag, CallbackInfo info) {
 		NbtCompound tag = new NbtCompound();
 		tag.putInt(EOEUtils.Nbt.MAX_ABILITIES, getMaxHamonAbilities());
 		tag.putInt(EOEUtils.Nbt.ABILITY_COOLDOWN, getHamonAbilityCooldown());
@@ -67,7 +67,7 @@ public abstract class PlayerEntityMixin extends LivingEntity implements HamonUse
 	}
 
 	@Inject(method = "readCustomDataFromNbt", at = @At("TAIL"))
-	public void readEOEData(NbtCompound compoundTag, CallbackInfo info) {
+	public void eyesOfEnder$readEOEData(NbtCompound compoundTag, CallbackInfo info) {
 		NbtCompound tag = (NbtCompound) compoundTag.get("Data");
 		if (tag != null) {
 			setMaxHamonAbilities(tag.getInt(EOEUtils.Nbt.MAX_ABILITIES));

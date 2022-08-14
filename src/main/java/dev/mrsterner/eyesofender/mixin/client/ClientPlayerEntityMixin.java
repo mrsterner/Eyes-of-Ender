@@ -19,7 +19,7 @@ public class ClientPlayerEntityMixin extends AbstractClientPlayerEntity {
     }
 
     @Inject(method = "tickMovement", at = @At("HEAD"), cancellable = true)
-    protected void doNotLetPlayersMoveWhenTimeIsStopped(CallbackInfo ci) {
+    protected void eyesOfEnder$doNotLetPlayersMoveWhenTimeIsStopped(CallbackInfo ci) {
         if (world != null && TimeStopUtils.getTimeStoppedTicks(world) > 0 && TimeStopUtils.isInRangeOfTimeStop(this)) {//TODO add more conditions to determine if the player can move during timestop
             ci.cancel();
         }

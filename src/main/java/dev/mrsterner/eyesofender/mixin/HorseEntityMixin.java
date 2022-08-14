@@ -15,7 +15,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public abstract class HorseEntityMixin {
 
     @Inject(method = "interactMob", at = @At("HEAD"), cancellable = true)
-    private void NoHorseForYou(PlayerEntity player, Hand hand, CallbackInfoReturnable<ActionResult> cir) {
+    private void eyesOfEnder$noHorseForYou(PlayerEntity player, Hand hand, CallbackInfoReturnable<ActionResult> cir) {
         if(player.world != null && TimeStopUtils.getTimeStoppedTicks(player.world) > 0){
             cir.setReturnValue(ActionResult.PASS);
         }

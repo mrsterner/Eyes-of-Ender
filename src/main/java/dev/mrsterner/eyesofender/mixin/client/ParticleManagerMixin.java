@@ -24,7 +24,7 @@ public class ParticleManagerMixin {
     @Shadow @Final private Map<ParticleTextureSheet, Queue<Particle>> particles;
 
     @Inject(method = "tickParticle", at = @At("HEAD"), cancellable = true)
-    void doNotTickParticleWhenTimeStopped(Particle particle, CallbackInfo ci) {
+    private void eyesOfEnder$doNotTickParticleWhenTimeStopped(Particle particle, CallbackInfo ci) {
         if (world != null && TimeStopUtils.getTimeStoppedTicks(world) > 0) {
             PlayerEntity timeStopper = TimeStopUtils.getTimeStopper(world);
             ParticleAccessor particle1 = (ParticleAccessor) particle;

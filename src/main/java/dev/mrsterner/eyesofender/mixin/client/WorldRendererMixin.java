@@ -25,35 +25,33 @@ public class WorldRendererMixin {
 
 
     @ModifyArg(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/particle/ParticleManager;renderParticles(Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider$Immediate;Lnet/minecraft/client/render/LightmapTextureManager;Lnet/minecraft/client/render/Camera;F)V"))
-    private float doNotInterpolateParticles (float tickDelta) {
+    private float eyesOfEnder$doNotInterpolateParticles (float tickDelta) {
         ClientWorld world = MinecraftClient.getInstance().world;
         return world != null && TimeStopUtils.getTimeStoppedTicks(world) > 0 && TimeStopUtils.isInRangeOfTimeStop(TimeStopUtils.getTimeStopper(world)) ? 0 : tickDelta;
     }
 
     @ModifyArg(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/WorldRenderer;renderWeather(Lnet/minecraft/client/render/LightmapTextureManager;FDDD)V"))
-    private float doNotInterpolateWeather (float tickDelta) {
+    private float eyesOfEnder$doNotInterpolateWeather (float tickDelta) {
         ClientWorld world = MinecraftClient.getInstance().world;
         return world != null && TimeStopUtils.getTimeStoppedTicks(world) > 0 && TimeStopUtils.isInRangeOfTimeStop(TimeStopUtils.getTimeStopper(world)) ? 0 : tickDelta;
     }
 
     @ModifyArg(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gl/ShaderEffect;render(F)V"))
-    private float doNotInterpolateWeatherShader (float tickDelta) {
+    private float eyesOfEnder$doNotInterpolateWeatherShader (float tickDelta) {
         ClientWorld world = MinecraftClient.getInstance().world;
         return world != null && TimeStopUtils.getTimeStoppedTicks(world) > 0 && TimeStopUtils.isInRangeOfTimeStop(TimeStopUtils.getTimeStopper(world)) ? 0 : tickDelta;
     }
 
     @Inject(method = "tickRainSplashing", at = @At("HEAD"), cancellable = true)
-    private void doNotMakeRainSplashes (Camera camera, CallbackInfo ci) {
+    private void eyesOfEnder$doNotMakeRainSplashes (Camera camera, CallbackInfo ci) {
         ClientWorld world = MinecraftClient.getInstance().world;
         if (world != null && TimeStopUtils.getTimeStoppedTicks(world) > 0 && TimeStopUtils.isInRangeOfTimeStop(TimeStopUtils.getTimeStopper(world))){
             ci.cancel();
         }
     }
 
-    @ModifyArgs(
-            method = "renderEntity(Lnet/minecraft/entity/Entity;DDDFLnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;)V",
-            at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/entity/EntityRenderDispatcher;render(Lnet/minecraft/entity/Entity;DDDFFLnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;I)V"))
-    private void doNotDeltaTickEntityWhenTimeIsStopped(Args args) {
+    @ModifyArgs(method = "renderEntity(Lnet/minecraft/entity/Entity;DDDFLnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/entity/EntityRenderDispatcher;render(Lnet/minecraft/entity/Entity;DDDFFLnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;I)V"))
+    private void eyesOfEnder$doNotDeltaTickEntityWhenTimeIsStopped(Args args) {
         Entity entity = args.get(0);
         if(world != null && TimeStopUtils.getTimeStoppedTicks(world) > 0 && TimeStopUtils.isInRangeOfTimeStop(entity)){
             if(entity instanceof PlayerEntity){

@@ -16,7 +16,7 @@ public class WorldChunkMixin {
     @Final private World world;
 
     @Inject(method = "canTickBlockEntity", at = @At("HEAD"), cancellable = true)
-    void doNotTickBlockWhenTimeIsStopped(BlockPos pos, CallbackInfoReturnable<Boolean> cir) {
+    private void eyesOfEnder$doNotTickBlockWhenTimeIsStopped(BlockPos pos, CallbackInfoReturnable<Boolean> cir) {
         if (world != null && TimeStopUtils.getTimeStoppedTicks(world) > 0 && TimeStopUtils.isInRangeOfTimeStop(pos, world)) {
             cir.cancel();
         }

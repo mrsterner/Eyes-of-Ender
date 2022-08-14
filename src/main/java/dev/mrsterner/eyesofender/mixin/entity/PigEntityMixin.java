@@ -15,7 +15,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public abstract class PigEntityMixin {
 
     @Inject(method = "interactMob", at = @At("HEAD"), cancellable = true)
-    private void NoPigForYou(PlayerEntity player, Hand hand, CallbackInfoReturnable<ActionResult> cir) {
+    private void eyesOfEnder$noPigForYou(PlayerEntity player, Hand hand, CallbackInfoReturnable<ActionResult> cir) {
         if(player.world != null && TimeStopUtils.getTimeStoppedTicks(player.world) > 0 && TimeStopUtils.isInRangeOfTimeStop(player)){
             cir.setReturnValue(ActionResult.PASS);
         }

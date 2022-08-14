@@ -15,7 +15,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public abstract class StriderEntityMixin {
 
     @Inject(method = "interactMob", at = @At("HEAD"), cancellable = true)
-    private void NoStriderForYou(PlayerEntity player, Hand hand, CallbackInfoReturnable<ActionResult> cir) {
+    private void eyesOfEnder$noStriderForYou(PlayerEntity player, Hand hand, CallbackInfoReturnable<ActionResult> cir) {
         if(player.world != null && TimeStopUtils.getTimeStoppedTicks(player.world) > 0 && TimeStopUtils.isInRangeOfTimeStop(player)){
             cir.setReturnValue(ActionResult.PASS);
         }

@@ -23,7 +23,7 @@ public class ClientWorldMixin {
     @Shadow @Final private final MinecraftClient client = MinecraftClient.getInstance();
 
     @Inject(method = "randomBlockDisplayTick", at = @At("HEAD"), cancellable = true)
-    private void doNotSpawnBlockParticle (CallbackInfo ci) {
+    private void eyesOfEnder$doNotSpawnBlockParticle (CallbackInfo ci) {
         ClientWorld world = MinecraftClient.getInstance().world;
         if (world != null && TimeStopUtils.getTimeStoppedTicks(world) > 0 && TimeStopUtils.isInRangeOfTimeStop(TimeStopUtils.getTimeStopper(world))){
             ci.cancel();
@@ -31,7 +31,7 @@ public class ClientWorldMixin {
     }
 
     @Inject(method = "tickEntity", at = @At("HEAD"), cancellable = true)
-    private void doNotTickEntityWhenTimeIsStopped(Entity entity, CallbackInfo ci) {
+    private void eyesOfEnder$doNotTickEntityWhenTimeIsStopped(Entity entity, CallbackInfo ci) {
         if (entity.world != null && TimeStopUtils.getTimeStoppedTicks(entity.world) > 0 && TimeStopUtils.isInRangeOfTimeStop(entity) && !(entity instanceof PlayerEntity)) {
             entity.prevHorizontalSpeed = entity.horizontalSpeed;
             entity.prevPitch = entity.getPitch();
@@ -54,14 +54,14 @@ public class ClientWorldMixin {
     }
 
     @Inject(method = "tickPassenger", at = @At("HEAD"), cancellable = true)
-    private void doNotTickPassenger (Entity vehicle, Entity passenger, CallbackInfo ci) {
+    private void eyesOfEnder$doNotTickPassenger (Entity vehicle, Entity passenger, CallbackInfo ci) {
         ClientWorld world = MinecraftClient.getInstance().world;
         if (world != null && TimeStopUtils.getTimeStoppedTicks(world) > 0 && TimeStopUtils.isInRangeOfTimeStop(TimeStopUtils.getTimeStopper(world)))
             ci.cancel();
     }
 
     @Inject(method = "addParticle(Lnet/minecraft/particle/ParticleEffect;DDDDDD)V", at = @At("HEAD"), cancellable = true)
-    private void doNotSpawnParticles(ParticleEffect parameters, double x, double y, double z, double velocityX, double velocityY, double velocityZ, CallbackInfo ci) {
+    private void eyesOfEnder$doNotSpawnParticles(ParticleEffect parameters, double x, double y, double z, double velocityX, double velocityY, double velocityZ, CallbackInfo ci) {
         if (client.world != null && TimeStopUtils.getTimeStoppedTicks(client.world) > 0 && TimeStopUtils.isInRangeOfTimeStop(getTimeStopper(client.world))){
             ci.cancel();
         }
