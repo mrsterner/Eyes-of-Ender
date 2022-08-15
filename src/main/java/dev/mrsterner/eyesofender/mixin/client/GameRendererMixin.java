@@ -3,6 +3,8 @@ package dev.mrsterner.eyesofender.mixin.client;
 import com.mojang.blaze3d.shader.ShaderStage;
 import com.mojang.datafixers.util.Pair;
 import dev.mrsterner.eyesofender.client.registry.EOEShaders;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.render.ShaderProgram;
 import net.minecraft.resource.ResourceManager;
@@ -16,6 +18,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.function.Consumer;
 
+@Environment(EnvType.CLIENT)
 @Mixin(GameRenderer.class)
 final class GameRendererMixin {
 

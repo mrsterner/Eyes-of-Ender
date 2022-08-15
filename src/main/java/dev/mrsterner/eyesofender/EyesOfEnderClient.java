@@ -2,7 +2,9 @@ package dev.mrsterner.eyesofender;
 
 import com.williambl.early_features.api.LivingEntityEarlyFeatureRendererRegistrationCallback;
 import dev.mrsterner.eyesofender.api.interfaces.HamonUser;
+import dev.mrsterner.eyesofender.client.EOESpriteIdentifiers;
 import dev.mrsterner.eyesofender.client.gui.HamonAbilityClientHandler;
+import dev.mrsterner.eyesofender.client.renderer.block.CoffinBlockEntityRenderer;
 import dev.mrsterner.eyesofender.client.registry.EOEParticleTypes;
 import dev.mrsterner.eyesofender.client.registry.EOESoundEvents;
 import dev.mrsterner.eyesofender.client.renderer.feature.HamonFeatureRenderer;
@@ -10,6 +12,7 @@ import dev.mrsterner.eyesofender.client.renderer.StoneMaskArmorRenderer;
 import dev.mrsterner.eyesofender.client.renderer.StoneMaskItemRenderer;
 import dev.mrsterner.eyesofender.common.networking.packet.HamonAbilityPacket;
 import dev.mrsterner.eyesofender.common.networking.packet.SyncHamonUserDataPacket;
+import dev.mrsterner.eyesofender.common.registry.EOEBlockEntityTypes;
 import dev.mrsterner.eyesofender.common.registry.EOEObjects;
 import dev.mrsterner.eyesofender.common.utils.NbtUtils;
 import ladysnake.satin.api.event.PostWorldRenderCallback;
@@ -17,6 +20,8 @@ import ladysnake.satin.api.experimental.ReadableDepthFramebuffer;
 import ladysnake.satin.api.managed.ManagedShaderEffect;
 import ladysnake.satin.api.managed.ShaderEffectManager;
 import ladysnake.satin.api.util.GlMatrices;
+import net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.Camera;
 import net.minecraft.client.render.entity.PlayerEntityRenderer;
@@ -64,6 +69,10 @@ public class EyesOfEnderClient implements ClientModInitializer {
 		ClientTickEvents.END.register(ClientTickHandler::clientTickEnd);
 		PostWorldRenderCallback.EVENT.register(this::zaWarudo);
 		ClientTickEvents.START.register(this::zaWarduo);
+
+		BlockEntityRendererRegistry.register(EOEBlockEntityTypes.COFFIN_BLOCK_ENTITY, CoffinBlockEntityRenderer::new);
+		EntityModelLayerRegistry.registerModelLayer(CoffinBlockEntityRenderer.COFFIN_LAYER, CoffinBlockEntityRenderer::getTexturedModelData);
+		EOESpriteIdentifiers.INSTANCE.addIdentifier(EOESpriteIdentifiers.COFFIN_SPRITE);
 
 		GeoArmorRenderer.registerArmorRenderer(new StoneMaskArmorRenderer(), EOEObjects.STONE_MASK);
 		GeoItemRenderer.registerItemRenderer(EOEObjects.STONE_MASK, new StoneMaskItemRenderer());

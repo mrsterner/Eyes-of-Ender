@@ -1,6 +1,8 @@
 package dev.mrsterner.eyesofender.mixin.client;
 
 import dev.mrsterner.eyesofender.common.entity.BaseStandEntity;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumerProvider;
@@ -21,6 +23,7 @@ import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 import java.util.Iterator;
 
+@Environment(EnvType.CLIENT)
 @Mixin(LivingEntityRenderer.class)
 public abstract class LivingEntityRendererMixin<T extends LivingEntity, M extends EntityModel<T>> extends EntityRenderer<T> implements FeatureRendererContext<T, M> {
 	protected LivingEntityRendererMixin(EntityRendererFactory.Context ctx) {

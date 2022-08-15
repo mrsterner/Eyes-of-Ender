@@ -12,7 +12,6 @@ import net.minecraft.text.Text;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 public class HamonAbilitySelectionScreen extends Screen {
 	private static final int totalRadius = 32;

@@ -1,9 +1,11 @@
 package dev.mrsterner.eyesofender.common.registry;
 
 import dev.mrsterner.eyesofender.EyesOfEnder;
+import dev.mrsterner.eyesofender.common.block.CoffinBlock;
 import dev.mrsterner.eyesofender.common.item.DebugStick;
 import dev.mrsterner.eyesofender.common.item.StoneMaskItem;
 import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
@@ -11,6 +13,7 @@ import net.minecraft.item.SwordItem;
 import net.minecraft.item.ToolMaterials;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
+import org.quiltmc.qsl.block.extensions.api.QuiltBlockSettings;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -26,6 +29,8 @@ public class EOEObjects {
     public static final Item STONE_MASK = register("stone_mask", new StoneMaskItem(EOEMaterials.VAMPIRE_ARMOR , EquipmentSlot.HEAD, gen()));
 	public static final Item DAGGER = register("dagger", new SwordItem(ToolMaterials.IRON, 2, -3F, gen()));
 
+	public static final Block COFFIN = register("coffin", new CoffinBlock(QuiltBlockSettings.copyOf(Blocks.BLACKSTONE)), gen(), true);
+
 	private static Item.Settings gen() {
 		return new Item.Settings().group(EyesOfEnder.EOE_GROUP);
 	}
@@ -35,7 +40,7 @@ public class EOEObjects {
 		return item;
 	}
 
-	private static <T extends Block> T register(String name, T block, boolean createItem, Item.Settings settings) {
+	private static <T extends Block> T register(String name, T block, Item.Settings settings, boolean createItem) {
 		BLOCKS.put(block, EyesOfEnder.id(name));
 		if (createItem) {
 			ITEMS.put(new BlockItem(block, settings), BLOCKS.get(block));

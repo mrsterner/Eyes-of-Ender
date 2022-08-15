@@ -4,13 +4,15 @@
   "package": "dev.mrsterner.eyesofender.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
+    "BoatEntityMixin",
     "HorseEntityMixin",
     "ServerWorldMixin",
     "WorldChunkMixin",
     "entity.LivingEntityMixin",
     "entity.MinecartEntityMixin",
     "entity.PigEntityMixin",
-    "entity.PlayerEntityMixin"
+    "entity.PlayerEntityMixin",
+    "entity.StriderEntityMixin"
   ],
   "client": [
     "access.FramebufferAccessor",
@@ -20,6 +22,8 @@
     "client.InGameHudMixin",
     "client.LivingEntityRendererMixin",
     "client.ParticleManagerMixin",
+    "client.SpriteAtlasTextureMixin",
+    "client.TexturedRenderLayersMixin",
     "client.WorldRendererMixin"
   ],
   "injectors": {

@@ -1,6 +1,8 @@
 package dev.mrsterner.eyesofender.mixin.client;
 
 import dev.mrsterner.eyesofender.common.utils.TimeStopUtils;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.Camera;
 import net.minecraft.client.render.WorldRenderer;
@@ -17,7 +19,7 @@ import org.spongepowered.asm.mixin.injection.ModifyArgs;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 
-
+@Environment(EnvType.CLIENT)
 @Mixin(WorldRenderer.class)
 public class WorldRendererMixin {
 

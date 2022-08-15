@@ -2,6 +2,8 @@ package dev.mrsterner.eyesofender.mixin.client;
 
 import dev.mrsterner.eyesofender.common.utils.TimeStopUtils;
 import dev.mrsterner.eyesofender.mixin.access.ParticleAccessor;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.ParticleManager;
 import net.minecraft.client.particle.ParticleTextureSheet;
@@ -17,6 +19,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import java.util.Map;
 import java.util.Queue;
 
+@Environment(EnvType.CLIENT)
 @Mixin(ParticleManager.class)
 public class ParticleManagerMixin {
     @Shadow protected ClientWorld world;

@@ -1,4 +1,4 @@
-package dev.mrsterner.eyesofender.mixin;
+package dev.mrsterner.eyesofender.mixin.client;
 
 import dev.mrsterner.eyesofender.common.utils.TimeStopUtils;
 import net.minecraft.client.MinecraftClient;

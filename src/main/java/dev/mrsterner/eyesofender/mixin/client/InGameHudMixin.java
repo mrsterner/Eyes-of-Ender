@@ -13,7 +13,6 @@ import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.gui.hud.InGameHud;
 import net.minecraft.client.render.ShaderProgram;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Identifier;
 import org.spongepowered.asm.mixin.Mixin;
@@ -30,7 +29,7 @@ public abstract class InGameHudMixin extends DrawableHelper {
     @Unique private static float hamonFade = 1.0F;
 
     @Unique
-    private static final Identifier EYES_OF_ENDER_GUI_ICONS_TEXTURE = EyesOfEnder.id("textures/gui/hamon.png");
+    private static final Identifier EYES_OF_ENDER_GUI_ICONS_TEXTURE = EyesOfEnder.id("textures/gui/hamon_breath.png");
 
     @Shadow
     private int scaledHeight;

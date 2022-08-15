@@ -3,8 +3,6 @@ package dev.mrsterner.eyesofender.mixin.entity;
 
 import dev.mrsterner.eyesofender.client.registry.EOESoundEvents;
 import dev.mrsterner.eyesofender.common.utils.TimeStopUtils;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.world.ClientWorld;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -41,7 +39,6 @@ public abstract class LivingEntityMixin extends Entity {
 
     @Redirect(method = "travel", at = @At(value = "INVOKE", target = "Lnet/minecraft/enchantment/EnchantmentHelper;getDepthStrider(Lnet/minecraft/entity/LivingEntity;)I"))
     private int eyesOfEnder$doNotGetPushedAroundByWater(LivingEntity entity) {
-        ClientWorld world = MinecraftClient.getInstance().world;
         return world != null && TimeStopUtils.getTimeStoppedTicks(world) > 0 && TimeStopUtils.isInRangeOfTimeStop(TimeStopUtils.getTimeStopper(world)) ? 3 : EnchantmentHelper.getDepthStrider(entity);
     }
 }

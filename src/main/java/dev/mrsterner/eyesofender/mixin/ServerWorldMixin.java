@@ -2,8 +2,6 @@ package dev.mrsterner.eyesofender.mixin;
 
 import dev.mrsterner.eyesofender.common.utils.TimeStopUtils;
 import net.minecraft.block.Block;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.server.world.ServerWorld;
@@ -13,7 +11,6 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-
 
 @Mixin(ServerWorld.class)
 public class ServerWorldMixin {
@@ -43,7 +40,7 @@ public class ServerWorldMixin {
 
     @Inject(method = "tickBlock", at = @At("HEAD"), cancellable = true)
     private void eyesOfEnder$doNotTickBlock (BlockPos pos, Block block, CallbackInfo ci) {
-        ClientWorld world = MinecraftClient.getInstance().world;
+        ServerWorld world = (ServerWorld) (Object) this;
         if (world != null && TimeStopUtils.getTimeStoppedTicks(world) > 0 && TimeStopUtils.isInRangeOfTimeStop(TimeStopUtils.getTimeStopper(world))){
             ci.cancel();
         }
@@ -51,7 +48,7 @@ public class ServerWorldMixin {
 
     @Inject(method = "tickChunk", at = @At("HEAD"), cancellable = true)
     private void eyesOfEnder$tickChunk (WorldChunk chunk, int randomTickSpeed, CallbackInfo ci) {
-        ClientWorld world = MinecraftClient.getInstance().world;
+        ServerWorld world = (ServerWorld) (Object) this;
         if (world != null && TimeStopUtils.getTimeStoppedTicks(world) > 0 && TimeStopUtils.isInRangeOfTimeStop(TimeStopUtils.getTimeStopper(world))){
             ci.cancel();
         }
@@ -61,7 +58,7 @@ public class ServerWorldMixin {
 
     @Inject(method = "tickPassenger", at = @At("HEAD"), cancellable = true)
     private void eyesOfEnder$doNotTickPassenger (Entity vehicle, Entity passenger, CallbackInfo ci) {
-        ClientWorld world = MinecraftClient.getInstance().world;
+        ServerWorld world = (ServerWorld) (Object) this;
         if (world != null && TimeStopUtils.getTimeStoppedTicks(world) > 0 && TimeStopUtils.isInRangeOfTimeStop(TimeStopUtils.getTimeStopper(world))){
             ci.cancel();
         }
@@ -69,7 +66,7 @@ public class ServerWorldMixin {
 
     @Inject(method = "tickSpawners", at = @At("HEAD"), cancellable = true)
     private void eyesOfEnder$doNotTickSpawners (boolean spawnMonsters, boolean spawnAnimals, CallbackInfo ci) {
-        ClientWorld world = MinecraftClient.getInstance().world;
+        ServerWorld world = (ServerWorld) (Object) this;
         if (world != null && TimeStopUtils.getTimeStoppedTicks(world) > 0 && TimeStopUtils.isInRangeOfTimeStop(TimeStopUtils.getTimeStopper(world))){
             ci.cancel();
         }

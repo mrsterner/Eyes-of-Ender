@@ -1,6 +1,8 @@
 package dev.mrsterner.eyesofender.mixin.client;
 
 import dev.mrsterner.eyesofender.common.utils.TimeStopUtils;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.Entity;
@@ -16,7 +18,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import static dev.mrsterner.eyesofender.common.utils.TimeStopUtils.getTimeStopper;
 
-
+@Environment(EnvType.CLIENT)
 @Mixin(ClientWorld.class)
 public class ClientWorldMixin {
 
