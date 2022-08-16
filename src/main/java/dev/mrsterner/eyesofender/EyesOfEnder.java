@@ -2,12 +2,14 @@ package dev.mrsterner.eyesofender;
 
 import com.mojang.datafixers.util.Pair;
 import dev.mrsterner.eyesofender.common.ability.stand.EOEStandAbilitiesCallback;
+import dev.mrsterner.eyesofender.common.block.CoffinBlock;
 import dev.mrsterner.eyesofender.common.networking.packet.HamonAbilityPacket;
 import dev.mrsterner.eyesofender.common.networking.packet.SyncHamonUserDataPacket;
 import dev.mrsterner.eyesofender.common.registry.*;
 import dev.mrsterner.eyesofender.common.utils.EOEUtils;
 import dev.mrsterner.eyesofender.common.utils.TimeStopUtils;
 import eu.midnightdust.lib.config.MidnightConfig;
+import net.fabricmc.fabric.api.entity.event.v1.EntitySleepEvents;
 import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
@@ -18,6 +20,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
@@ -63,6 +66,18 @@ public class EyesOfEnder implements ModInitializer {
 		AttackEntityCallback.EVENT.register(this::stainStoneMask);
 		AttackEntityCallback.EVENT.register(this::damageInTimeStop);
 		ServerWorldTickEvents.START.register(this::timeStopper);
+		EntitySleepEvents.ALLOW_SLEEP_TIME.register((player, sleepingPos, vanillaResult) -> player.world.getBlockState(sleepingPos).getBlock() instanceof CoffinBlock && player.world.isDay() ? ActionResult.success(player.world.isClient) : ActionResult.PASS);
+
+		EntitySleepEvents.ALLOW_SLEEPING.register((player, sleepingPos) -> {
+			if (player.world.getBlockState(sleepingPos).getBlock() instanceof CoffinBlock) {
+				if (player.world.isNight()) {
+					player.sendMessage(Text.translatable("block.minecraft.bed.coffin"), true);
+					return PlayerEntity.SleepFailureReason.OTHER_PROBLEM;
+				}
+				return null;
+			}
+			return null;
+		});
 	}
 
 	/**

@@ -22,6 +22,7 @@
     "client.InGameHudMixin",
     "client.LivingEntityRendererMixin",
     "client.ParticleManagerMixin",
+    "client.PlayerEntityRendererMixin",
     "client.SpriteAtlasTextureMixin",
     "client.TexturedRenderLayersMixin",
     "client.WorldRendererMixin"

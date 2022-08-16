@@ -30,6 +30,7 @@ public class EOEUtils {
 
 	}
 
+
 	public static boolean canHamonBreath(LivingEntity livingEntity){
 		int y = livingEntity.getMaxAir();
 		int z = Math.min(livingEntity.getAir(), y);
