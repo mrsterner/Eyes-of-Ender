@@ -25,6 +25,7 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.hit.EntityHitResult;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import org.quiltmc.loader.api.ModContainer;
@@ -66,18 +67,41 @@ public class EyesOfEnder implements ModInitializer {
 		AttackEntityCallback.EVENT.register(this::stainStoneMask);
 		AttackEntityCallback.EVENT.register(this::damageInTimeStop);
 		ServerWorldTickEvents.START.register(this::timeStopper);
-		EntitySleepEvents.ALLOW_SLEEP_TIME.register((player, sleepingPos, vanillaResult) -> player.world.getBlockState(sleepingPos).getBlock() instanceof CoffinBlock && player.world.isDay() ? ActionResult.success(player.world.isClient) : ActionResult.PASS);
+		EntitySleepEvents.ALLOW_SLEEP_TIME.register(this::coffinSleep);
+		EntitySleepEvents.ALLOW_SLEEPING.register(this::coffinSleep);
 
-		EntitySleepEvents.ALLOW_SLEEPING.register((player, sleepingPos) -> {
-			if (player.world.getBlockState(sleepingPos).getBlock() instanceof CoffinBlock) {
-				if (player.world.isNight()) {
-					player.sendMessage(Text.translatable("block.minecraft.bed.coffin"), true);
-					return PlayerEntity.SleepFailureReason.OTHER_PROBLEM;
-				}
-				return null;
+	}
+
+	/**
+	 *
+	 * @param player
+	 * @param blockPos
+	 * @param vanillaResult
+	 * @return
+	 */
+	private ActionResult coffinSleep(PlayerEntity player, BlockPos blockPos, boolean vanillaResult) {
+		if(player.world.getBlockState(blockPos).getBlock() instanceof CoffinBlock && player.world.isDay()){
+			return ActionResult.success(player.world.isClient);
+		}else{
+			return ActionResult.PASS;
+		}
+	}
+
+	/**
+	 *
+	 * @param player
+	 * @param blockPos
+	 * @return
+	 */
+	private PlayerEntity.SleepFailureReason coffinSleep(PlayerEntity player, BlockPos blockPos) {
+		if (player.world.getBlockState(blockPos).getBlock() instanceof CoffinBlock) {
+			if (player.world.isNight()) {
+				player.sendMessage(Text.translatable("block.minecraft.bed.coffin"), true);
+				return PlayerEntity.SleepFailureReason.OTHER_PROBLEM;
 			}
 			return null;
-		});
+		}
+		return null;
 	}
 
 	/**
