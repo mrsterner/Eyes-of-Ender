@@ -38,7 +38,7 @@ public class HamonAbilityHUD extends DrawableHelper {
 				shader.getUniformOrDefault("FreqY").setFloat(15f);
 				shader.getUniformOrDefault("Speed").setFloat(1500f);
 				shader.getUniformOrDefault("Amplitude").setFloat(75f);
-				RenderUtils.blit(matrixStack, EOEShaders.DISTORTED_TEXTURE, 4, 4, 18, 18, 1, 1, 1, 1, 0, 0, 18f);
+				RenderUtils.blit(matrixStack, EOEShaders.DISTORTED_TEXTURE, 4, 4, 18, 18, 1, 1, 1, 1, 0, 0, 18f, 18f);
 				if (Screen.hasShiftDown()) {
 					if (shiftTicks < 10) {
 						this.shiftTicks++;

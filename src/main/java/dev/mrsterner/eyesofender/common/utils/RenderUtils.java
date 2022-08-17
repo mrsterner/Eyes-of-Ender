@@ -10,14 +10,14 @@ import net.minecraft.util.math.Matrix4f;
 
 
 public class RenderUtils {
-    public static void blit(MatrixStack stack, ShaderInstance shader, int x, int y, double width, double height, float r, float g, float b, float a, float u, float v, float canvasSize) {
+    public static void blit(MatrixStack stack, ShaderInstance shader, int x, int y, double width, double height, float r, float g, float b, float a, float u, float v, float sizeX, float sizeY) {
         Matrix4f last = stack.peek().getPosition();
         RenderSystem.setShader(shader.getInstance());
         BufferBuilder bufferbuilder = MinecraftClient.getInstance().getBufferBuilders().getBlockBufferBuilders().get(RenderLayer.getTranslucent());
         bufferbuilder.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_COLOR_TEXTURE);
-        bufferbuilder.vertex(last, (float) x, (float) y + (float) height, 0).color(r, g, b, a).uv(u, v + (float)(height / canvasSize)).next();
-        bufferbuilder.vertex(last, (float) x + (float) width, (float) y + (float) height, 0).color(r, g, b, a).uv(u + (float)(width / canvasSize), v + (float)(height / canvasSize)).next();
-        bufferbuilder.vertex(last, (float) x + (float) width, (float) y, 0).color(r, g, b, a).uv(u + (float)(width / canvasSize), v).next();
+        bufferbuilder.vertex(last, (float) x, (float) y + (float) height, 0).color(r, g, b, a).uv(u, v + (float)(height / sizeY)).next();
+        bufferbuilder.vertex(last, (float) x + (float) width, (float) y + (float) height, 0).color(r, g, b, a).uv(u + (float)(width / sizeX), v + (float)(height / sizeY)).next();
+        bufferbuilder.vertex(last, (float) x + (float) width, (float) y, 0).color(r, g, b, a).uv(u + (float)(width / sizeX), v).next();
         bufferbuilder.vertex(last, (float) x, (float) y, 0).color(r, g, b, a).uv(u, v).next();
         BufferRenderer.drawWithShader(bufferbuilder.end());
     }

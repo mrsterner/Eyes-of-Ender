@@ -43,7 +43,7 @@ public class SelectHamonAbilityWidget extends ClickableWidget {
 		shader.getUniformOrDefault("FreqY").setFloat(15f);
 		shader.getUniformOrDefault("Speed").setFloat(1500f);
 		shader.getUniformOrDefault("Amplitude").setFloat(75f);
-		RenderUtils.blit(matrices, EOEShaders.DISTORTED_TEXTURE, x + 5, y + 5, 18, 18, 1, 1, 1, 1, 0, 0, 18f);
+		RenderUtils.blit(matrices, EOEShaders.DISTORTED_TEXTURE, x + 5, y + 5, 18, 18, 1, 1, 1, 1, 0, 0, 18f, 18f);
 		if (isHoveredOrFocused() && hoverTicks < 20) {
 			hoverTicks++;
 		} else if (hoverTicks > 0) {

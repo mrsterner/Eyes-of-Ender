@@ -1,9 +1,13 @@
 package dev.mrsterner.eyesofender;
 
+import com.mojang.blaze3d.systems.RenderSystem;
 import com.williambl.early_features.api.LivingEntityEarlyFeatureRendererRegistrationCallback;
+import dev.mrsterner.eyesofender.api.enums.Hamon;
+import dev.mrsterner.eyesofender.api.events.InGameHudEvents;
 import dev.mrsterner.eyesofender.api.interfaces.HamonUser;
 import dev.mrsterner.eyesofender.client.EOESpriteIdentifiers;
 import dev.mrsterner.eyesofender.client.gui.HamonAbilityClientHandler;
+import dev.mrsterner.eyesofender.client.registry.EOEShaders;
 import dev.mrsterner.eyesofender.client.renderer.block.CoffinBlockEntityRenderer;
 import dev.mrsterner.eyesofender.client.registry.EOEParticleTypes;
 import dev.mrsterner.eyesofender.client.registry.EOESoundEvents;
@@ -14,7 +18,9 @@ import dev.mrsterner.eyesofender.common.networking.packet.HamonAbilityPacket;
 import dev.mrsterner.eyesofender.common.networking.packet.SyncHamonUserDataPacket;
 import dev.mrsterner.eyesofender.common.registry.EOEBlockEntityTypes;
 import dev.mrsterner.eyesofender.common.registry.EOEObjects;
+import dev.mrsterner.eyesofender.common.utils.EOEUtils;
 import dev.mrsterner.eyesofender.common.utils.NbtUtils;
+import dev.mrsterner.eyesofender.common.utils.RenderUtils;
 import ladysnake.satin.api.event.PostWorldRenderCallback;
 import ladysnake.satin.api.experimental.ReadableDepthFramebuffer;
 import ladysnake.satin.api.managed.ManagedShaderEffect;
@@ -24,9 +30,12 @@ import net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.Camera;
+import net.minecraft.client.render.ShaderProgram;
 import net.minecraft.client.render.entity.PlayerEntityRenderer;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Matrix4f;
 import net.minecraft.util.math.Vec3d;
@@ -38,7 +47,10 @@ import org.quiltmc.qsl.networking.api.client.ClientPlayNetworking;
 import software.bernie.geckolib3.renderers.geo.GeoArmorRenderer;
 import software.bernie.geckolib3.renderers.geo.GeoItemRenderer;
 
+import static net.minecraft.client.gui.DrawableHelper.GUI_ICONS_TEXTURE;
+
 public class EyesOfEnderClient implements ClientModInitializer {
+	private float hamonFade = 1.0F;
 	private int ticks = 0;
 	private float prevRadius = 0f;
 	private float radius = 0f;
@@ -47,6 +59,7 @@ public class EyesOfEnderClient implements ClientModInitializer {
 	public long effectLength = 0;
 	private Matrix4f projectionMatrix = new Matrix4f();
 	public boolean shouldRender = false;
+	private static final Identifier EYES_OF_ENDER_GUI_ICONS_TEXTURE = EyesOfEnder.id("textures/gui/hamonbar.png");
 	private ManagedShaderEffect shader = ShaderEffectManager.getInstance().manage(EyesOfEnder.id("shaders/post/za_warudo.json"), shader -> {
 		MinecraftClient mc = MinecraftClient.getInstance();
 		shader.setSamplerUniform("DepthSampler", ((ReadableDepthFramebuffer) mc.getFramebuffer()).getStillDepthMap());
@@ -69,6 +82,8 @@ public class EyesOfEnderClient implements ClientModInitializer {
 		ClientTickEvents.END.register(ClientTickHandler::clientTickEnd);
 		PostWorldRenderCallback.EVENT.register(this::zaWarudo);
 		ClientTickEvents.START.register(this::zaWarduo);
+		InGameHudEvents.AFTER_ARMOR.register(this::renderHamonHud);
+
 
 		BlockEntityRendererRegistry.register(EOEBlockEntityTypes.COFFIN_BLOCK_ENTITY, CoffinBlockEntityRenderer::new);
 		EntityModelLayerRegistry.registerModelLayer(CoffinBlockEntityRenderer.COFFIN_LAYER, CoffinBlockEntityRenderer::getTexturedModelData);
@@ -83,6 +98,49 @@ public class EyesOfEnderClient implements ClientModInitializer {
 		});
 	}
 
+	private void renderHamonHud(MatrixStack matrices, PlayerEntity player, int ticks, int scaledWidth, int scaledHeight) {
+		HamonUser.of(player).filter(hamonUser -> hamonUser.getHamonLevel() != Hamon.EMPTY).ifPresent(hamonUser -> {
+			if(this.ticks % 4 == 0 && hamonFade < 1.0F && EOEUtils.canHamonBreath(player)){
+				hamonFade = hamonFade + 0.1F;
+			}
+			if(hamonFade > 0.0F && !EOEUtils.canHamonBreath(player)){
+				hamonFade = hamonFade - 0.4F;
+			}
+
+			matrices.push();
+			RenderSystem.setShaderTexture(0, EYES_OF_ENDER_GUI_ICONS_TEXTURE);
+			RenderSystem.setShaderColor(1f, 1f, 1f, hamonFade - 0.2F);
+			renderHamon(matrices, hamonUser.getHamonBreath(), scaledWidth / 2 - 91, scaledHeight - 39);
+			RenderSystem.setShaderTexture(0, GUI_ICONS_TEXTURE);
+			RenderSystem.depthMask(true);
+			RenderSystem.disableBlend();
+			matrices.pop();
+		});
+	}
+
+	private void renderHamon(MatrixStack matrices, int hamonBreath, int x, int y) {
+		ShaderProgram shader = EOEShaders.DISTORTED_TEXTURE.getInstance().get();
+		shader.getUniformOrDefault("FreqX").setFloat(1f);
+		shader.getUniformOrDefault("FreqY").setFloat(15f);
+		shader.getUniformOrDefault("Speed").setFloat(1500f);
+		shader.getUniformOrDefault("Amplitude").setFloat(50f);
+		RenderUtils.blit(matrices, EOEShaders.DISTORTED_TEXTURE, x + 100, y - 10, 8 * hamonBreath, 9, 1, 1, 1, 1, 0, 0, 80, 9);
+
+
+/*
+		for (int i = 0; i < hamonBreath; i++) {
+			ShaderProgram shader = EOEShaders.DISTORTED_TEXTURE.getInstance().get();
+			shader.getUniformOrDefault("FreqX").setFloat(15f);
+			shader.getUniformOrDefault("FreqY").setFloat(15f);
+			shader.getUniformOrDefault("Speed").setFloat(1500f);
+			shader.getUniformOrDefault("Amplitude").setFloat(75f);
+			RenderUtils.blit(matrices, EOEShaders.DISTORTED_TEXTURE, (x - i * 8) + 9 * 19 + 2, y - 10, 9, 9, 1, 1, 1, 1, 0, 0, 9, 9);
+		}
+
+ */
+
+
+	}
 
 	private float lerp(double n, double prevN, float tickDelta) {
 		return (float) MathHelper.lerp(tickDelta, prevN, n);
