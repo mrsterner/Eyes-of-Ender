@@ -25,7 +25,7 @@ public class HamonAbility {
 		if (!user.world.isClient && abilityUserOptional.isPresent()) {
 			HamonAbilityPacket.send(user, toTag(new NbtCompound()));
 		}
-		return hamonKnowledge.canCast(user);
+		return hamonKnowledge.canUse(user);
 	}
 
 	public NbtCompound toTag(NbtCompound tag) {

@@ -13,6 +13,7 @@ import dev.mrsterner.eyesofender.client.registry.EOESoundEvents;
 import dev.mrsterner.eyesofender.client.renderer.feature.HamonFeatureRenderer;
 import dev.mrsterner.eyesofender.client.renderer.StoneMaskArmorRenderer;
 import dev.mrsterner.eyesofender.client.renderer.StoneMaskItemRenderer;
+import dev.mrsterner.eyesofender.common.networking.packet.CyborgAbilityPacket;
 import dev.mrsterner.eyesofender.common.networking.packet.HamonAbilityPacket;
 import dev.mrsterner.eyesofender.common.networking.packet.SyncHamonUserDataPacket;
 import dev.mrsterner.eyesofender.common.registry.EOEBlockEntityTypes;
@@ -74,6 +75,7 @@ public class EyesOfEnderClient implements ClientModInitializer {
 		HamonAbilityClientHandler.init();
 
 		ClientPlayNetworking.registerGlobalReceiver(HamonAbilityPacket.ID, HamonAbilityPacket::handle);
+		ClientPlayNetworking.registerGlobalReceiver(CyborgAbilityPacket.ID, CyborgAbilityPacket::handle);
 		ClientPlayNetworking.registerGlobalReceiver(SyncHamonUserDataPacket.ID, (client, networkHandler, packetByteBuf, sender) -> {
 			NbtCompound tag = packetByteBuf.readNbt();
 			client.execute(() -> HamonUser.of(client.player).ifPresent(user -> NbtUtils.readAbilityData(user, tag)));

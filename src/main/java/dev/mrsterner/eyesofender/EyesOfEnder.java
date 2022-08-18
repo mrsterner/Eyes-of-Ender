@@ -1,8 +1,10 @@
 package dev.mrsterner.eyesofender;
 
 import com.mojang.datafixers.util.Pair;
+import dev.mrsterner.eyesofender.api.enums.BodyPart;
 import dev.mrsterner.eyesofender.common.ability.stand.EOEStandAbilitiesCallback;
 import dev.mrsterner.eyesofender.common.block.CoffinBlock;
+import dev.mrsterner.eyesofender.common.networking.packet.CyborgAbilityPacket;
 import dev.mrsterner.eyesofender.common.networking.packet.HamonAbilityPacket;
 import dev.mrsterner.eyesofender.common.networking.packet.SyncHamonUserDataPacket;
 import dev.mrsterner.eyesofender.common.registry.*;
@@ -58,18 +60,40 @@ public class EyesOfEnder implements ModInitializer {
 		EOEBlockEntityTypes.init();
 		EOEEntityTypes.init();
 		EOEHamonAbilities.init();
+		EOECyborgAbilities.init();
 		EOEWorldGenerators.init();
 		EOEStandAbilitiesCallback.init();
 
 		ServerPlayNetworking.registerGlobalReceiver(SyncHamonUserDataPacket.ID, SyncHamonUserDataPacket::handleFromClient);
 		ServerPlayNetworking.registerGlobalReceiver(HamonAbilityPacket.ID, HamonAbilityPacket::handleFromClient);
+		ServerPlayNetworking.registerGlobalReceiver(CyborgAbilityPacket.ID, CyborgAbilityPacket::handleFromClient);
 
 		AttackEntityCallback.EVENT.register(this::stainStoneMask);
 		AttackEntityCallback.EVENT.register(this::damageInTimeStop);
 		ServerWorldTickEvents.START.register(this::timeStopper);
 		EntitySleepEvents.ALLOW_SLEEP_TIME.register(this::coffinSleep);
 		EntitySleepEvents.ALLOW_SLEEPING.register(this::coffinSleep);
+		ServerWorldTickEvents.START.register(this::dropItems);
 
+	}
+
+	private void dropItems(MinecraftServer minecraftServer, ServerWorld serverWorld) {
+		serverWorld.getPlayers().stream().forEach(serverPlayerEntity -> {
+			if(EOEUtils.ifMissingLegs(serverPlayerEntity)){
+				serverPlayerEntity.dropItem(serverPlayerEntity.getEquippedStack(EquipmentSlot.LEGS).getItem(), 1);
+				serverPlayerEntity.getEquippedStack(EquipmentSlot.LEGS).decrement(1);
+				serverPlayerEntity.dropItem(serverPlayerEntity.getEquippedStack(EquipmentSlot.FEET).getItem(), 1);
+				serverPlayerEntity.getEquippedStack(EquipmentSlot.FEET).decrement(1);
+			}
+			if(!EOEComponents.BODY_COMPONENT.get(serverPlayerEntity).hasBodyPart(BodyPart.TORSO)){
+				serverPlayerEntity.dropItem(serverPlayerEntity.getEquippedStack(EquipmentSlot.CHEST).getItem(), 1);
+				serverPlayerEntity.getEquippedStack(EquipmentSlot.CHEST).decrement(1);
+			}
+			if(!EOEComponents.BODY_COMPONENT.get(serverPlayerEntity).hasBodyPart(BodyPart.HEAD)){
+				serverPlayerEntity.dropItem(serverPlayerEntity.getEquippedStack(EquipmentSlot.HEAD).getItem(), 1);
+				serverPlayerEntity.getEquippedStack(EquipmentSlot.HEAD).decrement(1);
+			}
+		});
 	}
 
 	/**

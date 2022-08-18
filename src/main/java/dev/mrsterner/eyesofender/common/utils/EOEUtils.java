@@ -1,6 +1,8 @@
 package dev.mrsterner.eyesofender.common.utils;
 
 import dev.mrsterner.eyesofender.EyesOfEnder;
+import dev.mrsterner.eyesofender.api.enums.BodyPart;
+import dev.mrsterner.eyesofender.common.registry.EOEComponents;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.data.DataTracker;
@@ -12,6 +14,8 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.tag.FluidTags;
 import net.minecraft.tag.TagKey;
 import net.minecraft.util.registry.Registry;
+
+import java.util.LinkedHashSet;
 
 public class EOEUtils {
 	public static class DataTrackers{
@@ -44,5 +48,47 @@ public class EOEUtils {
 			stack.setNbt(tagCompound);
 		}
 		return tagCompound;
+	}
+
+	public static boolean ifMissingArmsLegsTorso(PlayerEntity player){
+		return !EOEComponents.BODY_COMPONENT.get(player).hasBodyPart(BodyPart.TORSO) &&
+				!EOEComponents.BODY_COMPONENT.get(player).hasBodyPart(BodyPart.RIGHTARM) &&
+				!EOEComponents.BODY_COMPONENT.get(player).hasBodyPart(BodyPart.LEFTARM) &&
+				!EOEComponents.BODY_COMPONENT.get(player).hasBodyPart(BodyPart.LEFTLEG) &&
+				!EOEComponents.BODY_COMPONENT.get(player).hasBodyPart(BodyPart.RIGHTLEG);
+	}
+
+	public static boolean ifMissingLegs(PlayerEntity player){
+		return !EOEComponents.BODY_COMPONENT.get(player).hasBodyPart(BodyPart.LEFTLEG) &&
+				!EOEComponents.BODY_COMPONENT.get(player).hasBodyPart(BodyPart.RIGHTLEG);
+	}
+
+	private static LinkedHashSet<Integer> disabledSlots = new LinkedHashSet<>();
+	public static boolean isDisabled(int slot) {
+		return disabledSlots.contains(slot);
+	}
+
+	public static void lockSlot(int slot) {
+		disabledSlots.add(slot);
+	}
+
+	public static void unlockSlot(int slot) {
+		disabledSlots.remove(slot);
+	}
+
+	public static void removeBodyPart(PlayerEntity player, BodyPart bodyParts){
+		EOEComponents.BODY_COMPONENT.get(player).setBodyPart(bodyParts, false);
+		switch (bodyParts){
+			case EYES -> {}
+			case LEFTLEG -> {}
+			case RIGHTLEG -> {}
+			case LEFTARM -> {
+				player.dropItem(player.getOffHandStack(), false);
+				lockSlot(40);
+			}
+			case RIGHTARM -> {player.dropItem(player.getMainHandStack(), false);}
+			case TORSO -> {}
+			case HEAD -> {}
+		}
 	}
 }

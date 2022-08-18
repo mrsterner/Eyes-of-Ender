@@ -1,6 +1,8 @@
 package dev.mrsterner.eyesofender.mixin.client;
 
+import dev.mrsterner.eyesofender.api.enums.BodyPart;
 import dev.mrsterner.eyesofender.common.entity.BaseStandEntity;
+import dev.mrsterner.eyesofender.common.registry.EOEComponents;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
@@ -14,6 +16,7 @@ import net.minecraft.client.render.entity.feature.FeatureRendererContext;
 import net.minecraft.client.render.entity.model.EntityModel;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.Vec3d;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -43,6 +46,18 @@ public abstract class LivingEntityRendererMixin<T extends LivingEntity, M extend
 		if(stand != null){
 			stand.motionCalc = new Vec3d(livingEntity.getX() - livingEntity.prevX, livingEntity.getY() - livingEntity.prevY,livingEntity.getZ() - livingEntity.prevZ);
 			MinecraftClient.getInstance().getEntityRenderDispatcher().getRenderer(stand).render(stand, yaw, tickDelta, matrixStack, vertexConsumerProvider, i);
+		}
+	}
+
+	@Inject(method = "render*", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/entity/LivingEntityRenderer;setupTransforms(Lnet/minecraft/entity/LivingEntity;Lnet/minecraft/client/util/math/MatrixStack;FFF)V"))
+	private void init(T livingEntity, float f, float g, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, CallbackInfo ci) {
+		if(livingEntity instanceof PlayerEntity player){
+			if(!EOEComponents.BODY_COMPONENT.get(player).hasBodyPart(BodyPart.RIGHTLEG) && !EOEComponents.BODY_COMPONENT.get(player).hasBodyPart(BodyPart.LEFTLEG)){
+				matrixStack.translate(0,-0.75,0);
+				if(!EOEComponents.BODY_COMPONENT.get(player).hasBodyPart(BodyPart.TORSO) && !EOEComponents.BODY_COMPONENT.get(player).hasBodyPart(BodyPart.LEFTARM) && !EOEComponents.BODY_COMPONENT.get(player).hasBodyPart(BodyPart.RIGHTARM)){
+					matrixStack.translate(0,-0.65,0);
+				}
+			}
 		}
 	}
 }
