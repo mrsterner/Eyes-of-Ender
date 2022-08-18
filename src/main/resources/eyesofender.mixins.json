@@ -19,7 +19,6 @@
     "client.ClientPlayerEntityMixin",
     "client.ClientWorldMixin",
     "client.GameRendererMixin",
-    "client.InGameHudMixin",
     "client.LivingEntityRendererMixin",
     "client.ParticleManagerMixin",
     "client.PlayerEntityRendererMixin",

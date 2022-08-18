@@ -3,7 +3,6 @@ package dev.mrsterner.eyesofender;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.williambl.early_features.api.LivingEntityEarlyFeatureRendererRegistrationCallback;
 import dev.mrsterner.eyesofender.api.enums.Hamon;
-import dev.mrsterner.eyesofender.api.events.InGameHudEvents;
 import dev.mrsterner.eyesofender.api.interfaces.HamonUser;
 import dev.mrsterner.eyesofender.client.EOESpriteIdentifiers;
 import dev.mrsterner.eyesofender.client.gui.HamonAbilityClientHandler;
@@ -28,6 +27,7 @@ import ladysnake.satin.api.managed.ShaderEffectManager;
 import ladysnake.satin.api.util.GlMatrices;
 import net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.Camera;
 import net.minecraft.client.render.ShaderProgram;
@@ -55,7 +55,7 @@ public class EyesOfEnderClient implements ClientModInitializer {
 	private float prevRadius = 0f;
 	private float radius = 0f;
 	private boolean renderingEffect = false;
-	public @Nullable PlayerEntity player = null;
+	public @Nullable PlayerEntity shaderPlayer = null;
 	public long effectLength = 0;
 	private Matrix4f projectionMatrix = new Matrix4f();
 	public boolean shouldRender = false;
@@ -82,7 +82,7 @@ public class EyesOfEnderClient implements ClientModInitializer {
 		ClientTickEvents.END.register(ClientTickHandler::clientTickEnd);
 		PostWorldRenderCallback.EVENT.register(this::zaWarudo);
 		ClientTickEvents.START.register(this::zaWarduo);
-		InGameHudEvents.AFTER_ARMOR.register(this::renderHamonHud);
+		HudRenderCallback.EVENT.register(this::renderHamonHud);
 
 
 		BlockEntityRendererRegistry.register(EOEBlockEntityTypes.COFFIN_BLOCK_ENTITY, CoffinBlockEntityRenderer::new);
@@ -98,7 +98,12 @@ public class EyesOfEnderClient implements ClientModInitializer {
 		});
 	}
 
-	private void renderHamonHud(MatrixStack matrices, PlayerEntity player, int ticks, int scaledWidth, int scaledHeight) {
+	private void renderHamonHud(MatrixStack matrixStack, float tickDelta) {
+		MinecraftClient mc = MinecraftClient.getInstance();
+		PlayerEntity player = mc.player;
+		int scaledHeight = mc.getWindow().getScaledHeight();
+		int scaledWidth = mc.getWindow().getScaledWidth();
+
 		HamonUser.of(player).filter(hamonUser -> hamonUser.getHamonLevel() != Hamon.EMPTY).ifPresent(hamonUser -> {
 			if(this.ticks % 4 == 0 && hamonFade < 1.0F && EOEUtils.canHamonBreath(player)){
 				hamonFade = hamonFade + 0.1F;
@@ -107,16 +112,18 @@ public class EyesOfEnderClient implements ClientModInitializer {
 				hamonFade = hamonFade - 0.4F;
 			}
 
-			matrices.push();
+			matrixStack.push();
 			RenderSystem.setShaderTexture(0, EYES_OF_ENDER_GUI_ICONS_TEXTURE);
 			RenderSystem.setShaderColor(1f, 1f, 1f, hamonFade - 0.2F);
-			renderHamon(matrices, hamonUser.getHamonBreath(), scaledWidth / 2 - 91, scaledHeight - 39);
+			renderHamon(matrixStack, hamonUser.getHamonBreath(), scaledWidth / 2 - 91, scaledHeight - 39);
 			RenderSystem.setShaderTexture(0, GUI_ICONS_TEXTURE);
 			RenderSystem.depthMask(true);
 			RenderSystem.disableBlend();
-			matrices.pop();
+			matrixStack.pop();
 		});
 	}
+
+
 
 	private void renderHamon(MatrixStack matrices, int hamonBreath, int x, int y) {
 		ShaderProgram shader = EOEShaders.DISTORTED_TEXTURE.getInstance().get();
@@ -190,12 +197,12 @@ public class EyesOfEnderClient implements ClientModInitializer {
 					"CameraPosition", (float) cameraPos.x, (float) cameraPos.y,
 					(float) cameraPos.z
 			);
-			if (player != null) {
+			if (shaderPlayer != null) {
 				shader.setUniformValue(
 						"Center",
-						lerp(player.getX(), player.prevX, tickDelta),
-						lerp(player.getY()+0.5, player.prevY+0.5, tickDelta),
-						lerp(player.getZ(), player.prevZ, tickDelta)
+						lerp(shaderPlayer.getX(), shaderPlayer.prevX, tickDelta),
+						lerp(shaderPlayer.getY()+0.5, shaderPlayer.prevY+0.5, tickDelta),
+						lerp(shaderPlayer.getZ(), shaderPlayer.prevZ, tickDelta)
 				);
 			}
 			shader.setUniformValue("Radius", Math.max(0f, lerp(radius, prevRadius, tickDelta)));
