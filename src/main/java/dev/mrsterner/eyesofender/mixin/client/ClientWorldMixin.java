@@ -44,8 +44,7 @@ public class ClientWorldMixin {
             entity.lastRenderX = entity.getX();
             entity.lastRenderY = entity.getY();
             entity.lastRenderZ = entity.getZ();
-            if (entity instanceof LivingEntity) {
-                LivingEntity livingEntity = (LivingEntity) entity;
+            if (entity instanceof LivingEntity livingEntity) {
                 livingEntity.prevBodyYaw = livingEntity.bodyYaw;
                 livingEntity.prevHeadYaw = livingEntity.headYaw;
                 livingEntity.lastHandSwingProgress = livingEntity.handSwingProgress;

@@ -14,6 +14,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.tag.FluidTags;
 import net.minecraft.tag.TagKey;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
 import java.util.LinkedHashSet;
@@ -32,7 +33,9 @@ public class EOEUtils {
 		public static final String ABILITY_COOLDOWN = "AbilityCooldown";
 		public static final String HAMON_BREATH = "HamonBreath";
 		public static final String ABILITY_LIST = "AbilityList";
-
+	}
+	public static class Identifiers {
+		public static final Identifier OVERLAY_OVERDRIVE = EyesOfEnder.id("textures/gui/ability_widgets/ability/overlay_overdrive.png");
 	}
 
 

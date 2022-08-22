@@ -56,7 +56,6 @@ public class CoffinBlock extends BedBlock implements BlockEntityProvider {
         return SHAPE;
     }
 
-
     @Override
     public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos) {
         if (direction == getDirectionTowardsOtherPart(state.get(PART), state.get(FACING))) {
