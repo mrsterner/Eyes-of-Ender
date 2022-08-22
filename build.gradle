@@ -49,6 +49,10 @@ repositories {
 		url = 'https://ladysnake.jfrog.io/artifactory/mods'
 	}
 	maven {
+		name "KosmX's maven"
+		url 'https://maven.kosmx.dev/'
+	}
+	maven {
 		name "Cardinal components, Impersonat"
 		url "https://ladysnake.jfrog.io/artifactory/mods"
 	}
@@ -138,6 +142,9 @@ dependencies {
 	modImplementation include("me.lucko:fabric-permissions-api:${project.fpa_version}") {
 		exclude group: "net.fabricmc.fabric-api"
 	}
+
+	//Player Animator
+	include modImplementation("dev.kosmx.player-anim:player-animation-lib-fabric:${project.player_anim}")
 }
 
 processResources {
