@@ -29,6 +29,7 @@ public class SelectHamonAbilityWidget extends ClickableWidget {
 
 	@Override
 	public void renderButton(MatrixStack matrices, int mouseX, int mouseY, float delta) {
+		matrices.push();
 		MinecraftClient minecraftClient = MinecraftClient.getInstance();
 		RenderSystem.setShaderTexture(0, getTexture(hamonAbility.hamonLevel));
 		this.alpha = (screen.openTicks + MinecraftClient.getInstance().getTickDelta()) / 5F;
@@ -44,6 +45,18 @@ public class SelectHamonAbilityWidget extends ClickableWidget {
 		shader.getUniformOrDefault("Speed").setFloat(1500f);
 		shader.getUniformOrDefault("Amplitude").setFloat(75f);
 		RenderUtils.blit(matrices, EOEShaders.DISTORTED_TEXTURE, x + 5, y + 5, 18, 18, 1, 1, 1, 1, 0, 0, 18f, 18f);
+		matrices.pop();
+
+		if(hamonAbility.hamonKnowledge.getOverlay() != null){
+			RenderSystem.setShaderTexture(0, hamonAbility.hamonKnowledge.getOverlay());
+			ShaderProgram shader2 = EOEShaders.DISTORTED_TEXTURE.getInstance().get();
+			shader2.getUniformOrDefault("FreqX").setFloat(1f);
+			shader2.getUniformOrDefault("FreqY").setFloat(1f);
+			shader2.getUniformOrDefault("Speed").setFloat(200f);
+			shader2.getUniformOrDefault("Amplitude").setFloat(512f);
+			RenderUtils.blit(matrices, EOEShaders.DISTORTED_TEXTURE, x + 5, y + 5, 18, 18, 1, 1, 1, 1, 0, 0, 18f, 18f);
+		}
+
 		if (isHoveredOrFocused() && hoverTicks < 20) {
 			hoverTicks++;
 		} else if (hoverTicks > 0) {

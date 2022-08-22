@@ -6,6 +6,6 @@ import dev.mrsterner.eyesofender.api.registry.HamonKnowledge;
 public class ForcedHamonAbility extends HamonKnowledge {
 
 	public ForcedHamonAbility() {
-		super(EyesOfEnder.id("forced_hamon"), null, 0xF5CE8C);
+		super(EyesOfEnder.id("forced_hamon"), null, 0xF5CE8C, null);
 	}
 }

@@ -2,6 +2,7 @@ package dev.mrsterner.eyesofender.common.utils;
 
 import dev.mrsterner.eyesofender.EyesOfEnder;
 import dev.mrsterner.eyesofender.api.enums.BodyPart;
+import dev.mrsterner.eyesofender.common.components.entity.BodyComponent;
 import dev.mrsterner.eyesofender.common.registry.EOEComponents;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -64,6 +65,7 @@ public class EOEUtils {
 	}
 
 	private static LinkedHashSet<Integer> disabledSlots = new LinkedHashSet<>();
+
 	public static boolean isDisabled(int slot) {
 		return disabledSlots.contains(slot);
 	}
@@ -77,7 +79,8 @@ public class EOEUtils {
 	}
 
 	public static void removeBodyPart(PlayerEntity player, BodyPart bodyParts){
-		EOEComponents.BODY_COMPONENT.get(player).setBodyPart(bodyParts, false);
+		BodyComponent bodyComponent = EOEComponents.BODY_COMPONENT.get(player);
+		bodyComponent.setBodyPart(bodyParts, false, bodyComponent.getBodyPartLevel(bodyParts));
 		switch (bodyParts){
 			case EYES -> {}
 			case LEFTLEG -> {}

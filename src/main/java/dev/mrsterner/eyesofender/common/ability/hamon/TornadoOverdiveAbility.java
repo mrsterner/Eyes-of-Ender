@@ -6,6 +6,6 @@ import dev.mrsterner.eyesofender.api.registry.HamonKnowledge;
 public class TornadoOverdiveAbility extends HamonKnowledge {
 
 	public TornadoOverdiveAbility() {
-		super(EyesOfEnder.id("tornado_overdrive"), null, 0xF5CE8C);
+		super(EyesOfEnder.id("tornado_overdrive"), null, 0xF5CE8C, null);
 	}
 }

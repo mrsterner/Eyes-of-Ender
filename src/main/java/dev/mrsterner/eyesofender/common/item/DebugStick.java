@@ -29,11 +29,12 @@ public class DebugStick extends Item {
 			HamonUser.of(player).ifPresent(user -> {
 				user.getHamonAbilities().clear();
 				ArrayList<HamonAbility> hamonAbility = new ArrayList<>();
-				hamonAbility.add(0, new HamonAbility(EOEHamonAbilities.ACTIVATE, 1));
+				hamonAbility.add(0, new HamonAbility(EOEHamonAbilities.HEALING, 1));
 				hamonAbility.add(1, new HamonAbility(EOEHamonAbilities.OVERDRIVE, 1));
 				hamonAbility.add(2, new HamonAbility(EOEHamonAbilities.AFTERIMAGE, 1));
 				hamonAbility.add(3, new HamonAbility(EOEHamonAbilities.INDIGO, 1));
 				hamonAbility.add(4, new HamonAbility(EOEHamonAbilities.ORANGE, 1));
+				hamonAbility.add(5, new HamonAbility(EOEHamonAbilities.OVERDRIVE_TURQUOISE, 1));
 
 				for(int i = 0; hamonAbility.size() > i; i++){
 					user.getHamonAbilities().add(i, hamonAbility.get(i));

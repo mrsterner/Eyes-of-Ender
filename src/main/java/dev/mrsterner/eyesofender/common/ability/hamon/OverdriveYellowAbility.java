@@ -5,6 +5,6 @@ import dev.mrsterner.eyesofender.api.registry.HamonKnowledge;
 
 public class OverdriveYellowAbility extends HamonKnowledge {
 	public OverdriveYellowAbility() {
-		super(EyesOfEnder.id("overdrive_yellow"), null, 0xF5CE8C);
+		super(EyesOfEnder.id("overdrive_yellow"), null, 0xF5CE8C, EyesOfEnder.id("textures/gui/ability_widgets/ability/overlay_overdrive.png"));
 	}
 }

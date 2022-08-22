@@ -5,6 +5,6 @@ import dev.mrsterner.eyesofender.api.registry.HamonKnowledge;
 
 public class HealingAbility extends HamonKnowledge {
 	public HealingAbility() {
-		super(EyesOfEnder.id("healing"), null, 0xF5CE8C);
+		super(EyesOfEnder.id("healing"), null, 0xF5CE8C, null);
 	}
 }

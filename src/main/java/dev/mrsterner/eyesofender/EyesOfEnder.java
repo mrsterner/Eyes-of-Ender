@@ -78,7 +78,7 @@ public class EyesOfEnder implements ModInitializer {
 	}
 
 	private void dropItems(MinecraftServer minecraftServer, ServerWorld serverWorld) {
-		serverWorld.getPlayers().stream().forEach(serverPlayerEntity -> {
+		serverWorld.getPlayers().forEach(serverPlayerEntity -> {
 			if(EOEUtils.ifMissingLegs(serverPlayerEntity)){
 				serverPlayerEntity.dropItem(serverPlayerEntity.getEquippedStack(EquipmentSlot.LEGS).getItem(), 1);
 				serverPlayerEntity.getEquippedStack(EquipmentSlot.LEGS).decrement(1);

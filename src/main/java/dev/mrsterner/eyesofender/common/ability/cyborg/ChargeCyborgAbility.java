@@ -5,6 +5,6 @@ import dev.mrsterner.eyesofender.api.registry.CyborgKnowledge;
 
 public class ChargeCyborgAbility extends CyborgKnowledge {
     public ChargeCyborgAbility() {
-        super(EyesOfEnder.id("charge"), null, 0xF5CE8C);
+        super(EyesOfEnder.id("charge"), null, 0xF5CE8C, null);
     }
 }

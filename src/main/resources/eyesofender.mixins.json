@@ -16,6 +16,7 @@
   ],
   "client": [
     "access.FramebufferAccessor",
+    "access.ParticleAccessor",
     "client.ClientPlayerEntityMixin",
     "client.ClientWorldMixin",
     "client.GameRendererMixin",

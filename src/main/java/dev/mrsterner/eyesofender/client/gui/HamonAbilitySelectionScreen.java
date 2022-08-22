@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class HamonAbilitySelectionScreen extends Screen {
-	private static final int totalRadius = 32;
+	private static int totalRadius = 32;
 	public int openTicks;
 
 	public HamonAbilitySelectionScreen() {
@@ -28,6 +28,7 @@ public class HamonAbilitySelectionScreen extends Screen {
 			HamonUser.of(client.player).ifPresent(user -> {
 				List<HamonAbility> abilities = user.getHamonAbilities().stream().filter(Objects::nonNull).toList();
 				double angleSize = (Math.PI * 2) / abilities.size();
+				totalRadius = totalRadius + (abilities.size() * 2);
 				int centerX = width / 2 - totalRadius / 2 + 2;
 				int centerY = height / 2 - totalRadius / 2 + 2;
 				for (int i = 0; i < abilities.size(); i++) {

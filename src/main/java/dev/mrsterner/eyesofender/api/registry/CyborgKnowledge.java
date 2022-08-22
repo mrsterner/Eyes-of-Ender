@@ -10,11 +10,13 @@ public abstract class CyborgKnowledge {
 	private final Identifier id;
 	private final Predicate<LivingEntity> abilityPredicate;
 	private final int color;
+	private final Identifier overlay;
 
-	public CyborgKnowledge(Identifier id, @Nullable Predicate<LivingEntity> abilityPredicate, int color) {
+	public CyborgKnowledge(Identifier id, @Nullable Predicate<LivingEntity> abilityPredicate, int color, Identifier overlay) {
 		this.id = id;
 		this.abilityPredicate = abilityPredicate == null ? (living) -> true : abilityPredicate;
 		this.color = color;
+		this.overlay = overlay;
 	}
 
 	public boolean canUse(LivingEntity user) {
@@ -31,5 +33,9 @@ public abstract class CyborgKnowledge {
 
 	public Identifier getTextureLocation() {
 		return new Identifier(id.getNamespace(), "textures/gui/ability_widgets/cyborg/" + id.getPath() + ".png");
+	}
+
+	public Identifier getOverlay(){
+		return overlay;
 	}
 }
