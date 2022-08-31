@@ -17,12 +17,12 @@ public class EOEShaders {
 
     public static List<Pair<ShaderProgram, Consumer<ShaderProgram>>> shaderList;
     public static final ShaderInstance DISTORTED_TEXTURE = new ShaderInstance("Speed", "TimeOffset", "Amplitude", "FreqX", "FreqY", "UV");
-    public static final ShaderInstance HAMON = new ShaderInstance("");
+    public static final ShaderInstance HAMON = new ShaderInstance("Speed");
 
     public static void init(ResourceManager manager) throws IOException {
         shaderList = new ArrayList<>();
         registerShader(ExtendedShader.createShaderInstance(DISTORTED_TEXTURE, manager, EyesOfEnder.id("eoe__distortion"), VertexFormats.POSITION_COLOR_TEXTURE_LIGHT));
-        registerShader(ExtendedShader.createShaderInstance(HAMON, manager, EyesOfEnder.id("eoe__dummy"), VertexFormats.POSITION_COLOR_TEXTURE_LIGHT));
+        registerShader(ExtendedShader.createShaderInstance(HAMON, manager, EyesOfEnder.id("eoe__hamon"), VertexFormats.POSITION_COLOR_TEXTURE_LIGHT));
 
 
     }

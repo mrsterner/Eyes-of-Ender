@@ -8,7 +8,6 @@ uniform vec3 CameraPosition;
 uniform vec3 Center;
 uniform float Radius;
 uniform float OuterSat;
-uniform float STime;
 
 uniform mat4 InverseTransformMatrix;
 uniform ivec4 ViewPort;

@@ -95,8 +95,10 @@ public class EyesOfEnderClient implements ClientModInitializer {
 		GeoItemRenderer.registerItemRenderer(EOEObjects.STONE_MASK, new StoneMaskItemRenderer());
 
 		LivingEntityEarlyFeatureRendererRegistrationCallback.EVENT.register((entityType, entityRenderer, context) -> {
-			if(entityRenderer instanceof PlayerEntityRenderer playerRenderer)
+			if(entityRenderer instanceof PlayerEntityRenderer playerRenderer){
 				entityRenderer.addEarlyFeature(new HamonFeatureRenderer<>(playerRenderer));
+			}
+				//TODO
 		});
 	}
 
