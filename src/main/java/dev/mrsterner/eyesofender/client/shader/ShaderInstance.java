@@ -9,7 +9,7 @@ import java.util.function.Supplier;
 public final class ShaderInstance {
     public ShaderProgram instance;
     public final ArrayList<String> uniforms;
-    public final ArrayList<ExtendedShader.UniformData> defaultUniformData = new ArrayList<>();
+    public final ArrayList<EOEShaderProgram.UniformData> defaultUniformData = new ArrayList<>();
 
     public ShaderInstance(String... uniforms) {
         this.uniforms = new ArrayList<>(List.of(uniforms));

@@ -14,12 +14,12 @@ import net.minecraft.util.JsonHelper;
 import java.io.IOException;
 import java.util.Arrays;
 
-public class ExtendedShader extends ShaderProgram {
-    public ExtendedShader(ResourceFactory resourceFactory, String string, VertexFormat vertexFormat) throws IOException {
+public class EOEShaderProgram extends ShaderProgram {
+    public EOEShaderProgram(ResourceFactory resourceFactory, String string, VertexFormat vertexFormat) throws IOException {
         super(resourceFactory, string, vertexFormat);
     }
-    public static ExtendedShader createShaderInstance(ShaderInstance shaderHolder, ResourceFactory pResourceProvider, Identifier id, VertexFormat pVertexFormat) throws IOException {
-        return new ExtendedShader(pResourceProvider, id.toString(), pVertexFormat) {
+    public static EOEShaderProgram createShaderInstance(ShaderInstance shaderHolder, ResourceFactory pResourceProvider, Identifier id, VertexFormat pVertexFormat) throws IOException {
+        return new EOEShaderProgram(pResourceProvider, id.toString(), pVertexFormat) {
             @Override
             public ShaderInstance getHolder() {
                 return shaderHolder;
