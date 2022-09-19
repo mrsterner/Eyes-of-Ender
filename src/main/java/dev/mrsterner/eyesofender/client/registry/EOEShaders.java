@@ -17,7 +17,7 @@ public class EOEShaders {
 
     public static List<Pair<ShaderProgram, Consumer<ShaderProgram>>> shaderList;
     public static final ShaderInstance DISTORTED_TEXTURE = new ShaderInstance("Speed", "TimeOffset", "Amplitude", "FreqX", "FreqY", "UV");
-    public static final ShaderInstance HAMON = new ShaderInstance("Speed");
+    public static final ShaderInstance HAMON = new ShaderInstance("Speed", "Color");
 
     public static void init(ResourceManager manager) throws IOException {
         shaderList = new ArrayList<>();

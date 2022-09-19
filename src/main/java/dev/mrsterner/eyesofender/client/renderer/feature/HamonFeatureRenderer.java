@@ -20,9 +20,7 @@ public class HamonFeatureRenderer<T extends LivingEntity, M extends EntityModel<
 
 	@Override
 	public void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, T entity, float limbAngle, float limbDistance, float tickDelta, float animationProgress, float headYaw, float headPitch) {
-		float f = (float)entity.age + tickDelta;
-
-		matrices.push();
+	matrices.push();
 		VertexConsumer vertexConsumer = vertexConsumers.getBuffer(EOERenderLayers.HAMON.apply(this.getTexture(entity)));
 		RenderSystem.enableBlend();
 		RenderSystem.defaultBlendFunc();
@@ -31,6 +29,7 @@ public class HamonFeatureRenderer<T extends LivingEntity, M extends EntityModel<
 		RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, alpha);
 		ShaderProgram shader = EOEShaders.HAMON.getInstance().get();
 		shader.getUniformOrDefault("Speed").setFloat(1500f);
+		shader.getUniformOrDefault("Color").setVec3(0.5f ,0.35f ,0);
 		var model = this.getContextModel();
 		if(model instanceof PlayerEntityModel<?> playerEntityModel){
 			playerEntityModel.hat.visible = false;

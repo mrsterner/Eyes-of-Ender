@@ -54,9 +54,12 @@ public class BaseStandEntity extends PathAwareEntity implements IAnimatable {
 	@Override
 	protected void mobTick() {
 		super.mobTick();
+		/*TODO
 		if(ownerEntity == null){
 			this.discard();
 		}
+
+		 */
 		if (!world.isClient) {
 
 		}
@@ -97,7 +100,7 @@ public class BaseStandEntity extends PathAwareEntity implements IAnimatable {
 
 	private <E extends IAnimatable> PlayState basePredicate(AnimationEvent<E> animationEvent) {
 		AnimationBuilder builder = new AnimationBuilder();
-		builder.addAnimation( "animation.stand.standing.idle", true);
+		builder.addAnimation( "idle", true);
 		animationEvent.getController().setAnimation(builder);
 		return PlayState.CONTINUE;
 	}

@@ -1,6 +1,7 @@
 package dev.mrsterner.eyesofender.client.renderer.entity;
 
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import dev.mrsterner.eyesofender.client.model.entity.HierophantGreenEntityModel;
 import dev.mrsterner.eyesofender.client.model.entity.StandEntityModel;
 import dev.mrsterner.eyesofender.common.entity.BaseStandEntity;
 import net.minecraft.client.render.RenderLayer;
@@ -9,11 +10,14 @@ import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.Nullable;
+import software.bernie.geckolib3.model.AnimatedGeoModel;
 import software.bernie.geckolib3.renderers.geo.GeoEntityRenderer;
 
 public class StandEntityRenderer extends GeoEntityRenderer<BaseStandEntity> {
-	public StandEntityRenderer(EntityRendererFactory.Context ctx) {
-		super(ctx, new StandEntityModel());
+
+
+	public StandEntityRenderer(EntityRendererFactory.Context ctx, AnimatedGeoModel<BaseStandEntity> modelProvider) {
+		super(ctx, modelProvider);
 	}
 
 	@Override

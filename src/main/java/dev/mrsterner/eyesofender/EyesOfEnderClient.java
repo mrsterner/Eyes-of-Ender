@@ -11,10 +11,12 @@ import dev.mrsterner.eyesofender.client.registry.EOEParticleTypes;
 import dev.mrsterner.eyesofender.client.registry.EOESoundEvents;
 import dev.mrsterner.eyesofender.client.renderer.StoneMaskArmorRenderer;
 import dev.mrsterner.eyesofender.client.renderer.StoneMaskItemRenderer;
+import dev.mrsterner.eyesofender.client.renderer.entity.HierophantGreenEntityRenderer;
 import dev.mrsterner.eyesofender.common.networking.packet.CyborgAbilityPacket;
 import dev.mrsterner.eyesofender.common.networking.packet.HamonAbilityPacket;
 import dev.mrsterner.eyesofender.common.networking.packet.SyncHamonUserDataPacket;
 import dev.mrsterner.eyesofender.common.registry.EOEBlockEntityTypes;
+import dev.mrsterner.eyesofender.common.registry.EOEEntityTypes;
 import dev.mrsterner.eyesofender.common.registry.EOEObjects;
 import dev.mrsterner.eyesofender.common.utils.EOEUtils;
 import dev.mrsterner.eyesofender.common.utils.NbtUtils;
@@ -26,6 +28,7 @@ import ladysnake.satin.api.managed.ShaderEffectManager;
 import ladysnake.satin.api.util.GlMatrices;
 import net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.Camera;
@@ -90,6 +93,8 @@ public class EyesOfEnderClient implements ClientModInitializer {
 
 		GeoArmorRenderer.registerArmorRenderer(new StoneMaskArmorRenderer(), EOEObjects.STONE_MASK);
 		GeoItemRenderer.registerItemRenderer(EOEObjects.STONE_MASK, new StoneMaskItemRenderer());
+
+		EntityRendererRegistry.register(EOEEntityTypes.HIEROPHANT_GREEN, HierophantGreenEntityRenderer::new);
 	}
 
 	private void renderHamonHud(MatrixStack matrixStack, float tickDelta) {

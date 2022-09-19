@@ -13,6 +13,7 @@ public class StandEntityModel extends AnimatedGeoModel<BaseStandEntity> {
 	public static Identifier ANIMATION = null;
 
 
+
 	@Override
 	public Identifier getModelResource(BaseStandEntity object) {
 		return MODEL;

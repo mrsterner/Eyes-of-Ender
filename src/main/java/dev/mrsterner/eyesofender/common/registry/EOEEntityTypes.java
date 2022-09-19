@@ -2,6 +2,7 @@ package dev.mrsterner.eyesofender.common.registry;
 
 import dev.mrsterner.eyesofender.EyesOfEnder;
 import dev.mrsterner.eyesofender.common.entity.BaseStandEntity;
+import dev.mrsterner.eyesofender.common.entity.bound.HierophantGreenEntity;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityDimensions;
@@ -14,16 +15,16 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class EOEEntityTypes {
-	private static final Map<EntityType<?>, Identifier> ENTITY_TYPES = new LinkedHashMap<>();
 
-	public static final EntityType<BaseStandEntity> LESHON = register("leshon", FabricEntityTypeBuilder
-			.<BaseStandEntity>createMob()
+    private static final Map<EntityType<?>, Identifier> ENTITY_TYPES = new LinkedHashMap<>();
+
+	public static final EntityType<HierophantGreenEntity> HIEROPHANT_GREEN = register("hierophant_green", FabricEntityTypeBuilder
+			.<HierophantGreenEntity>createMob()
 			.spawnGroup(SpawnGroup.MISC)
-			.entityFactory(BaseStandEntity::new)
-			.defaultAttributes(BaseStandEntity::createAttributes)
+			.entityFactory(HierophantGreenEntity::new)
+			.defaultAttributes(HierophantGreenEntity::createAttributes)
 			.dimensions(EntityDimensions.fixed(1f, 3f))
 			.build());
-
 
 
 	private static <T extends Entity> EntityType<T> register(String name, EntityType<T> type) {
