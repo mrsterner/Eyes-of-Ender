@@ -2,26 +2,19 @@ package dev.mrsterner.eyesofender.client.renderer.feature;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import dev.mrsterner.eyesofender.EyesOfEnder;
 import dev.mrsterner.eyesofender.client.registry.EOERenderLayers;
 import dev.mrsterner.eyesofender.client.registry.EOEShaders;
-import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.render.*;
-import net.minecraft.client.render.entity.feature.CreeperChargeFeatureRenderer;
 import net.minecraft.client.render.entity.feature.FeatureRenderer;
 import net.minecraft.client.render.entity.feature.FeatureRendererContext;
 import net.minecraft.client.render.entity.model.EntityModel;
-import net.minecraft.client.render.entity.model.EntityModelLoader;
 import net.minecraft.client.render.entity.model.PlayerEntityModel;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.Vec3f;
-import org.lwjgl.opengl.GL11;
 
 public class HamonFeatureRenderer<T extends LivingEntity, M extends EntityModel<T>> extends FeatureRenderer<T, M> {
 
-	public HamonFeatureRenderer(FeatureRendererContext<T, M> context, EntityModelLoader loader) {
+	public HamonFeatureRenderer(FeatureRendererContext<T, M> context) {
 		super(context);
 	}
 

@@ -9,7 +9,6 @@ import dev.mrsterner.eyesofender.client.registry.EOEShaders;
 import dev.mrsterner.eyesofender.client.renderer.block.CoffinBlockEntityRenderer;
 import dev.mrsterner.eyesofender.client.registry.EOEParticleTypes;
 import dev.mrsterner.eyesofender.client.registry.EOESoundEvents;
-import dev.mrsterner.eyesofender.client.renderer.feature.HamonFeatureRenderer;
 import dev.mrsterner.eyesofender.client.renderer.StoneMaskArmorRenderer;
 import dev.mrsterner.eyesofender.client.renderer.StoneMaskItemRenderer;
 import dev.mrsterner.eyesofender.common.networking.packet.CyborgAbilityPacket;
@@ -31,7 +30,6 @@ import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.Camera;
 import net.minecraft.client.render.ShaderProgram;
-import net.minecraft.client.render.entity.PlayerEntityRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
@@ -101,21 +99,24 @@ public class EyesOfEnderClient implements ClientModInitializer {
 		int scaledWidth = mc.getWindow().getScaledWidth();
 
 		HamonUser.of(player).filter(hamonUser -> hamonUser.getHamonLevel() != Hamon.EMPTY).ifPresent(hamonUser -> {
-			if(this.ticks % 4 == 0 && hamonFade < 1.0F && EOEUtils.canHamonBreath(player)){
-				hamonFade = hamonFade + 0.1F;
-			}
-			if(hamonFade > 0.0F && !EOEUtils.canHamonBreath(player)){
-				hamonFade = hamonFade - 0.4F;
-			}
+			if(player != null){
+				if(this.ticks % 4 == 0 && hamonFade < 1.0F && EOEUtils.canHamonBreath(player)){
+					hamonFade = hamonFade + 0.1F;
+				}
+				if(hamonFade > 0.0F && !EOEUtils.canHamonBreath(player)){
+					hamonFade = hamonFade - 0.4F;
+				}
 
-			matrixStack.push();
-			RenderSystem.setShaderTexture(0, EYES_OF_ENDER_GUI_ICONS_TEXTURE);
-			RenderSystem.setShaderColor(1f, 1f, 1f, hamonFade - 0.2F);
-			renderHamon(matrixStack, hamonUser.getHamonBreath(), scaledWidth / 2 - 91, scaledHeight - 39);
-			RenderSystem.setShaderTexture(0, GUI_ICONS_TEXTURE);
-			RenderSystem.depthMask(true);
-			RenderSystem.disableBlend();
-			matrixStack.pop();
+				matrixStack.push();
+				RenderSystem.setShaderTexture(0, EYES_OF_ENDER_GUI_ICONS_TEXTURE);
+				RenderSystem.setShaderColor(1f, 1f, 1f, hamonFade - 0.2F);
+				int isCreative = player.isCreative() ? 18 : 0;
+				renderHamon(matrixStack, hamonUser.getHamonBreath(), scaledWidth / 2 - 91, scaledHeight - 39 + isCreative);
+				RenderSystem.setShaderTexture(0, GUI_ICONS_TEXTURE);
+				RenderSystem.depthMask(true);
+				RenderSystem.disableBlend();
+				matrixStack.pop();
+			}
 		});
 	}
 
