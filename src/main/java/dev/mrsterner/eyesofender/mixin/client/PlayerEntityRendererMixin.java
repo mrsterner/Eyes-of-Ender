@@ -5,6 +5,7 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import dev.mrsterner.eyesofender.api.enums.BodyPart;
 import dev.mrsterner.eyesofender.client.registry.EOERenderLayers;
 import dev.mrsterner.eyesofender.client.registry.EOEShaders;
+import dev.mrsterner.eyesofender.client.renderer.feature.HamonFeatureRenderer;
 import dev.mrsterner.eyesofender.client.renderer.feature.MouthItemFeatureRenderer;
 import dev.mrsterner.eyesofender.common.block.CoffinBlock;
 import dev.mrsterner.eyesofender.common.registry.EOEComponents;
@@ -39,26 +40,12 @@ public abstract class PlayerEntityRendererMixin extends LivingEntityRenderer<Abs
         super(ctx, model, shadowRadius);
     }
 
-    @Inject(method = "render(Lnet/minecraft/client/network/AbstractClientPlayerEntity;FFLnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;I)V", at = @At("TAIL"))
-    private void render(AbstractClientPlayerEntity player, float yaw, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumerProvider, int light, CallbackInfo callbackInfo) {
-
-        matrices.push();
-        VertexConsumer vertexConsumer = vertexConsumerProvider.getBuffer(EOERenderLayers.HAMON.apply(this.getTexture(player)));
-        matrices.scale(1.0F, -1.0F, -1.0F);
-        matrices.translate(0.0, -1.5010000467300415, 0.0);
-        RenderSystem.enableBlend();
-        RenderSystem.defaultBlendFunc();
-        RenderSystem.enableDepthTest();
-        float alpha = 1F;
-        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, alpha);
-        ShaderProgram shader = EOEShaders.HAMON.getInstance().get();
-        shader.getUniformOrDefault("Speed").setFloat(1500f);
-        model.render(matrices, vertexConsumer, light, OverlayTexture.DEFAULT_UV, 1F, 1F, 1F, alpha);
-        RenderSystem.disableBlend();
-        matrices.pop();
-
-
+    @Inject(method = "<init>", at = @At("TAIL"))
+    private void eoe$init(EntityRendererFactory.Context ctx, boolean slim, CallbackInfo callbackInfo) {
+        addFeature(new HamonFeatureRenderer<>(this, ctx.getModelLoader()));
+        addFeature(new MouthItemFeatureRenderer(this, ctx.getHeldItemRenderer()));
     }
+
 
     @Inject(method = "render(Lnet/minecraft/client/network/AbstractClientPlayerEntity;FFLnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;I)V", at = @At("HEAD"), cancellable = true)
     private void eyesOfEnder$render(AbstractClientPlayerEntity player, float yaw, float tickDelta, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int light, CallbackInfo callbackInfo) {
@@ -74,12 +61,6 @@ public abstract class PlayerEntityRendererMixin extends LivingEntityRenderer<Abs
             callbackInfo.setReturnValue(super.getPositionOffset(abstractClientPlayerEntity, f));
         }
     }
-
-    @Inject(method = "<init>", at = @At("TAIL"))
-    private void PlayerEntityRenderer(EntityRendererFactory.Context ctx, boolean slim, CallbackInfo callbackInfo) {
-        addFeature(new MouthItemFeatureRenderer(this, ctx.getHeldItemRenderer()));
-    }
-
 
     @Inject(method = "setModelPose", at = @At("TAIL"), locals = LocalCapture.CAPTURE_FAILSOFT)
     private void eyesOfEnder$setModelPose(AbstractClientPlayerEntity player, CallbackInfo ci, PlayerEntityModel<AbstractClientPlayerEntity> playerEntityModel){

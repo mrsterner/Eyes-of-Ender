@@ -18,6 +18,7 @@ void main( ) {
     vec2 i = vec2(p);
     float c = 1.0;
     float inten = .005;
+    float alpha = 0.1;
 
     for (int n = 0; n < 5; n++) {
         float t = time * (1.0 - (3.5 / float(n + 1)));
@@ -32,5 +33,5 @@ void main( ) {
     if(length(colour.rgb) < 0.1 * 3){
         discard;
     }
-    fragColor = vec4(colour, max(colour.r, max(colour.g, colour.b)));
+    fragColor = vec4(colour, max(colour.r*alpha, max(colour.g*alpha, colour.b)));
 }

@@ -111,9 +111,6 @@ dependencies {
 	modImplementation "maven.modrinth:midnightlib:${midnightlib_version}"
 	include "maven.modrinth:midnightlib:${midnightlib_version}"
 
-	modImplementation "com.williambl.early_features:early_features:1.1.0"
-
-
 	modImplementation("io.github.ladysnake:impersonate:${impersonate_version}") {
 		transitive = false
 	}

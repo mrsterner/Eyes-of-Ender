@@ -1,7 +1,6 @@
 package dev.mrsterner.eyesofender;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.williambl.early_features.api.LivingEntityEarlyFeatureRendererRegistrationCallback;
 import dev.mrsterner.eyesofender.api.enums.Hamon;
 import dev.mrsterner.eyesofender.api.interfaces.HamonUser;
 import dev.mrsterner.eyesofender.client.EOESpriteIdentifiers;
@@ -93,13 +92,6 @@ public class EyesOfEnderClient implements ClientModInitializer {
 
 		GeoArmorRenderer.registerArmorRenderer(new StoneMaskArmorRenderer(), EOEObjects.STONE_MASK);
 		GeoItemRenderer.registerItemRenderer(EOEObjects.STONE_MASK, new StoneMaskItemRenderer());
-
-		LivingEntityEarlyFeatureRendererRegistrationCallback.EVENT.register((entityType, entityRenderer, context) -> {
-			if(entityRenderer instanceof PlayerEntityRenderer playerRenderer){
-				entityRenderer.addEarlyFeature(new HamonFeatureRenderer<>(playerRenderer));
-			}
-				//TODO
-		});
 	}
 
 	private void renderHamonHud(MatrixStack matrixStack, float tickDelta) {
