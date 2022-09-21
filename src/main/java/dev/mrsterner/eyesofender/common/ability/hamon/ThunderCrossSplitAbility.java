@@ -7,6 +7,6 @@ import dev.mrsterner.eyesofender.api.registry.HamonKnowledge;
 public class ThunderCrossSplitAbility extends HamonKnowledge {
 
 	public ThunderCrossSplitAbility() {
-		super(EyesOfEnder.id("thunder_cross_split"), Hamon.ADVANCED, null, 0xF5CE8C, null, 30, false);
+		super(EyesOfEnder.id("thunder_cross_split"), Hamon.ADVANCED, null, 0, null, 30, false);
 	}
 }

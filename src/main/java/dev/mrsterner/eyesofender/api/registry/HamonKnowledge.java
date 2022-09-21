@@ -1,7 +1,6 @@
 package dev.mrsterner.eyesofender.api.registry;
 
 import dev.mrsterner.eyesofender.api.enums.Hamon;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
@@ -33,7 +32,7 @@ public abstract class HamonKnowledge {
 		return abilityPredicate.test(user);
 	}
 
-	public int getColor(@Nullable LivingEntity user) {
+	public int getColor() {
 		return color;
 	}
 

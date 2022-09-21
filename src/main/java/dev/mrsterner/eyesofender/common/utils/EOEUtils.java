@@ -2,8 +2,11 @@ package dev.mrsterner.eyesofender.common.utils;
 
 import dev.mrsterner.eyesofender.EyesOfEnder;
 import dev.mrsterner.eyesofender.api.enums.BodyPart;
+import dev.mrsterner.eyesofender.client.gui.HamonAbilityClientHandler;
 import dev.mrsterner.eyesofender.common.components.entity.BodyComponent;
+import dev.mrsterner.eyesofender.common.components.entity.HamonComponent;
 import dev.mrsterner.eyesofender.common.registry.EOEComponents;
+import dev.mrsterner.eyesofender.common.registry.EOEStatusEffects;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.data.DataTracker;
@@ -20,7 +23,25 @@ import net.minecraft.util.registry.Registry;
 import java.util.LinkedHashSet;
 
 public class EOEUtils {
-	public static class DataTrackers{
+    public static float[] shouldHamonGlow(LivingEntity livingEntity) {
+		boolean bl = livingEntity.hasStatusEffect(EOEStatusEffects.HAMON_IMBUE);
+
+		float[] color = null;
+		HamonComponent hamonComponent = EOEComponents.HAMON_COMPONENT.maybeGet(livingEntity).orElse(null);
+		if(hamonComponent != null && HamonAbilityClientHandler.selectedHamonAbility.hamonKnowledge.getColor() != 0){
+			color = getColorFromInt(HamonAbilityClientHandler.selectedHamonAbility.hamonKnowledge.getColor());
+		}
+
+		return bl ? new float[]{0.5f ,0.35f ,0} : color;
+    }
+
+
+
+	public static float[] getColorFromInt(int i){
+		return new float[]{i & 255, (i >> 8) & 255, (i >> 16) & 255};
+	}
+
+    public static class DataTrackers{
 		public static final TrackedData<Integer> MAX_ABILITIES = DataTracker.registerData(PlayerEntity.class, TrackedDataHandlerRegistry.INTEGER);
 		public static final TrackedData<Integer> ABILITY_COOLDOWN = DataTracker.registerData(PlayerEntity.class, TrackedDataHandlerRegistry.INTEGER);
 	}

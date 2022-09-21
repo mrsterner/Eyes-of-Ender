@@ -7,6 +7,6 @@ import dev.mrsterner.eyesofender.api.registry.HamonKnowledge;
 public class HamonCutterAbility extends HamonKnowledge {
 
 	public HamonCutterAbility() {
-		super(EyesOfEnder.id("hamon_cutter"), Hamon.MASTER, null, 0xF5CE8C, null, 20, false);
+		super(EyesOfEnder.id("hamon_cutter"), Hamon.MASTER, null, 0, null, 20, false);
 	}
 }

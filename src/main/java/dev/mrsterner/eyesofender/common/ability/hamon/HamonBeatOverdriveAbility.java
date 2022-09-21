@@ -8,7 +8,7 @@ import net.minecraft.entity.LivingEntity;
 public class HamonBeatOverdriveAbility extends HamonKnowledge {
 
 	public HamonBeatOverdriveAbility() {
-		super(EyesOfEnder.id("hamon_beat_overdrive"), Hamon.ADVANCED, null, 0xF5CE8C, null, 1, true);
+		super(EyesOfEnder.id("hamon_beat_overdrive"), Hamon.ADVANCED, null, 0, null, 1, true);
 	}
 
 	@Override

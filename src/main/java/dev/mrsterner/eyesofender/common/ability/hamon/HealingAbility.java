@@ -11,7 +11,7 @@ import org.jetbrains.annotations.Nullable;
 
 public class HealingAbility extends HamonKnowledge {
 	public HealingAbility() {
-		super(EyesOfEnder.id("healing"), Hamon.BASIC, null, 0xF5CE8C, null, 50, false);
+		super(EyesOfEnder.id("healing"), Hamon.BASIC, null, 0, null, 50, false);
 	}
 
 	@Override

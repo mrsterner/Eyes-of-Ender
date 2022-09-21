@@ -1,7 +1,6 @@
 package dev.mrsterner.eyesofender.common.registry;
 
 import dev.mrsterner.eyesofender.EyesOfEnder;
-import dev.mrsterner.eyesofender.common.entity.BaseStandEntity;
 import dev.mrsterner.eyesofender.common.entity.bound.HierophantGreenEntity;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.minecraft.entity.Entity;

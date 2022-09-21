@@ -7,6 +7,6 @@ import dev.mrsterner.eyesofender.api.registry.HamonKnowledge;
 public class HamonHypnosisAbility extends HamonKnowledge {
 
 	public HamonHypnosisAbility() {
-		super(EyesOfEnder.id("hamon_hypnosis"), Hamon.MASTER, null, 0xF5CE8C, null, 50, false);
+		super(EyesOfEnder.id("hamon_hypnosis"), Hamon.MASTER, null, 0, null, 50, false);
 	}
 }

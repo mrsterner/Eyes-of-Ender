@@ -7,6 +7,6 @@ import dev.mrsterner.eyesofender.api.registry.HamonKnowledge;
 public class RebuffOverdriveAbility extends HamonKnowledge {
 
 	public RebuffOverdriveAbility() {
-		super(EyesOfEnder.id("rebuff_overdrive"), Hamon.ADVANCED,  null, 0xF5CE8C, null, 20, false);
+		super(EyesOfEnder.id("rebuff_overdrive"), Hamon.ADVANCED,  null, 0, null, 20, false);
 	}
 }

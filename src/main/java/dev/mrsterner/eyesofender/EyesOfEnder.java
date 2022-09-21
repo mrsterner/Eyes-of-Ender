@@ -54,6 +54,7 @@ public class EyesOfEnder implements ModInitializer {
 	public void onInitialize(ModContainer mod) {
 		GeckoLibMod.DISABLE_IN_DEV = true;
 		MidnightConfig.init(MODID, EyesOfEnderConfig.class);
+
 		EOEObjects.init();
 		EOEBlockEntityTypes.init();
 		EOEEntityTypes.init();

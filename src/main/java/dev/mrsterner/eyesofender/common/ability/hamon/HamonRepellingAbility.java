@@ -7,6 +7,6 @@ import dev.mrsterner.eyesofender.api.registry.HamonKnowledge;
 public class HamonRepellingAbility extends HamonKnowledge {
 
 	public HamonRepellingAbility() {
-		super(EyesOfEnder.id("hamon_repelling"), Hamon.INTERMEDIATE, null, 0xF5CE8C, null, 20, false);
+		super(EyesOfEnder.id("hamon_repelling"), Hamon.INTERMEDIATE, null, 0, null, 20, false);
 	}
 }

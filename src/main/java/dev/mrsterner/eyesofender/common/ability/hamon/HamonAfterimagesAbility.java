@@ -8,7 +8,7 @@ import net.minecraft.entity.LivingEntity;
 public class HamonAfterimagesAbility extends HamonKnowledge {
 
 	public HamonAfterimagesAbility() {
-		super(EyesOfEnder.id("afterimage"), Hamon.MASTER,  null, 0xF5CE8C, null, 1, true);
+		super(EyesOfEnder.id("afterimage"), Hamon.MASTER,  null, 0, null, 1, true);
 	}
 
 	@Override

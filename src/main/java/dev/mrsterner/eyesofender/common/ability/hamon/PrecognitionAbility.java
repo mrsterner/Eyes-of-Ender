@@ -7,6 +7,6 @@ import dev.mrsterner.eyesofender.api.registry.HamonKnowledge;
 public class PrecognitionAbility extends HamonKnowledge {
 
 	public PrecognitionAbility() {
-		super(EyesOfEnder.id("precognition"), Hamon.MASTER, null, 0xF5CE8C, null, 2, true);
+		super(EyesOfEnder.id("precognition"), Hamon.MASTER, null, 0, null, 2, true);
 	}
 }
