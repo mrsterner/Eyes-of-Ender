@@ -4,6 +4,8 @@ import dev.mrsterner.eyesofender.EyesOfEnder;
 import dev.mrsterner.eyesofender.api.enums.Hamon;
 import dev.mrsterner.eyesofender.api.enums.HamonAbilityType;
 import dev.mrsterner.eyesofender.api.registry.HamonKnowledge;
+import dev.mrsterner.eyesofender.common.components.entity.HamonComponent;
+import dev.mrsterner.eyesofender.common.registry.EOEComponents;
 import dev.mrsterner.eyesofender.common.registry.EOEStatusEffects;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
@@ -27,13 +29,13 @@ public class ImbueAbility extends HamonKnowledge {
 	}
 
 	@Override
-	public void useAbility(World world, LivingEntity user, @Nullable Vec3d pos) {
+	public void onChargedAbilityUsed(LivingEntity user) {
 		int maxDistance = 2;
 		double distance = Math.pow(maxDistance, 2);
 		Vec3d vec3d = user.getCameraPosVec(1);
 		Vec3d vec3d2 = user.getRotationVec(1);
 		Vec3d vec3d3 = vec3d.add(vec3d2.x * maxDistance, vec3d2.y * maxDistance, vec3d2.z * maxDistance);
-		EntityHitResult hit = ProjectileUtil.getEntityCollision(world, user, vec3d, vec3d3, user.getBoundingBox().stretch(vec3d2.multiply(distance)).expand(1.0D, 1.0D, 1.0D), (target) -> !target.isSpectator() && target.collides());
+		EntityHitResult hit = ProjectileUtil.getEntityCollision(user.getWorld(), user, vec3d, vec3d3, user.getBoundingBox().stretch(vec3d2.multiply(distance)).expand(1.0D, 1.0D, 1.0D), (target) -> !target.isSpectator() && target.collides());
 
 		if (hit != null) {
 			if(hit.getEntity() instanceof LivingEntity livingEntity){
@@ -41,5 +43,11 @@ public class ImbueAbility extends HamonKnowledge {
 				user.swingHand(user.preferredHand);
 			}
 		}
+	}
+
+	@Override
+	public void useAbility(World world, LivingEntity user, @Nullable Vec3d pos) {
+		EOEComponents.HAMON_COMPONENT.get(user).setStoredChargedHamon(this);
+		super.useAbility(world, user, pos);
 	}
 }

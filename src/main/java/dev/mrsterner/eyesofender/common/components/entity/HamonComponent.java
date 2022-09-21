@@ -35,7 +35,7 @@ public class HamonComponent implements ServerTickingComponent, AutoSyncedCompone
     private int hamonBreath = MAX_HAMON_BREATH;
     private Hamon hamonLevel = Hamon.BASIC; //TODO change to EMPTY
 
-    private HamonAbility storedHamonCharge = null;
+    private HamonKnowledge storedHamonCharge = null;
     private int hamonTimer = 0;
 
     public HamonComponent(LivingEntity entity) {
@@ -109,7 +109,7 @@ public class HamonComponent implements ServerTickingComponent, AutoSyncedCompone
         }
 
         if(tag.getString("StoredChargedHamon") != null){
-            setStoredChargedHamon(new HamonAbility(EOERegistries.HAMON_ABILITY.get(new Identifier(tag.getString("StoredChargedHamon")))));
+            setStoredChargedHamon(new HamonAbility(EOERegistries.HAMON_ABILITY.get(new Identifier(tag.getString("StoredChargedHamon")))).hamonKnowledge);
         }
 
     }
@@ -125,7 +125,7 @@ public class HamonComponent implements ServerTickingComponent, AutoSyncedCompone
         tag.put(EOEUtils.Nbt.ABILITY_LIST, abilities);
 
 
-        tag.putString("StoredChargedHamon", storedHamonCharge.hamonKnowledge.getId().toString());
+        tag.putString("StoredChargedHamon", storedHamonCharge.getId().toString());
     }
 
     public int getMaxHamonAbilities() {
@@ -200,12 +200,12 @@ public class HamonComponent implements ServerTickingComponent, AutoSyncedCompone
     }
 
     @Nullable
-    public void setStoredChargedHamon(HamonAbility hamonAbility){
+    public void setStoredChargedHamon(HamonKnowledge hamonAbility){
         this.storedHamonCharge = hamonAbility;
         EOEComponents.HAMON_COMPONENT.sync(entity);
     }
 
-    public HamonAbility getStoredChargedHamon(){
+    public HamonKnowledge getStoredChargedHamon(){
         return storedHamonCharge;
     }
 }

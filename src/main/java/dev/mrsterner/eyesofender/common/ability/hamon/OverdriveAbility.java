@@ -19,9 +19,4 @@ public class OverdriveAbility extends HamonKnowledge {
 				HamonAbilityType.HIT,
 				0);
 	}
-
-	@Override
-	public void tickAbility(LivingEntity entity) {
-		super.tickAbility(entity);
-	}
 }

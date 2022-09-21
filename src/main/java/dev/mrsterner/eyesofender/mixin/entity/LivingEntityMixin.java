@@ -1,14 +1,19 @@
 package dev.mrsterner.eyesofender.mixin.entity;
 
 
+import dev.mrsterner.eyesofender.api.events.AttackLivingEntityCallback;
 import dev.mrsterner.eyesofender.client.registry.EOESoundEvents;
 import dev.mrsterner.eyesofender.common.block.CoffinBlock;
 import dev.mrsterner.eyesofender.common.utils.TimeStopUtils;
+import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
 import net.minecraft.block.BlockState;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
@@ -17,6 +22,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.Optional;
 
@@ -43,6 +49,16 @@ public abstract class LivingEntityMixin extends Entity {
             if (world != null && TimeStopUtils.getTimeStoppedTicks(world) == 1) {
                 this.playSound(EOESoundEvents.THE_WORLD_END, this.getSoundVolume(), this.getSoundPitch());
             }
+        }
+    }
+
+    @Inject(method = "attackLivingEntity", at = @At("HEAD"), cancellable = true)
+    public void onPlayerInteractEntity(LivingEntity target, CallbackInfo ci) {
+        LivingEntity livingEntity = (LivingEntity) (Object) this;
+        ActionResult result = AttackLivingEntityCallback.EVENT.invoker().interact(livingEntity, livingEntity.getCommandSenderWorld(), Hand.MAIN_HAND, target, null);
+
+        if (result != ActionResult.PASS) {
+            ci.cancel();
         }
     }
 

@@ -94,4 +94,6 @@ public abstract class HamonKnowledge {
 	}
 
 
+	public void onChargedAbilityUsed(LivingEntity livingEntity) {
+	}
 }

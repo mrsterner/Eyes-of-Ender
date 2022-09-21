@@ -2,6 +2,8 @@ package dev.mrsterner.eyesofender;
 
 import com.mojang.datafixers.util.Pair;
 import dev.mrsterner.eyesofender.api.enums.BodyPart;
+import dev.mrsterner.eyesofender.api.events.AttackLivingEntityCallback;
+import dev.mrsterner.eyesofender.api.registry.HamonKnowledge;
 import dev.mrsterner.eyesofender.common.ability.stand.EOEStandAbilitiesCallback;
 import dev.mrsterner.eyesofender.common.block.CoffinBlock;
 import dev.mrsterner.eyesofender.common.networking.packet.HamonAbilityPacket;
@@ -13,6 +15,7 @@ import net.fabricmc.fabric.api.entity.event.v1.EntitySleepEvents;
 import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.EntityDamageSource;
 import net.minecraft.entity.player.PlayerEntity;
@@ -66,11 +69,23 @@ public class EyesOfEnder implements ModInitializer {
 
 		AttackEntityCallback.EVENT.register(this::stainStoneMask);
 		AttackEntityCallback.EVENT.register(this::damageInTimeStop);
+		AttackLivingEntityCallback.EVENT.register(this::hamonAttack);
 		ServerWorldTickEvents.START.register(this::timeStopper);
 		EntitySleepEvents.ALLOW_SLEEP_TIME.register(this::coffinSleep);
 		EntitySleepEvents.ALLOW_SLEEPING.register(this::coffinSleep);
 		ServerWorldTickEvents.START.register(this::dropItems);
 
+	}
+
+	private ActionResult hamonAttack(LivingEntity livingEntity, World world, Hand hand, Entity entity, @Nullable EntityHitResult entityHitResult) {
+		EOEComponents.HAMON_COMPONENT.maybeGet(livingEntity).ifPresent(hamonUser -> {
+			if(hamonUser.getStoredChargedHamon() != null){
+				HamonKnowledge hamonKnowledge = hamonUser.getStoredChargedHamon();
+				hamonKnowledge.onChargedAbilityUsed(livingEntity);
+				hamonUser.setStoredChargedHamon(null);
+			}
+		});
+		return ActionResult.PASS;
 	}
 
 	/**

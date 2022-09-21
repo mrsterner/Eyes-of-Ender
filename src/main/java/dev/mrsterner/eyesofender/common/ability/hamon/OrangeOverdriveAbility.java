@@ -20,9 +20,4 @@ public class OrangeOverdriveAbility extends HamonKnowledge {
 				HamonAbilityType.ACTIVE,
 				0);
 	}
-
-	@Override
-	public void tickAbility(LivingEntity entity) {
-		super.tickAbility(entity);
-	}
 }
