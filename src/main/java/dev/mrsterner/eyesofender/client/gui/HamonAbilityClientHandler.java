@@ -54,7 +54,7 @@ public class HamonAbilityClientHandler {
 		if (abilitySelectionKey.isPressed() && minecraftClient.currentScreen == null && EOEComponents.HAMON_COMPONENT.maybeGet(minecraftClient.player).map(abilityUser -> !abilityUser.getHamonAbilities().isEmpty()).orElse(false)) {
 			minecraftClient.setScreen(new HamonAbilitySelectionScreen());
 		} else if (minecraftClient.player != null && selectedHamonAbility != null) {
-			if (useKey.wasPressed() && EOEComponents.HAMON_COMPONENT.maybeGet(minecraftClient.player).map(HamonComponent::getHamonAbilityCooldown).orElse(0) <= 0) {
+			if (useKey.wasPressed() && EOEComponents.HAMON_COMPONENT.maybeGet(minecraftClient.player).isPresent()) {
 				HamonAbilityPacket.sendFromClientPlayer(minecraftClient.player, selectedHamonAbility.toTag(new NbtCompound()));
 			} else if (minecraftClient.player.isDead()) {
 				selectedHamonAbility = null;

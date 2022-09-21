@@ -46,15 +46,15 @@ public class HamonAbilityPacket {
 	public static void handle(MinecraftClient client, ClientPlayNetworkHandler networkHandler, PacketByteBuf packetByteBuf, PacketSender sender) {
 		HamonAbility hamonAbility = HamonAbility.fromTag(packetByteBuf.readNbt());
 		Entity entity = client.world.getEntityById(packetByteBuf.readInt());
-		if (entity instanceof LivingEntity) {
-			client.execute(() -> hamonAbility.use((LivingEntity) entity));
+		if (entity instanceof LivingEntity livingEntity) {
+			client.execute(() -> hamonAbility.hamonKnowledge.useAbility(livingEntity.getWorld(), livingEntity, livingEntity.getPos()));
 		}
 	}
 
 	public static void handleFromClient(MinecraftServer server, ServerPlayerEntity player, ServerPlayNetworkHandler handler, PacketByteBuf packetByteBuf, PacketSender sender) {
 		HamonAbility hamonAbility = HamonAbility.fromTag(packetByteBuf.readNbt());
 		if (hamonAbility != null) {
-			server.execute(() -> hamonAbility.use(player));
+			server.execute(() -> hamonAbility.hamonKnowledge.useAbility(player.getWorld(), player, player.getPos()));
 		}
 	}
 }

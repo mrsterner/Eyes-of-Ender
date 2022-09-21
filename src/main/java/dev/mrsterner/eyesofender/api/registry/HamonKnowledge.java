@@ -1,7 +1,10 @@
 package dev.mrsterner.eyesofender.api.registry;
 
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Predicate;
@@ -55,5 +58,7 @@ public abstract class HamonKnowledge {
 
 	}
 
+	public void useAbility(World world, LivingEntity user, @Nullable Vec3d pos) {
 
+	}
 }

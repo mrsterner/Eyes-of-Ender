@@ -4,6 +4,7 @@ import dev.mrsterner.eyesofender.api.enums.Hamon;
 import dev.mrsterner.eyesofender.api.registry.HamonKnowledge;
 import dev.mrsterner.eyesofender.client.gui.HamonAbilityClientHandler;
 import dev.mrsterner.eyesofender.common.ability.HamonAbility;
+import dev.mrsterner.eyesofender.common.registry.EOEComponents;
 import dev.mrsterner.eyesofender.common.utils.EOEUtils;
 import dev.onyxstudios.cca.api.v3.component.sync.AutoSyncedComponent;
 import dev.onyxstudios.cca.api.v3.component.tick.ServerTickingComponent;
@@ -75,6 +76,7 @@ public class HamonComponent implements ServerTickingComponent, AutoSyncedCompone
 
     public void setMaxHamonAbilities(int amount) {
         this.MAX_HAMON_ABILITIES = amount;
+        EOEComponents.HAMON_COMPONENT.sync(entity);
     }
 
     public List<HamonAbility> getHamonAbilities() {
@@ -87,6 +89,7 @@ public class HamonComponent implements ServerTickingComponent, AutoSyncedCompone
 
     public void learnHamonKnowledge(HamonKnowledge effect) {
         learnedKnowledge.add(effect);
+        EOEComponents.HAMON_COMPONENT.sync(entity);
     }
 
     public int getHamonAbilityCooldown() {
@@ -95,6 +98,7 @@ public class HamonComponent implements ServerTickingComponent, AutoSyncedCompone
 
     public void setHamonAbilityCooldown(int ticks) {
         this.MAX_ABILITY_COOLDOWN = ticks;
+        EOEComponents.HAMON_COMPONENT.sync(entity);
     }
 
 
@@ -104,6 +108,7 @@ public class HamonComponent implements ServerTickingComponent, AutoSyncedCompone
 
     public void setHamonBreath(int amount) {
         this.hamonBreath = getHamonBreath() + amount;
+        EOEComponents.HAMON_COMPONENT.sync(entity);
     }
 
     public void increaseHamonBreath(int amount){
@@ -120,5 +125,6 @@ public class HamonComponent implements ServerTickingComponent, AutoSyncedCompone
 
     public void setHamonLevel(Hamon hamonLevel) {
         this.hamonLevel = hamonLevel;
+        EOEComponents.HAMON_COMPONENT.sync(entity);
     }
 }
