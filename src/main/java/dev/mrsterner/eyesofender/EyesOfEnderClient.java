@@ -95,7 +95,7 @@ public class EyesOfEnderClient implements ClientModInitializer {
 		int scaledWidth = mc.getWindow().getScaledWidth();
 
 		EOEComponents.HAMON_COMPONENT.maybeGet(player).filter(hamonUser -> hamonUser.getHamonLevel() != Hamon.EMPTY).ifPresent(hamonUser -> {
-			if(player != null){
+			if(player != null && !player.isSpectator()){
 				if(this.ticks % 4 == 0 && hamonFade < 1.0F && EOEUtils.canHamonBreath(player)){
 					hamonFade = hamonFade + 0.1F;
 				}

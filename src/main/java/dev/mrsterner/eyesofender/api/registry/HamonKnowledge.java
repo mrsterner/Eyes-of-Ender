@@ -1,5 +1,6 @@
 package dev.mrsterner.eyesofender.api.registry;
 
+import dev.mrsterner.eyesofender.api.enums.Hamon;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.Identifier;
@@ -16,14 +17,16 @@ public abstract class HamonKnowledge {
 	private final Identifier overlay;
 	private final int hamonDrain;
 	private final boolean isPassive;
+	private Hamon hamonTier;
 
-	public HamonKnowledge(Identifier id, @Nullable Predicate<LivingEntity> abilityPredicate, int color, Identifier overlay, int hamonDrain, boolean isPassive) {
+	public HamonKnowledge(Identifier id, Hamon hamonTier, @Nullable Predicate<LivingEntity> abilityPredicate, int color, Identifier overlay, int hamonDrain, boolean isPassive) {
 		this.id = id;
 		this.abilityPredicate = abilityPredicate == null ? (living) -> true : abilityPredicate;
 		this.color = color;
 		this.overlay = overlay;
 		this.hamonDrain = hamonDrain;
 		this.isPassive = isPassive;
+		this.hamonTier = hamonTier;
 	}
 
 	public boolean canUse(LivingEntity user) {
@@ -44,6 +47,10 @@ public abstract class HamonKnowledge {
 
 	public Identifier getTextureLocation() {
 		return new Identifier(id.getNamespace(), "textures/gui/ability_widgets/ability/" + id.getPath() + ".png");
+	}
+
+	public Hamon getHamonTier(){
+		return hamonTier;
 	}
 
 	public boolean isPassive(){

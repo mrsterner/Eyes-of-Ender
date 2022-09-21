@@ -5,6 +5,7 @@ import dev.mrsterner.eyesofender.api.registry.HamonKnowledge;
 import dev.mrsterner.eyesofender.client.gui.HamonAbilityClientHandler;
 import dev.mrsterner.eyesofender.common.ability.HamonAbility;
 import dev.mrsterner.eyesofender.common.registry.EOEComponents;
+import dev.mrsterner.eyesofender.common.registry.EOERegistries;
 import dev.mrsterner.eyesofender.common.utils.EOEUtils;
 import dev.onyxstudios.cca.api.v3.component.sync.AutoSyncedComponent;
 import dev.onyxstudios.cca.api.v3.component.tick.ServerTickingComponent;
@@ -40,13 +41,18 @@ public class HamonComponent implements ServerTickingComponent, AutoSyncedCompone
     public void serverTick() {
             if(!world.isClient()){
                 if(HamonAbilityClientHandler.selectedHamonAbility != null){
+                    //Tick the passive hamon ability if it is a passive ability and decrease the breath for that ability
                     if(HamonAbilityClientHandler.selectedHamonAbility.hamonKnowledge.isPassive() && getHamonBreath() > HamonAbilityClientHandler.selectedHamonAbility.hamonKnowledge.getHamonDrain()){
                         HamonAbilityClientHandler.selectedHamonAbility.hamonKnowledge.tickAbility(entity);
                         decreaseHamonBreath(HamonAbilityClientHandler.selectedHamonAbility.hamonKnowledge.getHamonDrain());
                     }
 
+                    //Decrease HamonBreath if the user cant breath
+                    if(!EOEUtils.canHamonBreath(entity)){
+                        decreaseHamonBreath(20);
+                    }
 
-                    //TODO remove
+                    //TODO remove just for testing
                     if(entity.isSneaking()){
                         increaseHamonBreath(10);
                     }else{
@@ -84,8 +90,10 @@ public class HamonComponent implements ServerTickingComponent, AutoSyncedCompone
     }
 
     public void setMaxHamonAbilities(int amount) {
-        this.MAX_HAMON_ABILITIES = amount;
-        EOEComponents.HAMON_COMPONENT.sync(entity);
+        if(amount >= 0 && amount <= EOERegistries.HAMON_ABILITY.size()){
+            this.MAX_HAMON_ABILITIES = amount;
+            EOEComponents.HAMON_COMPONENT.sync(entity);
+        }
     }
 
     public List<HamonAbility> getHamonAbilities() {
@@ -97,8 +105,10 @@ public class HamonComponent implements ServerTickingComponent, AutoSyncedCompone
     }
 
     public void learnHamonKnowledge(HamonKnowledge effect) {
-        learnedKnowledge.add(effect);
-        EOEComponents.HAMON_COMPONENT.sync(entity);
+        if(effect.getHamonTier().getValue() >= getHamonLevel().getValue()){
+            learnedKnowledge.add(effect);
+            EOEComponents.HAMON_COMPONENT.sync(entity);
+        }
     }
 
     public int getHamonAbilityCooldown() {
@@ -139,8 +149,10 @@ public class HamonComponent implements ServerTickingComponent, AutoSyncedCompone
         return hamonLevel;
     }
 
-    public void setHamonLevel(Hamon hamonLevel) {
-        this.hamonLevel = hamonLevel;
-        EOEComponents.HAMON_COMPONENT.sync(entity);
+    public void setHamonLevel(Hamon h) {
+        if(hamonLevel.getNext(hamonLevel) == h){
+            this.hamonLevel = h;
+            EOEComponents.HAMON_COMPONENT.sync(entity);
+        }
     }
 }
