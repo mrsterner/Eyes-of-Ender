@@ -1,10 +1,10 @@
 package dev.mrsterner.eyesofender.client.gui.hud;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import dev.mrsterner.eyesofender.api.interfaces.HamonUser;
 import dev.mrsterner.eyesofender.client.gui.widget.SelectHamonAbilityWidget;
 import dev.mrsterner.eyesofender.client.gui.HamonAbilityClientHandler;
 import dev.mrsterner.eyesofender.client.registry.EOEShaders;
+import dev.mrsterner.eyesofender.common.registry.EOEComponents;
 import dev.mrsterner.eyesofender.common.utils.RenderUtils;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -22,7 +22,7 @@ public class HamonAbilityHUD extends DrawableHelper {
 
 	public void render(MinecraftClient client, MatrixStack matrixStack, float tickDelta, int scaledWidth, int scaledHeight, PlayerEntity player) {
 		if (HamonAbilityClientHandler.selectedHamonAbility != null) {
-			HamonUser.of(player).ifPresent(user -> {
+			EOEComponents.HAMON_COMPONENT.maybeGet(player).ifPresent(user -> {
 				matrixStack.push();
 				matrixStack.translate(scaledWidth - 32, scaledHeight - 32, 0);
 				RenderSystem.setShaderTexture(0, SelectHamonAbilityWidget.getTexture(HamonAbilityClientHandler.selectedHamonAbility.hamonLevel));

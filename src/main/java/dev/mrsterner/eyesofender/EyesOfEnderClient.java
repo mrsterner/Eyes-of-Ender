@@ -2,7 +2,6 @@ package dev.mrsterner.eyesofender;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import dev.mrsterner.eyesofender.api.enums.Hamon;
-import dev.mrsterner.eyesofender.api.interfaces.HamonUser;
 import dev.mrsterner.eyesofender.client.EOESpriteIdentifiers;
 import dev.mrsterner.eyesofender.client.gui.HamonAbilityClientHandler;
 import dev.mrsterner.eyesofender.client.registry.EOEShaders;
@@ -14,12 +13,11 @@ import dev.mrsterner.eyesofender.client.renderer.StoneMaskItemRenderer;
 import dev.mrsterner.eyesofender.client.renderer.entity.HierophantGreenEntityRenderer;
 import dev.mrsterner.eyesofender.common.networking.packet.CyborgAbilityPacket;
 import dev.mrsterner.eyesofender.common.networking.packet.HamonAbilityPacket;
-import dev.mrsterner.eyesofender.common.networking.packet.SyncHamonUserDataPacket;
 import dev.mrsterner.eyesofender.common.registry.EOEBlockEntityTypes;
+import dev.mrsterner.eyesofender.common.registry.EOEComponents;
 import dev.mrsterner.eyesofender.common.registry.EOEEntityTypes;
 import dev.mrsterner.eyesofender.common.registry.EOEObjects;
 import dev.mrsterner.eyesofender.common.utils.EOEUtils;
-import dev.mrsterner.eyesofender.common.utils.NbtUtils;
 import dev.mrsterner.eyesofender.common.utils.RenderUtils;
 import ladysnake.satin.api.event.PostWorldRenderCallback;
 import ladysnake.satin.api.experimental.ReadableDepthFramebuffer;
@@ -35,7 +33,6 @@ import net.minecraft.client.render.Camera;
 import net.minecraft.client.render.ShaderProgram;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Matrix4f;
@@ -76,10 +73,6 @@ public class EyesOfEnderClient implements ClientModInitializer {
 
 		ClientPlayNetworking.registerGlobalReceiver(HamonAbilityPacket.ID, HamonAbilityPacket::handle);
 		ClientPlayNetworking.registerGlobalReceiver(CyborgAbilityPacket.ID, CyborgAbilityPacket::handle);
-		ClientPlayNetworking.registerGlobalReceiver(SyncHamonUserDataPacket.ID, (client, networkHandler, packetByteBuf, sender) -> {
-			NbtCompound tag = packetByteBuf.readNbt();
-			client.execute(() -> HamonUser.of(client.player).ifPresent(user -> NbtUtils.readAbilityData(user, tag)));
-		});
 
 		ClientTickEvents.END.register(ClientTickHandler::clientTickEnd);
 		PostWorldRenderCallback.EVENT.register(this::zaWarudo);
@@ -103,7 +96,7 @@ public class EyesOfEnderClient implements ClientModInitializer {
 		int scaledHeight = mc.getWindow().getScaledHeight();
 		int scaledWidth = mc.getWindow().getScaledWidth();
 
-		HamonUser.of(player).filter(hamonUser -> hamonUser.getHamonLevel() != Hamon.EMPTY).ifPresent(hamonUser -> {
+		EOEComponents.HAMON_COMPONENT.maybeGet(player).filter(hamonUser -> hamonUser.getHamonLevel() != Hamon.EMPTY).ifPresent(hamonUser -> {
 			if(player != null){
 				if(this.ticks % 4 == 0 && hamonFade < 1.0F && EOEUtils.canHamonBreath(player)){
 					hamonFade = hamonFade + 0.1F;

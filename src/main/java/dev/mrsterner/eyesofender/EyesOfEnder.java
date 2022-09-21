@@ -6,7 +6,6 @@ import dev.mrsterner.eyesofender.common.ability.stand.EOEStandAbilitiesCallback;
 import dev.mrsterner.eyesofender.common.block.CoffinBlock;
 import dev.mrsterner.eyesofender.common.networking.packet.CyborgAbilityPacket;
 import dev.mrsterner.eyesofender.common.networking.packet.HamonAbilityPacket;
-import dev.mrsterner.eyesofender.common.networking.packet.SyncHamonUserDataPacket;
 import dev.mrsterner.eyesofender.common.registry.*;
 import dev.mrsterner.eyesofender.common.utils.EOEUtils;
 import dev.mrsterner.eyesofender.common.utils.TimeStopUtils;

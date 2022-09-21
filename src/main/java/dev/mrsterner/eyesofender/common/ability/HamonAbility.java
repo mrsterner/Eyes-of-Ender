@@ -1,14 +1,13 @@
 package dev.mrsterner.eyesofender.common.ability;
 
-import dev.mrsterner.eyesofender.api.interfaces.HamonUser;
 import dev.mrsterner.eyesofender.api.registry.HamonKnowledge;
 import dev.mrsterner.eyesofender.common.networking.packet.HamonAbilityPacket;
+import dev.mrsterner.eyesofender.common.registry.EOEComponents;
 import dev.mrsterner.eyesofender.common.registry.EOERegistries;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.Identifier;
 
-import java.util.Optional;
 
 public class HamonAbility {
 	public HamonKnowledge hamonKnowledge;
@@ -21,8 +20,7 @@ public class HamonAbility {
 	}
 
 	public boolean use(LivingEntity user) {
-		Optional<HamonUser> abilityUserOptional = HamonUser.of(user);
-		if (!user.world.isClient && abilityUserOptional.isPresent()) {
+		if (!user.world.isClient && EOEComponents.HAMON_COMPONENT.maybeGet(user).isPresent()) {
 			HamonAbilityPacket.send(user, toTag(new NbtCompound()));
 		}
 		return hamonKnowledge.canUse(user);

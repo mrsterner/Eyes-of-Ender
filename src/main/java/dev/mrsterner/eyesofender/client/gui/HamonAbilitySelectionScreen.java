@@ -2,9 +2,9 @@ package dev.mrsterner.eyesofender.client.gui;
 
 import com.mojang.blaze3d.platform.InputUtil;
 import dev.mrsterner.eyesofender.EyesOfEnder;
-import dev.mrsterner.eyesofender.api.interfaces.HamonUser;
 import dev.mrsterner.eyesofender.client.gui.widget.SelectHamonAbilityWidget;
 import dev.mrsterner.eyesofender.common.ability.HamonAbility;
+import dev.mrsterner.eyesofender.common.registry.EOEComponents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
@@ -25,7 +25,7 @@ public class HamonAbilitySelectionScreen extends Screen {
 	protected void init() {
 		super.init();
 		if (client != null) {
-			HamonUser.of(client.player).ifPresent(user -> {
+			EOEComponents.HAMON_COMPONENT.maybeGet(client.player).ifPresent(user -> {
 				List<HamonAbility> abilities = user.getHamonAbilities().stream().filter(Objects::nonNull).toList();
 				double angleSize = (Math.PI * 2) / abilities.size();
 				totalRadius = totalRadius + (abilities.size() * 2);

@@ -3,6 +3,7 @@ package dev.mrsterner.eyesofender.common.item;
 import dev.mrsterner.eyesofender.EyesOfEnder;
 import dev.mrsterner.eyesofender.api.interfaces.HamonUser;
 import dev.mrsterner.eyesofender.common.ability.HamonAbility;
+import dev.mrsterner.eyesofender.common.registry.EOEComponents;
 import dev.mrsterner.eyesofender.common.registry.EOEHamonAbilities;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.player.PlayerEntity;
@@ -26,7 +27,7 @@ public class DebugStick extends Item {
 	@Override
 	public TypedActionResult<ItemStack> use(World world, PlayerEntity player, Hand hand) {
 		if(!player.isSneaking()){
-			HamonUser.of(player).ifPresent(user -> {
+			EOEComponents.HAMON_COMPONENT.maybeGet(player).ifPresent(user -> {
 				user.getHamonAbilities().clear();
 				ArrayList<HamonAbility> hamonAbility = new ArrayList<>();
 				hamonAbility.add(0, new HamonAbility(EOEHamonAbilities.HEALING, 1));
@@ -43,7 +44,7 @@ public class DebugStick extends Item {
 				player.swingHand(hand);
 			});
 		}else{
-			HamonUser.of(player).ifPresent(user -> {
+			EOEComponents.HAMON_COMPONENT.maybeGet(player).ifPresent(user -> {
 				user.getHamonAbilities().clear();
 				System.out.println("Abilities Cleared");
 				player.swingHand(hand);
