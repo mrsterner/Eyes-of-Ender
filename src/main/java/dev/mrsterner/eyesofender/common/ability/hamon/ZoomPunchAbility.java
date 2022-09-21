@@ -15,6 +15,7 @@ public class ZoomPunchAbility extends HamonKnowledge {
 				0,
 				null,
 				20 * 10,
-				HamonAbilityType.CHARGED);
+				HamonAbilityType.CHARGED,
+				0);
 	}
 }

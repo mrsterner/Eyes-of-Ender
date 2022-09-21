@@ -15,6 +15,7 @@ public class HamonDetectorAbility extends HamonKnowledge {
 				0,
 				null,
 				20 * 5,
-				HamonAbilityType.ACTIVE);
+				HamonAbilityType.ACTIVE,
+				0);
 	}
 }

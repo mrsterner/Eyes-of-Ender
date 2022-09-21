@@ -15,6 +15,7 @@ public class ForcedHamonAbility extends HamonKnowledge {
 				0,
 				null,
 				20 * 40,
-				HamonAbilityType.ACTIVE);
+				HamonAbilityType.ACTIVE,
+				0);
 	}
 }

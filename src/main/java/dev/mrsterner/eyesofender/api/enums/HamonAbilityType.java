@@ -4,6 +4,8 @@ public enum HamonAbilityType {
     ACTIVE,
     PASSIVE,
     CHARGED,
-    PROGRESSIVE,
-    TIMED;
+    JUMP,
+    HIT,
+    TIMED,
+    CROUCH;
 }

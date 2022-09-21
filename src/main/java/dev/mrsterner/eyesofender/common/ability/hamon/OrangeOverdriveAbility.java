@@ -17,7 +17,8 @@ public class OrangeOverdriveAbility extends HamonKnowledge {
 				0xF5CE8C,
 				EOEUtils.Identifiers.OVERLAY_OVERDRIVE,
 				20 * 75,
-				HamonAbilityType.ACTIVE);
+				HamonAbilityType.ACTIVE,
+				0);
 	}
 
 	@Override

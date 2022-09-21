@@ -16,7 +16,8 @@ public class OverdriveAbility extends HamonKnowledge {
 				0xF5CE8C,
 				EOEUtils.Identifiers.OVERLAY_OVERDRIVE,
 				20 * 5,
-				HamonAbilityType.HIT);
+				HamonAbilityType.HIT,
+				0);
 	}
 
 	@Override

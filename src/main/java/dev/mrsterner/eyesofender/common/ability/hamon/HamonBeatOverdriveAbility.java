@@ -16,7 +16,8 @@ public class HamonBeatOverdriveAbility extends HamonKnowledge {
 				0,
 				null,
 				1,
-				HamonAbilityType.ACTIVE);
+				HamonAbilityType.ACTIVE,
+				0);
 	}
 
 	@Override

@@ -16,7 +16,8 @@ public class OverdriveScarletAbility extends HamonKnowledge {
 				0xF5CE8C,
 				EOEUtils.Identifiers.OVERLAY_OVERDRIVE,
 				20 * 15,
-				HamonAbilityType.CHARGED);
+				HamonAbilityType.CHARGED,
+				0);
 	}
 
 	@Override

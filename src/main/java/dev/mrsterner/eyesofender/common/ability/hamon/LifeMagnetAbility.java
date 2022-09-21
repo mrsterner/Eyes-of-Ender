@@ -15,6 +15,7 @@ public class LifeMagnetAbility extends HamonKnowledge {
 				0xF5CE8C,
 				null,
 				20 * 40,
-				HamonAbilityType.ACTIVE);
+				HamonAbilityType.ACTIVE,
+				0);
 	}
 }

@@ -15,6 +15,7 @@ public class MetalSilverOverdriveAbility extends HamonKnowledge {
 				0xF5CE8C,
 				null,
 				20 * 10,
-				HamonAbilityType.ACTIVE);
+				HamonAbilityType.ACTIVE,
+				0);
 	}
 }

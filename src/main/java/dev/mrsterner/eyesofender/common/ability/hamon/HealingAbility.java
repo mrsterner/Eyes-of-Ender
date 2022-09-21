@@ -16,7 +16,8 @@ public class HealingAbility extends HamonKnowledge {
 				0,
 				null,
 				20,
-				HamonAbilityType.PASSIVE);
+				HamonAbilityType.PASSIVE,
+				0);
 	}
 
 	@Override

@@ -17,9 +17,10 @@ public abstract class HamonKnowledge {
 	private final Identifier overlay;
 	private final int hamonDrain;
 	private final HamonAbilityType hamonAbilityType;
-	private Hamon hamonTier;
+	private final Hamon hamonTier;
+	private final int hamonTimer;
 
-	public HamonKnowledge(Identifier id, Hamon hamonTier, @Nullable Predicate<LivingEntity> abilityPredicate, int color, Identifier overlay, int hamonDrain, HamonAbilityType hamonAbilityType) {
+	public HamonKnowledge(Identifier id, Hamon hamonTier, @Nullable Predicate<LivingEntity> abilityPredicate, int color, Identifier overlay, int hamonDrain, HamonAbilityType hamonAbilityType, int hamonTimer) {
 		this.id = id;
 		this.abilityPredicate = abilityPredicate == null ? (living) -> true : abilityPredicate;
 		this.color = color;
@@ -27,6 +28,7 @@ public abstract class HamonKnowledge {
 		this.hamonDrain = hamonDrain;
 		this.hamonAbilityType = hamonAbilityType;
 		this.hamonTier = hamonTier;
+		this.hamonTimer = hamonTimer;
 	}
 
 	public boolean canUse(LivingEntity user) {
@@ -68,5 +70,17 @@ public abstract class HamonKnowledge {
 
 	public void useAbility(World world, LivingEntity user, @Nullable Vec3d pos) {
 
+	}
+
+	public void onAbilityAdded(LivingEntity entity){
+
+	}
+
+	public void onAbilityRemoved(LivingEntity entity){
+
+	}
+
+	public int getHamonTimer() {
+		return hamonTimer;
 	}
 }

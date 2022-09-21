@@ -15,6 +15,7 @@ public class SendoWaveKickAbility extends HamonKnowledge {
 				0,
 				null,
 				20 * 35,
-				HamonAbilityType.TIMED);
+				HamonAbilityType.TIMED,
+				0);
 	}
 }

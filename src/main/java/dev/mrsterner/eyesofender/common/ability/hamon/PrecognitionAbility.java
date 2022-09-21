@@ -15,6 +15,7 @@ public class PrecognitionAbility extends HamonKnowledge {
 				0,
 				null,
 				20 * 120,
-				HamonAbilityType.TIMED);
+				HamonAbilityType.TIMED,
+				0);
 	}
 }

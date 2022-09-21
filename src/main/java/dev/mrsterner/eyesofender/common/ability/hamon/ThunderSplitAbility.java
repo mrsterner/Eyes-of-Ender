@@ -15,6 +15,7 @@ public class ThunderSplitAbility extends HamonKnowledge {
 				0,
 				null,
 				20 * 20,
-				HamonAbilityType.PROGRESSIVE);
+				HamonAbilityType.JUMP,
+				0);
 	}
 }

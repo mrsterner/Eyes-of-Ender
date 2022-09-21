@@ -15,6 +15,7 @@ public class OverdriveBarrageAbility extends HamonKnowledge {
 				0,
 				null,
 				20 * 100,
-				HamonAbilityType.TIMED);
+				HamonAbilityType.TIMED,
+				0);
 	}
 }

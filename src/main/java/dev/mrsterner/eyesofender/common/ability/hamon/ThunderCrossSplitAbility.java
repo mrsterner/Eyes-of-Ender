@@ -15,6 +15,7 @@ public class ThunderCrossSplitAbility extends HamonKnowledge {
 				0,
 				null,
 				20 * 160,
-				HamonAbilityType.PROGRESSIVE);
+				HamonAbilityType.JUMP,
+				0);
 	}
 }

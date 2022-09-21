@@ -17,7 +17,8 @@ public class IndigoOverdriveAbility extends HamonKnowledge {
 				0xF5CE8C,
 				EOEUtils.Identifiers.OVERLAY_OVERDRIVE,
 				2,
-				HamonAbilityType.CHARGED);
+				HamonAbilityType.CHARGED,
+				0);
 	}
 
 	@Override

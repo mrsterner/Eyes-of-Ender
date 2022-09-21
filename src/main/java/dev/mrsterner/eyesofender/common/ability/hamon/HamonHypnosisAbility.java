@@ -14,6 +14,7 @@ public class HamonHypnosisAbility extends HamonKnowledge {
 				null,
 				0, null,
 				20 * 10,
-				HamonAbilityType.ACTIVE);
+				HamonAbilityType.ACTIVE,
+				0);
 	}
 }

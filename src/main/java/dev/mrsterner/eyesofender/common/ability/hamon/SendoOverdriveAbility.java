@@ -15,6 +15,7 @@ public class SendoOverdriveAbility extends HamonKnowledge {
 				0,
 				null,
 				20 * 8,
-				HamonAbilityType.CHARGED);
+				HamonAbilityType.CHARGED,
+				0);
 	}
 }

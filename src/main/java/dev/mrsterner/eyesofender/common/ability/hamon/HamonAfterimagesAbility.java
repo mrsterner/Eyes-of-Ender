@@ -16,7 +16,8 @@ public class HamonAfterimagesAbility extends HamonKnowledge {
 				0,
 				null,
 				20 * 50,
-				HamonAbilityType.ACTIVE);
+				HamonAbilityType.ACTIVE,
+				0);
 	}
 
 	@Override

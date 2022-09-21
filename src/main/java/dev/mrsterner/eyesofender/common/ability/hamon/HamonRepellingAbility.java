@@ -21,7 +21,8 @@ public class HamonRepellingAbility extends HamonKnowledge {
 				0,
 				null,
 				20,
-				HamonAbilityType.PASSIVE);
+				HamonAbilityType.PASSIVE,
+				0);
 	}
 	private static boolean walkingOnWater(LivingEntity livingEntity) {
 		World world = livingEntity.getWorld();

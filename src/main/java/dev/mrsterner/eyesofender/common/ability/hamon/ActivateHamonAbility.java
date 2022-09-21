@@ -16,7 +16,8 @@ public class ActivateHamonAbility extends HamonKnowledge {
 				0xF5CE8C,
 				null,
 				1,
-				HamonAbilityType.PASSIVE);
+				HamonAbilityType.PASSIVE,
+				0);
 	}
 
 	@Override

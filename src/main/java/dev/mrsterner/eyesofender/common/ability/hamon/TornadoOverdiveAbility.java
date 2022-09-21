@@ -15,6 +15,7 @@ public class TornadoOverdiveAbility extends HamonKnowledge {
 				0,
 				null,
 				20 * 20,
-				HamonAbilityType.PROGRESSIVE);
+				HamonAbilityType.CROUCH,
+				0);
 	}
 }

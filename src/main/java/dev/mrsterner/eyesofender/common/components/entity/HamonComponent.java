@@ -32,6 +32,10 @@ public class HamonComponent implements ServerTickingComponent, AutoSyncedCompone
     private int hamonBreath = MAX_HAMON_BREATH;
     private Hamon hamonLevel = Hamon.BASIC; //TODO change to EMPTY
 
+    private HamonKnowledge chargedHamon = null;
+    private int hamonTimer = 0;
+    private boolean onAbilityAdded = false;
+
     public HamonComponent(LivingEntity entity) {
         this.entity = entity;
         this.world = entity.getWorld();
@@ -42,10 +46,27 @@ public class HamonComponent implements ServerTickingComponent, AutoSyncedCompone
     public void serverTick() {
             if(!world.isClient()){
                 if(HamonAbilityClientHandler.selectedHamonAbility != null){
+                    //On added
+                    if(!onAbilityAdded){
+                        HamonAbilityClientHandler.selectedHamonAbility.hamonKnowledge.onAbilityAdded(entity);
+                        onAbilityAdded = true;
+                    }
+
+
                     //Tick the passive hamon ability if it is a passive ability and decrease the breath for that ability
                     if(HamonAbilityClientHandler.selectedHamonAbility.hamonKnowledge.getHamonAbilityType() == HamonAbilityType.PASSIVE && getHamonBreath() > HamonAbilityClientHandler.selectedHamonAbility.hamonKnowledge.getHamonDrain()){
                         HamonAbilityClientHandler.selectedHamonAbility.hamonKnowledge.tickAbility(entity);
                         decreaseHamonBreath(HamonAbilityClientHandler.selectedHamonAbility.hamonKnowledge.getHamonDrain());
+                    }
+
+                    if(HamonAbilityClientHandler.selectedHamonAbility.hamonKnowledge.getHamonAbilityType() == HamonAbilityType.TIMED){
+                        if(HamonAbilityClientHandler.selectedHamonAbility.hamonKnowledge.getHamonTimer() > hamonTimer){
+                            hamonTimer++;
+                        }else {
+                            HamonAbilityClientHandler.selectedHamonAbility.hamonKnowledge.onAbilityRemoved(entity);
+                            HamonAbilityClientHandler.selectedHamonAbility = null;
+                            hamonTimer = 0;
+                        }
                     }
 
                     //Decrease HamonBreath if the user cant breath
@@ -58,6 +79,14 @@ public class HamonComponent implements ServerTickingComponent, AutoSyncedCompone
                         increaseHamonBreath(10);
                     }else{
                         decreaseHamonBreath(10);
+                    }
+
+
+                    //On removed
+                    if(getHamonBreath() == 0){
+                        HamonAbilityClientHandler.selectedHamonAbility.hamonKnowledge.onAbilityRemoved(entity);
+                        HamonAbilityClientHandler.selectedHamonAbility = null;
+                        onAbilityAdded = false;
                     }
                 }
             }

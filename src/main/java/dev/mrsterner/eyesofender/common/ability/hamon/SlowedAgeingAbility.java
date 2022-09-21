@@ -16,7 +16,8 @@ public class SlowedAgeingAbility extends HamonKnowledge {
 				0,
 				null,
 				0,
-				HamonAbilityType.PASSIVE);
+				HamonAbilityType.PASSIVE,
+				0);
 	}
 
 	@Override
