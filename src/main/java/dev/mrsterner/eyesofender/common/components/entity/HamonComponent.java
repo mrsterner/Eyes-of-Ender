@@ -2,6 +2,7 @@ package dev.mrsterner.eyesofender.common.components.entity;
 
 import dev.mrsterner.eyesofender.api.enums.Hamon;
 import dev.mrsterner.eyesofender.api.registry.HamonKnowledge;
+import dev.mrsterner.eyesofender.client.gui.HamonAbilityClientHandler;
 import dev.mrsterner.eyesofender.common.ability.HamonAbility;
 import dev.mrsterner.eyesofender.common.utils.EOEUtils;
 import dev.onyxstudios.cca.api.v3.component.sync.AutoSyncedComponent;
@@ -26,6 +27,7 @@ public class HamonComponent implements ServerTickingComponent, AutoSyncedCompone
     private Set<HamonKnowledge> learnedKnowledge = new HashSet<>();
     private int hamonBreath = 5; //TODO change to 0
     private Hamon hamonLevel = Hamon.BASIC; //TODO change to EMPTY
+    private int abilityDurationTimer = 0;
 
     public HamonComponent(LivingEntity entity) {
         this.entity = entity;
@@ -36,11 +38,28 @@ public class HamonComponent implements ServerTickingComponent, AutoSyncedCompone
     @Override
     public void serverTick() {
         if(!world.isClient()){
-            if(getHamonAbilityCooldown() <= 0 && getHamonAbilityCooldown() < MAX_ABILITY_COOLDOWN){
-                setHamonAbilityCooldown(getHamonAbilityCooldown() + 1);
+            if(HamonAbilityClientHandler.selectedHamonAbility != null){
+                if(abilityDurationTimer == 0 && HamonAbilityClientHandler.selectedHamonAbility.hamonKnowledge.getAbilityDuration() > 0){
+                    abilityDurationTimer = HamonAbilityClientHandler.selectedHamonAbility.hamonKnowledge.getAbilityDuration();
+                }
+
+
+                if(getHamonAbilityCooldown() <= 0 && getHamonAbilityCooldown() < MAX_ABILITY_COOLDOWN){
+                    setHamonAbilityCooldown(getHamonAbilityCooldown() + 1);
+                }
+                if(HamonAbilityClientHandler.selectedHamonAbility.hamonKnowledge.getIsPassive()){
+                    HamonAbilityClientHandler.selectedHamonAbility.hamonKnowledge.tickPassive(entity);
+                }
+                if(abilityDurationTimer > 0){
+                    HamonAbilityClientHandler.selectedHamonAbility.hamonKnowledge.tickAbility(entity);
+                    abilityDurationTimer--;
+                    if(abilityDurationTimer <= 1){
+                        HamonAbilityClientHandler.selectedHamonAbility = null;
+                        abilityDurationTimer = 0;
+                    }
+                }
             }
         }
-
     }
 
     @Override

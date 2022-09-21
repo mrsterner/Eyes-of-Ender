@@ -1,7 +1,6 @@
 package dev.mrsterner.eyesofender.common.item;
 
 import dev.mrsterner.eyesofender.EyesOfEnder;
-import dev.mrsterner.eyesofender.api.interfaces.HamonUser;
 import dev.mrsterner.eyesofender.common.ability.HamonAbility;
 import dev.mrsterner.eyesofender.common.registry.EOEComponents;
 import dev.mrsterner.eyesofender.common.registry.EOEHamonAbilities;
@@ -30,12 +29,12 @@ public class DebugStick extends Item {
 			EOEComponents.HAMON_COMPONENT.maybeGet(player).ifPresent(user -> {
 				user.getHamonAbilities().clear();
 				ArrayList<HamonAbility> hamonAbility = new ArrayList<>();
-				hamonAbility.add(0, new HamonAbility(EOEHamonAbilities.HEALING, 1));
-				hamonAbility.add(1, new HamonAbility(EOEHamonAbilities.OVERDRIVE, 1));
-				hamonAbility.add(2, new HamonAbility(EOEHamonAbilities.AFTERIMAGE, 1));
-				hamonAbility.add(3, new HamonAbility(EOEHamonAbilities.INDIGO, 1));
-				hamonAbility.add(4, new HamonAbility(EOEHamonAbilities.ORANGE, 1));
-				hamonAbility.add(5, new HamonAbility(EOEHamonAbilities.OVERDRIVE_TURQUOISE, 1));
+				hamonAbility.add(0, new HamonAbility(EOEHamonAbilities.HEALING));
+				hamonAbility.add(1, new HamonAbility(EOEHamonAbilities.OVERDRIVE));
+				hamonAbility.add(2, new HamonAbility(EOEHamonAbilities.AFTERIMAGE));
+				hamonAbility.add(3, new HamonAbility(EOEHamonAbilities.INDIGO));
+				hamonAbility.add(4, new HamonAbility(EOEHamonAbilities.ORANGE));
+				hamonAbility.add(5, new HamonAbility(EOEHamonAbilities.OVERDRIVE_TURQUOISE));
 
 				for(int i = 0; hamonAbility.size() > i; i++){
 					user.getHamonAbilities().add(i, hamonAbility.get(i));

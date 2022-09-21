@@ -25,7 +25,7 @@ public class HamonAbilityHUD extends DrawableHelper {
 			EOEComponents.HAMON_COMPONENT.maybeGet(player).ifPresent(user -> {
 				matrixStack.push();
 				matrixStack.translate(scaledWidth - 32, scaledHeight - 32, 0);
-				RenderSystem.setShaderTexture(0, SelectHamonAbilityWidget.getTexture(HamonAbilityClientHandler.selectedHamonAbility.hamonLevel));
+				RenderSystem.setShaderTexture(0, SelectHamonAbilityWidget.getTexture());
 				this.alpha = 1 - shiftTicks / 20F;
 				RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, this.alpha);
 				RenderSystem.enableBlend();

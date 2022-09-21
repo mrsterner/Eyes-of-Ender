@@ -11,12 +11,10 @@ import net.minecraft.util.Identifier;
 
 public class HamonAbility {
 	public HamonKnowledge hamonKnowledge;
-	public int hamonLevel;
 
 
-	public HamonAbility(HamonKnowledge hamonAbility, int hamonLevel) {
+	public HamonAbility(HamonKnowledge hamonAbility) {
 		this.hamonKnowledge = hamonAbility;
-		this.hamonLevel = hamonLevel;
 	}
 
 	public boolean use(LivingEntity user) {
@@ -28,13 +26,11 @@ public class HamonAbility {
 
 	public NbtCompound toTag(NbtCompound tag) {
 		tag.putString("HamonKnowledge", hamonKnowledge.getId().toString());
-		tag.putInt("HamonLevel", hamonLevel);
 		return tag;
 	}
 
 	public static HamonAbility fromTag(NbtCompound tag) {
 		return tag.isEmpty() ? null : new HamonAbility(
-				EOERegistries.HAMON_ABILITY.get(new Identifier(tag.getString("HamonKnowledge"))),
-				tag.getInt("HamonLevel"));
+				EOERegistries.HAMON_ABILITY.get(new Identifier(tag.getString("HamonKnowledge"))));
 	}
 }

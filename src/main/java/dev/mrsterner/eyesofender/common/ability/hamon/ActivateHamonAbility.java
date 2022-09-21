@@ -6,6 +6,6 @@ import dev.mrsterner.eyesofender.api.registry.HamonKnowledge;
 public class ActivateHamonAbility extends HamonKnowledge {
 
 	public ActivateHamonAbility() {
-		super(EyesOfEnder.id("activate"), null, 0xF5CE8C, null);
+		super(EyesOfEnder.id("activate"), null, 0xF5CE8C, null, false);
 	}
 }

@@ -31,7 +31,7 @@ public class SelectHamonAbilityWidget extends ClickableWidget {
 	public void renderButton(MatrixStack matrices, int mouseX, int mouseY, float delta) {
 		matrices.push();
 		MinecraftClient minecraftClient = MinecraftClient.getInstance();
-		RenderSystem.setShaderTexture(0, getTexture(hamonAbility.hamonLevel));
+		RenderSystem.setShaderTexture(0, getTexture());
 		this.alpha = (screen.openTicks + MinecraftClient.getInstance().getTickDelta()) / 5F;
 		RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, Math.min(isHoveredOrFocused() || isSelected() ? 1 : 0.5F, this.alpha));
 		RenderSystem.enableBlend();
@@ -65,8 +65,8 @@ public class SelectHamonAbilityWidget extends ClickableWidget {
 		this.renderBackground(matrices, minecraftClient, mouseX, mouseY);
 	}
 
-	public static Identifier getTexture(int level) {
-		return EyesOfEnder.id(String.format("textures/gui/ability_widgets/level/level_%d.png", level));
+	public static Identifier getTexture() {
+		return EyesOfEnder.id(String.format("textures/gui/ability_widgets/level/level.png"));
 	}
 
 	@Override
