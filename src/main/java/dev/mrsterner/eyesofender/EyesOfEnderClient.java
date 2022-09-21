@@ -118,13 +118,13 @@ public class EyesOfEnderClient implements ClientModInitializer {
 
 
 
-	private void renderHamon(MatrixStack matrices, int hamonBreath, int x, int y) {
+	private void renderHamon(MatrixStack matrices, float hamonBreath, int x, int y) {
 		ShaderProgram shader = EOEShaders.DISTORTED_TEXTURE.getInstance().get();
 		shader.getUniformOrDefault("FreqX").setFloat(1f);
 		shader.getUniformOrDefault("FreqY").setFloat(15f);
 		shader.getUniformOrDefault("Speed").setFloat(1500f);
 		shader.getUniformOrDefault("Amplitude").setFloat(50f);
-		RenderUtils.blit(matrices, EOEShaders.DISTORTED_TEXTURE, x + 100, y - 10, 8 * hamonBreath, 9, 1, 1, 1, 1, 0, 0, 80, 9);
+		RenderUtils.blit(matrices, EOEShaders.DISTORTED_TEXTURE, x + 100, y - 10, 8 * hamonBreath/(200f), 9, 1, 1, 1, 1, 0, 0, 80, 9);
 
 
 /*
