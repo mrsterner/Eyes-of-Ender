@@ -11,7 +11,6 @@ import dev.mrsterner.eyesofender.client.registry.EOESoundEvents;
 import dev.mrsterner.eyesofender.client.renderer.StoneMaskArmorRenderer;
 import dev.mrsterner.eyesofender.client.renderer.StoneMaskItemRenderer;
 import dev.mrsterner.eyesofender.client.renderer.entity.HierophantGreenEntityRenderer;
-import dev.mrsterner.eyesofender.common.networking.packet.CyborgAbilityPacket;
 import dev.mrsterner.eyesofender.common.networking.packet.HamonAbilityPacket;
 import dev.mrsterner.eyesofender.common.registry.EOEBlockEntityTypes;
 import dev.mrsterner.eyesofender.common.registry.EOEComponents;
@@ -72,7 +71,6 @@ public class EyesOfEnderClient implements ClientModInitializer {
 		HamonAbilityClientHandler.init();
 
 		ClientPlayNetworking.registerGlobalReceiver(HamonAbilityPacket.ID, HamonAbilityPacket::handle);
-		ClientPlayNetworking.registerGlobalReceiver(CyborgAbilityPacket.ID, CyborgAbilityPacket::handle);
 
 		ClientTickEvents.END.register(ClientTickHandler::clientTickEnd);
 		PostWorldRenderCallback.EVENT.register(this::zaWarudo);

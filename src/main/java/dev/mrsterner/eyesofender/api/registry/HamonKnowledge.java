@@ -11,15 +11,15 @@ public abstract class HamonKnowledge {
 	private final Predicate<LivingEntity> abilityPredicate;
 	private final int color;
 	private final Identifier overlay;
-	private final int abilityDuration;
+	private final int hamonDrain;
 	private final boolean isPassive;
 
-	public HamonKnowledge(Identifier id, @Nullable Predicate<LivingEntity> abilityPredicate, int color, Identifier overlay, int abilityDuration, boolean isPassive) {
+	public HamonKnowledge(Identifier id, @Nullable Predicate<LivingEntity> abilityPredicate, int color, Identifier overlay, int hamonDrain, boolean isPassive) {
 		this.id = id;
 		this.abilityPredicate = abilityPredicate == null ? (living) -> true : abilityPredicate;
 		this.color = color;
 		this.overlay = overlay;
-		this.abilityDuration = abilityDuration;
+		this.hamonDrain = hamonDrain;
 		this.isPassive = isPassive;
 	}
 
@@ -43,16 +43,12 @@ public abstract class HamonKnowledge {
 		return new Identifier(id.getNamespace(), "textures/gui/ability_widgets/ability/" + id.getPath() + ".png");
 	}
 
-	public int getAbilityDuration() {
-		return abilityDuration;
-	}
-
-	public boolean getIsPassive() {
+	public boolean isPassive(){
 		return isPassive;
 	}
 
-	public void tickPassive(LivingEntity entity) {
-
+	public int getHamonDrain() {
+		return hamonDrain;
 	}
 
 	public void tickAbility(LivingEntity entity) {

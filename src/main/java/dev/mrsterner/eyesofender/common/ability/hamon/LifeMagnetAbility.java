@@ -6,6 +6,6 @@ import dev.mrsterner.eyesofender.api.registry.HamonKnowledge;
 public class LifeMagnetAbility extends HamonKnowledge {
 
 	public LifeMagnetAbility() {
-		super(EyesOfEnder.id("life_magnet"), null, 0xF5CE8C, null);
+		super(EyesOfEnder.id("life_magnet"), null, 0xF5CE8C, null, 20, false);
 	}
 }

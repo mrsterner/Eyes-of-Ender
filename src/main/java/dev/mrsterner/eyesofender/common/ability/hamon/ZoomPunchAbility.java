@@ -6,6 +6,6 @@ import dev.mrsterner.eyesofender.api.registry.HamonKnowledge;
 public class ZoomPunchAbility extends HamonKnowledge {
 
 	public ZoomPunchAbility() {
-		super(EyesOfEnder.id("zoom_punch"), null, 0xF5CE8C, null);
+		super(EyesOfEnder.id("zoom_punch"), null, 0xF5CE8C, null, 10, false);
 	}
 }

@@ -1,7 +1,6 @@
 package dev.mrsterner.eyesofender.mixin.entity;
 
 import dev.mrsterner.eyesofender.api.enums.BodyPart;
-import dev.mrsterner.eyesofender.api.interfaces.HamonUser;
 import dev.mrsterner.eyesofender.common.registry.EOEComponents;
 import dev.mrsterner.eyesofender.common.utils.EOEUtils;
 import net.minecraft.entity.EntityDimensions;

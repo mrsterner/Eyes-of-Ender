@@ -4,7 +4,6 @@ import com.mojang.datafixers.util.Pair;
 import dev.mrsterner.eyesofender.api.enums.BodyPart;
 import dev.mrsterner.eyesofender.common.ability.stand.EOEStandAbilitiesCallback;
 import dev.mrsterner.eyesofender.common.block.CoffinBlock;
-import dev.mrsterner.eyesofender.common.networking.packet.CyborgAbilityPacket;
 import dev.mrsterner.eyesofender.common.networking.packet.HamonAbilityPacket;
 import dev.mrsterner.eyesofender.common.registry.*;
 import dev.mrsterner.eyesofender.common.utils.EOEUtils;
@@ -59,13 +58,10 @@ public class EyesOfEnder implements ModInitializer {
 		EOEBlockEntityTypes.init();
 		EOEEntityTypes.init();
 		EOEHamonAbilities.init();
-		EOECyborgAbilities.init();
 		EOEWorldGenerators.init();
 		EOEStandAbilitiesCallback.init();
 
-		ServerPlayNetworking.registerGlobalReceiver(SyncHamonUserDataPacket.ID, SyncHamonUserDataPacket::handleFromClient);
 		ServerPlayNetworking.registerGlobalReceiver(HamonAbilityPacket.ID, HamonAbilityPacket::handleFromClient);
-		ServerPlayNetworking.registerGlobalReceiver(CyborgAbilityPacket.ID, CyborgAbilityPacket::handleFromClient);
 
 		AttackEntityCallback.EVENT.register(this::stainStoneMask);
 		AttackEntityCallback.EVENT.register(this::damageInTimeStop);

@@ -25,9 +25,8 @@ public class HamonComponent implements ServerTickingComponent, AutoSyncedCompone
     private int MAX_ABILITY_COOLDOWN = 20 * 2;
     private List<HamonAbility> abilities = new ArrayList<>();
     private Set<HamonKnowledge> learnedKnowledge = new HashSet<>();
-    private int hamonBreath = 5; //TODO change to 0
+    private int hamonBreath = 20 * 100; //TODO change to 0
     private Hamon hamonLevel = Hamon.BASIC; //TODO change to EMPTY
-    private int abilityDurationTimer = 0;
 
     public HamonComponent(LivingEntity entity) {
         this.entity = entity;
@@ -39,24 +38,9 @@ public class HamonComponent implements ServerTickingComponent, AutoSyncedCompone
     public void serverTick() {
         if(!world.isClient()){
             if(HamonAbilityClientHandler.selectedHamonAbility != null){
-                if(abilityDurationTimer == 0 && HamonAbilityClientHandler.selectedHamonAbility.hamonKnowledge.getAbilityDuration() > 0){
-                    abilityDurationTimer = HamonAbilityClientHandler.selectedHamonAbility.hamonKnowledge.getAbilityDuration();
-                }
-
-
-                if(getHamonAbilityCooldown() <= 0 && getHamonAbilityCooldown() < MAX_ABILITY_COOLDOWN){
-                    setHamonAbilityCooldown(getHamonAbilityCooldown() + 1);
-                }
-                if(HamonAbilityClientHandler.selectedHamonAbility.hamonKnowledge.getIsPassive()){
-                    HamonAbilityClientHandler.selectedHamonAbility.hamonKnowledge.tickPassive(entity);
-                }
-                if(abilityDurationTimer > 0){
+                if(HamonAbilityClientHandler.selectedHamonAbility.hamonKnowledge.isPassive() && getHamonBreath() > HamonAbilityClientHandler.selectedHamonAbility.hamonKnowledge.getHamonDrain()){
                     HamonAbilityClientHandler.selectedHamonAbility.hamonKnowledge.tickAbility(entity);
-                    abilityDurationTimer--;
-                    if(abilityDurationTimer <= 1){
-                        HamonAbilityClientHandler.selectedHamonAbility = null;
-                        abilityDurationTimer = 0;
-                    }
+                    decreaseHamonBreath(HamonAbilityClientHandler.selectedHamonAbility.hamonKnowledge.getHamonDrain());
                 }
             }
         }
@@ -122,6 +106,13 @@ public class HamonComponent implements ServerTickingComponent, AutoSyncedCompone
         this.hamonBreath = getHamonBreath() + amount;
     }
 
+    public void increaseHamonBreath(int amount){
+        setHamonBreath(getHamonBreath() + amount);
+    }
+
+    public void decreaseHamonBreath(int amount){
+        setHamonBreath(getHamonBreath() - amount);
+    }
 
     public Hamon getHamonLevel() {
         return hamonLevel;
