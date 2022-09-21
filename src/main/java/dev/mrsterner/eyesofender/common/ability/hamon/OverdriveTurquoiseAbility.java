@@ -8,7 +8,14 @@ import net.minecraft.entity.LivingEntity;
 
 public class OverdriveTurquoiseAbility extends HamonKnowledge {
 	public OverdriveTurquoiseAbility() {
-		super(EyesOfEnder.id("overdrive_turquoise"), Hamon.BASIC, null, 0xF5CE8C, EOEUtils.Identifiers.OVERLAY_OVERDRIVE, 2, true);
+		super(
+				EyesOfEnder.id("overdrive_turquoise"),
+				Hamon.BASIC,
+				null,
+				0xF5CE8C,
+				EOEUtils.Identifiers.OVERLAY_OVERDRIVE,
+				2,
+				true);
 	}
 
 	@Override

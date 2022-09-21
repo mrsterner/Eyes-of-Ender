@@ -1,6 +1,7 @@
 package dev.mrsterner.eyesofender.common.components.entity;
 
 import dev.mrsterner.eyesofender.api.enums.Hamon;
+import dev.mrsterner.eyesofender.api.enums.HamonAbilityType;
 import dev.mrsterner.eyesofender.api.registry.HamonKnowledge;
 import dev.mrsterner.eyesofender.client.gui.HamonAbilityClientHandler;
 import dev.mrsterner.eyesofender.common.ability.HamonAbility;
@@ -42,7 +43,7 @@ public class HamonComponent implements ServerTickingComponent, AutoSyncedCompone
             if(!world.isClient()){
                 if(HamonAbilityClientHandler.selectedHamonAbility != null){
                     //Tick the passive hamon ability if it is a passive ability and decrease the breath for that ability
-                    if(HamonAbilityClientHandler.selectedHamonAbility.hamonKnowledge.isPassive() && getHamonBreath() > HamonAbilityClientHandler.selectedHamonAbility.hamonKnowledge.getHamonDrain()){
+                    if(HamonAbilityClientHandler.selectedHamonAbility.hamonKnowledge.getHamonAbilityType() == HamonAbilityType.PASSIVE && getHamonBreath() > HamonAbilityClientHandler.selectedHamonAbility.hamonKnowledge.getHamonDrain()){
                         HamonAbilityClientHandler.selectedHamonAbility.hamonKnowledge.tickAbility(entity);
                         decreaseHamonBreath(HamonAbilityClientHandler.selectedHamonAbility.hamonKnowledge.getHamonDrain());
                     }

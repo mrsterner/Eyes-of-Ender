@@ -1,6 +1,7 @@
 package dev.mrsterner.eyesofender.api.registry;
 
 import dev.mrsterner.eyesofender.api.enums.Hamon;
+import dev.mrsterner.eyesofender.api.enums.HamonAbilityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
@@ -15,16 +16,16 @@ public abstract class HamonKnowledge {
 	private final int color;
 	private final Identifier overlay;
 	private final int hamonDrain;
-	private final boolean isPassive;
+	private final HamonAbilityType hamonAbilityType;
 	private Hamon hamonTier;
 
-	public HamonKnowledge(Identifier id, Hamon hamonTier, @Nullable Predicate<LivingEntity> abilityPredicate, int color, Identifier overlay, int hamonDrain, boolean isPassive) {
+	public HamonKnowledge(Identifier id, Hamon hamonTier, @Nullable Predicate<LivingEntity> abilityPredicate, int color, Identifier overlay, int hamonDrain, HamonAbilityType hamonAbilityType) {
 		this.id = id;
 		this.abilityPredicate = abilityPredicate == null ? (living) -> true : abilityPredicate;
 		this.color = color;
 		this.overlay = overlay;
 		this.hamonDrain = hamonDrain;
-		this.isPassive = isPassive;
+		this.hamonAbilityType = hamonAbilityType;
 		this.hamonTier = hamonTier;
 	}
 
@@ -52,13 +53,14 @@ public abstract class HamonKnowledge {
 		return hamonTier;
 	}
 
-	public boolean isPassive(){
-		return isPassive;
+	public HamonAbilityType getHamonAbilityType(){
+		return hamonAbilityType;
 	}
 
 	public int getHamonDrain() {
 		return hamonDrain;
 	}
+
 
 	public void tickAbility(LivingEntity entity) {
 

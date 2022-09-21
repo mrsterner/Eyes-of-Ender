@@ -2,6 +2,7 @@ package dev.mrsterner.eyesofender.common.ability.hamon;
 
 import dev.mrsterner.eyesofender.EyesOfEnder;
 import dev.mrsterner.eyesofender.api.enums.Hamon;
+import dev.mrsterner.eyesofender.api.enums.HamonAbilityType;
 import dev.mrsterner.eyesofender.api.registry.HamonKnowledge;
 import dev.mrsterner.eyesofender.common.registry.EOEStatusEffects;
 import net.minecraft.entity.LivingEntity;
@@ -14,7 +15,14 @@ import org.jetbrains.annotations.Nullable;
 
 public class ImbueAbility extends HamonKnowledge {
 	public ImbueAbility() {
-		super(EyesOfEnder.id("imbue"), Hamon.BASIC, null, 0, null, 20*2, false);
+
+		super(EyesOfEnder.id("imbue"),
+				Hamon.BASIC,
+				null,
+				0,
+				null,
+				20*2,
+				HamonAbilityType.CHARGED);
 	}
 
 	@Override
