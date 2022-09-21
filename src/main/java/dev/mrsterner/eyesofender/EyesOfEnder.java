@@ -72,6 +72,11 @@ public class EyesOfEnder implements ModInitializer {
 
 	}
 
+	/**
+	 * If the user looses any body parts any items which would be on that bodypart is dropped
+	 * @param minecraftServer
+	 * @param serverWorld
+	 */
 	private void dropItems(MinecraftServer minecraftServer, ServerWorld serverWorld) {
 		serverWorld.getPlayers().forEach(serverPlayerEntity -> {
 			if(EOEUtils.ifMissingLegs(serverPlayerEntity)){
@@ -92,7 +97,7 @@ public class EyesOfEnder implements ModInitializer {
 	}
 
 	/**
-	 *
+	 * Allow sleeping in a coffin
 	 * @param player
 	 * @param blockPos
 	 * @param vanillaResult
@@ -107,7 +112,7 @@ public class EyesOfEnder implements ModInitializer {
 	}
 
 	/**
-	 *
+	 * SleepFailureReason for coffin
 	 * @param player
 	 * @param blockPos
 	 * @return
@@ -124,11 +129,11 @@ public class EyesOfEnder implements ModInitializer {
 	}
 
 	/**
-	 *
-	 * @param player
+	 * Stack damage on entities on time-stop
+	 * @param player time stopper
 	 * @param world
 	 * @param hand
-	 * @param entity
+	 * @param entity target
 	 * @param entityHitResult
 	 * @return
 	 */
@@ -164,16 +169,15 @@ public class EyesOfEnder implements ModInitializer {
 	 */
 	private ActionResult stainStoneMask(PlayerEntity player, World world, Hand hand, Entity entity, @Nullable EntityHitResult entityHitResult) {
 		if(player.getEquippedStack(EquipmentSlot.HEAD) == EOEObjects.STONE_MASK.getDefaultStack() && player.getMainHandStack() == EOEObjects.DAGGER.getDefaultStack()){
-			ItemStack itemStack = player.getMainHandStack();
-			var nbt = itemStack.getNbt();
-			if (entityHitResult != null && nbt != null && !nbt.contains("Bloody")) {
-				Entity hit = entityHitResult.getEntity();
-				if(hit.getType().isIn(EOEUtils.Tags.HUMANOIDS)){
-					NbtCompound compound = new NbtCompound();
-					compound.putBoolean("Bloody", true);
-					itemStack.getOrCreateNbt().put("State", compound);
-					return ActionResult.SUCCESS;
+			if(entityHitResult != null && entityHitResult.getEntity().getType().isIn(EOEUtils.Tags.HUMANOIDS)){
+				ItemStack mask = player.getEquippedStack(EquipmentSlot.HEAD);
+				if(mask.getNbt() != null && mask.getNbt().contains("Bloody")){
+					return ActionResult.PASS;
 				}
+				NbtCompound compound = new NbtCompound();
+				compound.putBoolean("Bloody", true);
+				mask.getOrCreateNbt().put("State", compound);
+				return ActionResult.SUCCESS;
 			}
 		}
 		return ActionResult.PASS;

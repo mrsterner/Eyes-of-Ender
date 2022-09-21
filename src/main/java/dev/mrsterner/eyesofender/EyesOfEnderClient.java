@@ -11,6 +11,7 @@ import dev.mrsterner.eyesofender.client.registry.EOESoundEvents;
 import dev.mrsterner.eyesofender.client.renderer.StoneMaskArmorRenderer;
 import dev.mrsterner.eyesofender.client.renderer.StoneMaskItemRenderer;
 import dev.mrsterner.eyesofender.client.renderer.entity.HierophantGreenEntityRenderer;
+import dev.mrsterner.eyesofender.client.shader.ZaWarudoShader;
 import dev.mrsterner.eyesofender.common.networking.packet.HamonAbilityPacket;
 import dev.mrsterner.eyesofender.common.registry.EOEBlockEntityTypes;
 import dev.mrsterner.eyesofender.common.registry.EOEComponents;
@@ -47,22 +48,10 @@ import software.bernie.geckolib3.renderers.geo.GeoItemRenderer;
 import static net.minecraft.client.gui.DrawableHelper.GUI_ICONS_TEXTURE;
 
 public class EyesOfEnderClient implements ClientModInitializer {
+	ZaWarudoShader zaWarudoShader = new ZaWarudoShader();
 	private float hamonFade = 1.0F;
 	private int ticks = 0;
-	private float prevRadius = 0f;
-	private float radius = 0f;
-	private boolean renderingEffect = false;
-	public @Nullable PlayerEntity shaderPlayer = null;
-	public long effectLength = 0;
-	private Matrix4f projectionMatrix = new Matrix4f();
-	public boolean shouldRender = false;
 	private static final Identifier EYES_OF_ENDER_GUI_ICONS_TEXTURE = EyesOfEnder.id("textures/gui/hamonbar.png");
-	private ManagedShaderEffect shader = ShaderEffectManager.getInstance().manage(EyesOfEnder.id("shaders/post/za_warudo.json"), shader -> {
-		MinecraftClient mc = MinecraftClient.getInstance();
-		shader.setSamplerUniform("DepthSampler", ((ReadableDepthFramebuffer) mc.getFramebuffer()).getStillDepthMap());
-		shader.setUniformValue("ViewPort", 0, 0, mc.getWindow().getFramebufferWidth(), mc.getWindow().getFramebufferHeight());
-	});
-
 
 	@Override
 	public void onInitializeClient(ModContainer mod) {
@@ -73,10 +62,7 @@ public class EyesOfEnderClient implements ClientModInitializer {
 		ClientPlayNetworking.registerGlobalReceiver(HamonAbilityPacket.ID, HamonAbilityPacket::handle);
 
 		ClientTickEvents.END.register(ClientTickHandler::clientTickEnd);
-		PostWorldRenderCallback.EVENT.register(this::zaWarudo);
-		ClientTickEvents.START.register(this::zaWarduo);
 		HudRenderCallback.EVENT.register(this::renderHamonHud);
-
 
 		BlockEntityRendererRegistry.register(EOEBlockEntityTypes.COFFIN_BLOCK_ENTITY, CoffinBlockEntityRenderer::new);
 		EntityModelLayerRegistry.registerModelLayer(CoffinBlockEntityRenderer.COFFIN_LAYER, CoffinBlockEntityRenderer::getTexturedModelData);
@@ -86,8 +72,15 @@ public class EyesOfEnderClient implements ClientModInitializer {
 		GeoItemRenderer.registerItemRenderer(EOEObjects.STONE_MASK, new StoneMaskItemRenderer());
 
 		EntityRendererRegistry.register(EOEEntityTypes.HIEROPHANT_GREEN, HierophantGreenEntityRenderer::new);
+
+		zaWarudoShader.registerCallbacks();
 	}
 
+	/**
+	 * If the player is a hamon user its hamon breath should render over the hotbar
+	 * @param matrixStack
+	 * @param tickDelta
+	 */
 	private void renderHamonHud(MatrixStack matrixStack, float tickDelta) {
 		MinecraftClient mc = MinecraftClient.getInstance();
 		PlayerEntity player = mc.player;
@@ -117,7 +110,13 @@ public class EyesOfEnderClient implements ClientModInitializer {
 	}
 
 
-
+	/**
+	 * Use a shader to render a texture, for the hamon breath bar
+	 * @param matrices
+	 * @param hamonBreath
+	 * @param x
+	 * @param y
+	 */
 	private void renderHamon(MatrixStack matrices, float hamonBreath, int x, int y) {
 		ShaderProgram shader = EOEShaders.DISTORTED_TEXTURE.getInstance().get();
 		shader.getUniformOrDefault("FreqX").setFloat(1f);
@@ -140,67 +139,6 @@ public class EyesOfEnderClient implements ClientModInitializer {
  */
 
 
-	}
-
-	private float lerp(double n, double prevN, float tickDelta) {
-		return (float) MathHelper.lerp(tickDelta, prevN, n);
-	}
-
-	private boolean hasFinishedAnimation() {
-		return ticks > effectLength;
-	}
-
-	public void zaWarduo(MinecraftClient minecraftClient) {
-		if (shouldRender) {
-			if (!renderingEffect) {
-				shader.setUniformValue("OuterSat", 1f);
-				ticks = 0;
-				radius = 0f;
-				prevRadius = radius;
-				renderingEffect = true;
-			}
-			ticks++;
-			prevRadius = radius;
-			float expansionRate = 4f;
-			int inversion = 100 / (int) expansionRate;
-			if (ticks < inversion) {
-				radius += expansionRate;
-			}
-			else if (ticks == inversion) {
-				shader.setUniformValue("OuterSat", 0.3f);
-			}
-			else if (ticks < 2 * inversion) {
-				radius -= 2 * expansionRate;
-			}
-			if (hasFinishedAnimation()) {
-				renderingEffect = false;
-				shouldRender = false;
-			}
-		} else {
-			renderingEffect = false;
-		}
-	}
-
-	public void zaWarudo(Camera camera, float tickDelta, long nanoTime) {
-		if (renderingEffect) {
-			shader.setUniformValue("STime", (ticks + tickDelta) / 20f);
-			shader.setUniformValue("InverseTransformMatrix", GlMatrices.getInverseTransformMatrix(projectionMatrix));
-			Vec3d cameraPos = camera.getPos();
-			shader.setUniformValue(
-					"CameraPosition", (float) cameraPos.x, (float) cameraPos.y,
-					(float) cameraPos.z
-			);
-			if (shaderPlayer != null) {
-				shader.setUniformValue(
-						"Center",
-						lerp(shaderPlayer.getX(), shaderPlayer.prevX, tickDelta),
-						lerp(shaderPlayer.getY()+0.5, shaderPlayer.prevY+0.5, tickDelta),
-						lerp(shaderPlayer.getZ(), shaderPlayer.prevZ, tickDelta)
-				);
-			}
-			shader.setUniformValue("Radius", Math.max(0f, lerp(radius, prevRadius, tickDelta)));
-			shader.render(tickDelta);
-		}
 	}
 
 	public static final class ClientTickHandler {
@@ -230,6 +168,4 @@ public class EyesOfEnderClient implements ClientModInitializer {
 			calcDelta();
 		}
 	}
-
-
 }
