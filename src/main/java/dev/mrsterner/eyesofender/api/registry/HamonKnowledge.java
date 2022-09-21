@@ -63,24 +63,35 @@ public abstract class HamonKnowledge {
 		return hamonDrain;
 	}
 
-
-	public void tickAbility(LivingEntity entity) {
-
-	}
-
-	public void useAbility(World world, LivingEntity user, @Nullable Vec3d pos) {
-
-	}
-
-	public void onAbilityAdded(LivingEntity entity){
-
-	}
-
-	public void onAbilityRemoved(LivingEntity entity){
-
-	}
-
 	public int getHamonTimer() {
 		return hamonTimer;
 	}
+
+	/**
+	 * Runs on Passive abilities
+	 * @param user
+	 */
+	public void tickPassiveAbility(LivingEntity user) {
+
+	}
+
+	/**
+	 * Runs when keybind is pressed, also runs onAbilityRemoved so remember to put the super at the bottom of the overriden method
+	 * @param world
+	 * @param user
+	 * @param pos
+	 */
+	public void useAbility(World world, LivingEntity user, @Nullable Vec3d pos) {
+		onAbilityRemoved(user);
+	}
+
+	/**
+	 * Runs when hamon breath is 0 or timer removed
+	 * @param user
+	 */
+	public void onAbilityRemoved(LivingEntity user){
+
+	}
+
+
 }

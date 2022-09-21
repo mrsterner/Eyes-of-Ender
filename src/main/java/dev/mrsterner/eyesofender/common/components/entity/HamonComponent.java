@@ -12,9 +12,12 @@ import dev.onyxstudios.cca.api.v3.component.sync.AutoSyncedComponent;
 import dev.onyxstudios.cca.api.v3.component.tick.ServerTickingComponent;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtList;
+import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -32,9 +35,8 @@ public class HamonComponent implements ServerTickingComponent, AutoSyncedCompone
     private int hamonBreath = MAX_HAMON_BREATH;
     private Hamon hamonLevel = Hamon.BASIC; //TODO change to EMPTY
 
-    private HamonKnowledge chargedHamon = null;
+    private HamonAbility storedHamonCharge = null;
     private int hamonTimer = 0;
-    private boolean onAbilityAdded = false;
 
     public HamonComponent(LivingEntity entity) {
         this.entity = entity;
@@ -46,20 +48,23 @@ public class HamonComponent implements ServerTickingComponent, AutoSyncedCompone
     public void serverTick() {
             if(!world.isClient()){
                 if(HamonAbilityClientHandler.selectedHamonAbility != null){
-                    //On added
-                    if(!onAbilityAdded){
-                        HamonAbilityClientHandler.selectedHamonAbility.hamonKnowledge.onAbilityAdded(entity);
-                        onAbilityAdded = true;
-                    }
-
-
                     //Tick the passive hamon ability if it is a passive ability and decrease the breath for that ability
                     if(HamonAbilityClientHandler.selectedHamonAbility.hamonKnowledge.getHamonAbilityType() == HamonAbilityType.PASSIVE && getHamonBreath() > HamonAbilityClientHandler.selectedHamonAbility.hamonKnowledge.getHamonDrain()){
-                        HamonAbilityClientHandler.selectedHamonAbility.hamonKnowledge.tickAbility(entity);
+                        HamonAbilityClientHandler.selectedHamonAbility.hamonKnowledge.tickPassiveAbility(entity);
                         decreaseHamonBreath(HamonAbilityClientHandler.selectedHamonAbility.hamonKnowledge.getHamonDrain());
                     }
 
+                    //Runs onAbilityRemoved when timer hits 0 for TIMED abilities
                     if(HamonAbilityClientHandler.selectedHamonAbility.hamonKnowledge.getHamonAbilityType() == HamonAbilityType.TIMED){
+                        if(HamonAbilityClientHandler.selectedHamonAbility.hamonKnowledge.getHamonTimer() > hamonTimer){
+                            hamonTimer++;
+                        }else {
+                            HamonAbilityClientHandler.selectedHamonAbility.hamonKnowledge.onAbilityRemoved(entity);
+                            HamonAbilityClientHandler.selectedHamonAbility = null;
+                            hamonTimer = 0;
+                        }
+                        //Runs onAbilityRemoved when timer hits 0 for CROUCH abilities, entity has to be sneaking
+                    }else if(HamonAbilityClientHandler.selectedHamonAbility.hamonKnowledge.getHamonAbilityType() == HamonAbilityType.CROUCH && entity.isSneaking()){
                         if(HamonAbilityClientHandler.selectedHamonAbility.hamonKnowledge.getHamonTimer() > hamonTimer){
                             hamonTimer++;
                         }else {
@@ -86,7 +91,6 @@ public class HamonComponent implements ServerTickingComponent, AutoSyncedCompone
                     if(getHamonBreath() == 0){
                         HamonAbilityClientHandler.selectedHamonAbility.hamonKnowledge.onAbilityRemoved(entity);
                         HamonAbilityClientHandler.selectedHamonAbility = null;
-                        onAbilityAdded = false;
                     }
                 }
             }
@@ -98,10 +102,16 @@ public class HamonComponent implements ServerTickingComponent, AutoSyncedCompone
         setHamonAbilityCooldown(tag.getInt(EOEUtils.Nbt.ABILITY_COOLDOWN));
         setHamonBreath(tag.getInt(EOEUtils.Nbt.HAMON_BREATH));
 
+
         getHamonAbilities().clear();
         for (int i = 0; i < tag.getList(EOEUtils.Nbt.ABILITY_LIST, 10).size(); i++) {
             getHamonAbilities().add(i, HamonAbility.fromTag((NbtCompound) tag.getList(EOEUtils.Nbt.ABILITY_LIST, 10).get(i)));
         }
+
+        if(tag.getString("StoredChargedHamon") != null){
+            setStoredChargedHamon(new HamonAbility(EOERegistries.HAMON_ABILITY.get(new Identifier(tag.getString("StoredChargedHamon")))));
+        }
+
     }
 
     @Override
@@ -113,6 +123,9 @@ public class HamonComponent implements ServerTickingComponent, AutoSyncedCompone
         NbtList abilities = new NbtList();
         getHamonAbilities().forEach((ability) -> abilities.add(ability == null ? new NbtCompound() : ability.toTag(new NbtCompound())));
         tag.put(EOEUtils.Nbt.ABILITY_LIST, abilities);
+
+
+        tag.putString("StoredChargedHamon", storedHamonCharge.hamonKnowledge.getId().toString());
     }
 
     public int getMaxHamonAbilities() {
@@ -184,5 +197,15 @@ public class HamonComponent implements ServerTickingComponent, AutoSyncedCompone
             this.hamonLevel = h;
             EOEComponents.HAMON_COMPONENT.sync(entity);
         }
+    }
+
+    @Nullable
+    public void setStoredChargedHamon(HamonAbility hamonAbility){
+        this.storedHamonCharge = hamonAbility;
+        EOEComponents.HAMON_COMPONENT.sync(entity);
+    }
+
+    public HamonAbility getStoredChargedHamon(){
+        return storedHamonCharge;
     }
 }

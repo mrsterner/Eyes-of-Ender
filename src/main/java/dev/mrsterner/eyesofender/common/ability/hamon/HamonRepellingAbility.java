@@ -30,4 +30,8 @@ public class HamonRepellingAbility extends HamonKnowledge {
 		return livingEntity.isTouchingWater() && world.getBlockState(blockPos).isOf(Blocks.AIR);
 	}
 
+	@Override
+	public void tickPassiveAbility(LivingEntity user) {
+		super.tickPassiveAbility(user);
+	}
 }

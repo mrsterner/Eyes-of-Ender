@@ -21,7 +21,7 @@ public class HealingAbility extends HamonKnowledge {
 	}
 
 	@Override
-	public void tickAbility(LivingEntity entity) {
+	public void tickPassiveAbility(LivingEntity entity) {
 		//TODO maybe change this to a playerability for resistance
 		if(entity.canHaveStatusEffect(new StatusEffectInstance(StatusEffects.RESISTANCE))){
 			entity.addStatusEffect(new StatusEffectInstance(StatusEffects.RESISTANCE, 20 * 2));

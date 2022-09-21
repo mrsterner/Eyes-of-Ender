@@ -21,8 +21,8 @@ public class ActivateHamonAbility extends HamonKnowledge {
 	}
 
 	@Override
-	public void tickAbility(LivingEntity entity) {
-		super.tickAbility(entity);
+	public void tickPassiveAbility(LivingEntity entity) {
+		super.tickPassiveAbility(entity);
 	}
 
 }
