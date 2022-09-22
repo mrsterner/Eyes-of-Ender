@@ -29,7 +29,7 @@ public class ImbueAbility extends HamonKnowledge {
 	}
 
 	@Override
-	public void onChargedAbilityUsed(LivingEntity user) {
+	public void onChargedAbilityUsed(LivingEntity user, LivingEntity targetEntity) {
 		int maxDistance = 2;
 		double distance = Math.pow(maxDistance, 2);
 		Vec3d vec3d = user.getCameraPosVec(1);

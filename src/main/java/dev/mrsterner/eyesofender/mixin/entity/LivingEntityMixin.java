@@ -2,6 +2,7 @@ package dev.mrsterner.eyesofender.mixin.entity;
 
 
 import dev.mrsterner.eyesofender.api.events.AttackLivingEntityCallback;
+import dev.mrsterner.eyesofender.api.events.SwingHandEntityCallback;
 import dev.mrsterner.eyesofender.client.registry.EOESoundEvents;
 import dev.mrsterner.eyesofender.common.block.CoffinBlock;
 import dev.mrsterner.eyesofender.common.utils.TimeStopUtils;
@@ -53,7 +54,7 @@ public abstract class LivingEntityMixin extends Entity {
     }
 
     @Inject(method = "attackLivingEntity", at = @At("HEAD"), cancellable = true)
-    public void onPlayerInteractEntity(LivingEntity target, CallbackInfo ci) {
+    public void onAttackLivingEntity(LivingEntity target, CallbackInfo ci) {
         LivingEntity livingEntity = (LivingEntity) (Object) this;
         ActionResult result = AttackLivingEntityCallback.EVENT.invoker().interact(livingEntity, livingEntity.getCommandSenderWorld(), Hand.MAIN_HAND, target, null);
 
@@ -61,6 +62,17 @@ public abstract class LivingEntityMixin extends Entity {
             ci.cancel();
         }
     }
+
+    @Inject(method = "swingHand(Lnet/minecraft/util/Hand;)V", at = @At("HEAD"), cancellable = true)
+    public void on(Hand hand, CallbackInfo ci) {
+        LivingEntity livingEntity = (LivingEntity) (Object) this;
+        ActionResult result = SwingHandEntityCallback.EVENT.invoker().swing(livingEntity, livingEntity.getCommandSenderWorld(), hand);
+
+        if (result != ActionResult.PASS) {
+            ci.cancel();
+        }
+    }
+
 
     @Inject(method = "wakeUp", at = @At(value = "HEAD"))
     private void eyesOfEnder$wakeUpCoffin(CallbackInfo ci){

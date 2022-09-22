@@ -3,6 +3,7 @@ package dev.mrsterner.eyesofender;
 import com.mojang.datafixers.util.Pair;
 import dev.mrsterner.eyesofender.api.enums.BodyPart;
 import dev.mrsterner.eyesofender.api.events.AttackLivingEntityCallback;
+import dev.mrsterner.eyesofender.api.events.SwingHandEntityCallback;
 import dev.mrsterner.eyesofender.api.registry.HamonKnowledge;
 import dev.mrsterner.eyesofender.common.ability.stand.EOEStandAbilitiesCallback;
 import dev.mrsterner.eyesofender.common.block.CoffinBlock;
@@ -13,6 +14,7 @@ import dev.mrsterner.eyesofender.common.utils.TimeStopUtils;
 import eu.midnightdust.lib.config.MidnightConfig;
 import net.fabricmc.fabric.api.entity.event.v1.EntitySleepEvents;
 import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
+import net.fabricmc.fabric.api.event.player.UseItemCallback;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
@@ -27,6 +29,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -70,6 +73,9 @@ public class EyesOfEnder implements ModInitializer {
 		AttackEntityCallback.EVENT.register(this::stainStoneMask);
 		AttackEntityCallback.EVENT.register(this::damageInTimeStop);
 		AttackLivingEntityCallback.EVENT.register(this::hamonAttack);
+		UseItemCallback.EVENT.register(this::hamonAttack);
+		SwingHandEntityCallback.EVENT.register(this::hamonAttack);
+
 		ServerWorldTickEvents.START.register(this::timeStopper);
 		EntitySleepEvents.ALLOW_SLEEP_TIME.register(this::coffinSleep);
 		EntitySleepEvents.ALLOW_SLEEPING.register(this::coffinSleep);
@@ -77,11 +83,33 @@ public class EyesOfEnder implements ModInitializer {
 
 	}
 
-	private ActionResult hamonAttack(LivingEntity livingEntity, World world, Hand hand, Entity entity, @Nullable EntityHitResult entityHitResult) {
+	private ActionResult hamonAttack(LivingEntity livingEntity, World world, Hand hand) {
 		EOEComponents.HAMON_COMPONENT.maybeGet(livingEntity).ifPresent(hamonUser -> {
 			if(hamonUser.getStoredChargedHamon() != null){
 				HamonKnowledge hamonKnowledge = hamonUser.getStoredChargedHamon();
-				hamonKnowledge.onChargedAbilityUsed(livingEntity);
+				hamonKnowledge.onChargedAbilityUsed(livingEntity ,null);
+				hamonUser.setStoredChargedHamon(null);
+			}
+		});
+		return ActionResult.PASS;
+	}
+
+	private TypedActionResult<ItemStack> hamonAttack(PlayerEntity player, World world, Hand hand) {
+		EOEComponents.HAMON_COMPONENT.maybeGet(player).ifPresent(hamonUser -> {
+			if(hamonUser.getStoredChargedHamon() != null && player.getMainHandStack().isEmpty()){
+				HamonKnowledge hamonKnowledge = hamonUser.getStoredChargedHamon();
+				hamonKnowledge.onChargedAbilityUsed(player ,null);
+				hamonUser.setStoredChargedHamon(null);
+			}
+		});
+		return TypedActionResult.pass(player.getMainHandStack());
+	}
+
+	private ActionResult hamonAttack(LivingEntity livingEntity, World world, Hand hand, Entity entity, @Nullable EntityHitResult entityHitResult) {
+		EOEComponents.HAMON_COMPONENT.maybeGet(livingEntity).ifPresent(hamonUser -> {
+			if(hamonUser.getStoredChargedHamon() != null && entity instanceof LivingEntity target){
+				HamonKnowledge hamonKnowledge = hamonUser.getStoredChargedHamon();
+				hamonKnowledge.onChargedAbilityUsed(livingEntity,target);
 				hamonUser.setStoredChargedHamon(null);
 			}
 		});

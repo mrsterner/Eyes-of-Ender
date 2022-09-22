@@ -26,8 +26,8 @@ public class IndigoOverdriveAbility extends HamonKnowledge {
 	}
 
 	@Override
-	public void onChargedAbilityUsed(LivingEntity livingEntity) {
-		super.onChargedAbilityUsed(livingEntity);
+	public void onChargedAbilityUsed(LivingEntity livingEntity, LivingEntity target) {
+		super.onChargedAbilityUsed(livingEntity, target);
 	}
 
 	@Override
