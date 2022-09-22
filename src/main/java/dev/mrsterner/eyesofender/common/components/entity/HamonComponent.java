@@ -2,6 +2,7 @@ package dev.mrsterner.eyesofender.common.components.entity;
 
 import dev.mrsterner.eyesofender.api.enums.Hamon;
 import dev.mrsterner.eyesofender.api.enums.HamonAbilityType;
+import dev.mrsterner.eyesofender.api.interfaces.HamonUser;
 import dev.mrsterner.eyesofender.api.registry.HamonKnowledge;
 import dev.mrsterner.eyesofender.client.gui.HamonAbilityClientHandler;
 import dev.mrsterner.eyesofender.common.ability.HamonAbility;
@@ -20,7 +21,7 @@ import javax.annotation.Nullable;
 import java.util.*;
 
 
-public class HamonComponent implements ServerTickingComponent, AutoSyncedComponent {
+public class HamonComponent implements ServerTickingComponent, AutoSyncedComponent, HamonUser {
     private final LivingEntity entity;
     private final World world;
 

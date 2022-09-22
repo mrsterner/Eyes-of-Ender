@@ -67,6 +67,7 @@ public class EyesOfEnder implements ModInitializer {
 		EOEHamonAbilities.init();
 		EOEWorldGenerators.init();
 		EOEStandAbilitiesCallback.init();
+		EOERegistries.init();
 
 		ServerPlayNetworking.registerGlobalReceiver(HamonAbilityPacket.ID, HamonAbilityPacket::handleFromClient);
 

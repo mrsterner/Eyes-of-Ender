@@ -2,10 +2,12 @@ package dev.mrsterner.eyesofender.common.utils;
 
 import dev.mrsterner.eyesofender.EyesOfEnder;
 import dev.mrsterner.eyesofender.api.enums.BodyPart;
+import dev.mrsterner.eyesofender.api.registry.HamonKnowledge;
 import dev.mrsterner.eyesofender.client.gui.HamonAbilityClientHandler;
 import dev.mrsterner.eyesofender.common.components.entity.BodyComponent;
 import dev.mrsterner.eyesofender.common.components.entity.HamonComponent;
 import dev.mrsterner.eyesofender.common.registry.EOEComponents;
+import dev.mrsterner.eyesofender.common.registry.EOERegistries;
 import dev.mrsterner.eyesofender.common.registry.EOEStatusEffects;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -50,11 +52,11 @@ public class EOEUtils {
 	}
 
     public static class DataTrackers{
-		public static final TrackedData<Integer> MAX_ABILITIES = DataTracker.registerData(PlayerEntity.class, TrackedDataHandlerRegistry.INTEGER);
-		public static final TrackedData<Integer> ABILITY_COOLDOWN = DataTracker.registerData(PlayerEntity.class, TrackedDataHandlerRegistry.INTEGER);
+
 	}
 	public static class Tags {
 		public static final TagKey<EntityType<?>> HUMANOIDS = TagKey.of(Registry.ENTITY_TYPE_KEY, EyesOfEnder.id("humanoid"));
+		public static final TagKey<HamonKnowledge> HAMON_AURA = TagKey.of(EOERegistries.HAMON_ABILITY_TYPE, EyesOfEnder.id("hamon_aura"));//TODO
 
 	}
 	public static class Nbt {
