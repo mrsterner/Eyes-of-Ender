@@ -4,7 +4,6 @@ import dev.mrsterner.eyesofender.EyesOfEnder;
 import dev.mrsterner.eyesofender.api.enums.Hamon;
 import dev.mrsterner.eyesofender.api.enums.HamonAbilityType;
 import dev.mrsterner.eyesofender.api.registry.HamonKnowledge;
-import net.minecraft.entity.LivingEntity;
 
 public class HamonAfterimagesAbility extends HamonKnowledge {
 

@@ -1,6 +1,5 @@
 package dev.mrsterner.eyesofender.api.registry;
 
-import dev.mrsterner.eyesofender.common.ability.HamonAbility;
 import dev.mrsterner.eyesofender.common.registry.EOERegistries;
 import dev.mrsterner.eyesofender.common.utils.EOEUtils;
 import net.minecraft.entity.LivingEntity;

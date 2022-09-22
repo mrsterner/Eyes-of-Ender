@@ -11,16 +11,9 @@ import dev.mrsterner.eyesofender.common.registry.EOERegistries;
 import dev.mrsterner.eyesofender.common.registry.EOEStatusEffects;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.data.DataTracker;
-import net.minecraft.entity.data.TrackedData;
-import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.NbtElement;
-import net.minecraft.nbt.NbtType;
-import net.minecraft.nbt.scanner.NbtScanner;
-import net.minecraft.nbt.visitor.NbtElementVisitor;
 import net.minecraft.tag.FluidTags;
 import net.minecraft.tag.TagKey;
 import net.minecraft.util.Identifier;
@@ -28,8 +21,6 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.registry.Registry;
 
-import java.io.DataOutput;
-import java.io.IOException;
 import java.util.LinkedHashSet;
 
 public class EOEUtils {

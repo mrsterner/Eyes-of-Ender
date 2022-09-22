@@ -5,7 +5,6 @@ import dev.mrsterner.eyesofender.common.components.entity.BodyComponent;
 import dev.mrsterner.eyesofender.common.components.entity.HamonComponent;
 import dev.mrsterner.eyesofender.common.components.entity.StandComponent;
 import dev.mrsterner.eyesofender.common.components.entity.TimeStopComponent;
-import dev.mrsterner.eyesofender.common.entity.hamon.HamonUserEntity;
 import dev.onyxstudios.cca.api.v3.component.Component;
 import dev.onyxstudios.cca.api.v3.component.ComponentKey;
 import dev.onyxstudios.cca.api.v3.component.ComponentRegistry;

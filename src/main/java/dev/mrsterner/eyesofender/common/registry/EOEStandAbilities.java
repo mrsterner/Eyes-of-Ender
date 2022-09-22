@@ -1,9 +1,7 @@
 package dev.mrsterner.eyesofender.common.registry;
 
 import dev.mrsterner.eyesofender.EyesOfEnder;
-import dev.mrsterner.eyesofender.api.registry.HamonKnowledge;
 import dev.mrsterner.eyesofender.api.registry.StandAbility;
-import dev.mrsterner.eyesofender.common.ability.hamon.ActivateHamonAbility;
 import dev.mrsterner.eyesofender.common.ability.stand.theworld.TimeStopStandAbility;
 import net.minecraft.util.registry.Registry;
 

@@ -3,7 +3,6 @@ package dev.mrsterner.eyesofender.api.interfaces;
 import dev.mrsterner.eyesofender.api.enums.Hamon;
 import dev.mrsterner.eyesofender.api.registry.HamonKnowledge;
 import dev.mrsterner.eyesofender.common.ability.HamonAbility;
-import dev.mrsterner.eyesofender.common.registry.EOEComponents;
 
 import javax.annotation.Nullable;
 import java.util.List;

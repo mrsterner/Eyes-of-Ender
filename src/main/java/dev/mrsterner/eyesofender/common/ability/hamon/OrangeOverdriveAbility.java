@@ -5,7 +5,6 @@ import dev.mrsterner.eyesofender.api.enums.Hamon;
 import dev.mrsterner.eyesofender.api.enums.HamonAbilityType;
 import dev.mrsterner.eyesofender.api.registry.HamonKnowledge;
 import dev.mrsterner.eyesofender.common.utils.EOEUtils;
-import net.minecraft.entity.LivingEntity;
 
 public class OrangeOverdriveAbility extends HamonKnowledge {
 

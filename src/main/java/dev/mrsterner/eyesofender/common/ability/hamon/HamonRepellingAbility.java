@@ -6,11 +6,8 @@ import dev.mrsterner.eyesofender.api.enums.HamonAbilityType;
 import dev.mrsterner.eyesofender.api.registry.HamonKnowledge;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.tag.BlockTags;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-
-import java.util.function.Predicate;
 
 public class HamonRepellingAbility extends HamonKnowledge {
 	public HamonRepellingAbility() {

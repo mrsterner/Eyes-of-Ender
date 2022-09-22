@@ -1,16 +1,11 @@
 package dev.mrsterner.eyesofender.common.registry;
 
-import dev.mrsterner.eyesofender.EyesOfEnder;
 import dev.mrsterner.eyesofender.api.registry.HamonKnowledge;
 import dev.mrsterner.eyesofender.common.ability.hamon.*;
-import net.minecraft.entity.effect.StatusEffect;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 public class EOEHamonAbilities {
 	private static final List<HamonKnowledge> HAMON_ABILITIES = new ArrayList<>();

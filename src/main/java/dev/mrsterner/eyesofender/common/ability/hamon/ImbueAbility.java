@@ -4,7 +4,6 @@ import dev.mrsterner.eyesofender.EyesOfEnder;
 import dev.mrsterner.eyesofender.api.enums.Hamon;
 import dev.mrsterner.eyesofender.api.enums.HamonAbilityType;
 import dev.mrsterner.eyesofender.api.registry.HamonKnowledge;
-import dev.mrsterner.eyesofender.common.components.entity.HamonComponent;
 import dev.mrsterner.eyesofender.common.registry.EOEComponents;
 import dev.mrsterner.eyesofender.common.registry.EOEStatusEffects;
 import net.minecraft.entity.LivingEntity;

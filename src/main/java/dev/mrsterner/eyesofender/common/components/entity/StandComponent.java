@@ -1,18 +1,14 @@
 package dev.mrsterner.eyesofender.common.components.entity;
 
 import dev.mrsterner.eyesofender.api.registry.StandAbility;
-import dev.mrsterner.eyesofender.common.ability.HamonAbility;
 import dev.mrsterner.eyesofender.common.entity.stand.BaseStandEntity;
-import dev.mrsterner.eyesofender.common.entity.stand.bound.HierophantGreenEntity;
 import dev.mrsterner.eyesofender.common.registry.EOEComponents;
-import dev.mrsterner.eyesofender.common.registry.EOEEntityTypes;
 import dev.mrsterner.eyesofender.common.utils.EOEUtils;
 import dev.onyxstudios.cca.api.v3.component.sync.AutoSyncedComponent;
 import dev.onyxstudios.cca.api.v3.component.tick.ServerTickingComponent;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.NbtHelper;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.server.world.ServerWorld;
 
