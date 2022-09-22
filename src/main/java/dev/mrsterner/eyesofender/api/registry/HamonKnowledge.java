@@ -2,7 +2,11 @@ package dev.mrsterner.eyesofender.api.registry;
 
 import dev.mrsterner.eyesofender.api.enums.Hamon;
 import dev.mrsterner.eyesofender.api.enums.HamonAbilityType;
+import dev.mrsterner.eyesofender.common.ability.HamonAbility;
+import dev.mrsterner.eyesofender.common.registry.EOERegistries;
+import dev.mrsterner.eyesofender.common.utils.EOEUtils;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
@@ -29,6 +33,11 @@ public abstract class HamonKnowledge {
 		this.hamonAbilityType = hamonAbilityType;
 		this.hamonTier = hamonTier;
 		this.hamonTimer = hamonTimer;
+	}
+
+	public NbtCompound toTag(NbtCompound tag) {
+		tag.putString(EOEUtils.Nbt.HAMON_KNOWLEDGE, this.getId().toString());
+		return tag;
 	}
 
 	public boolean canUse(LivingEntity user) {

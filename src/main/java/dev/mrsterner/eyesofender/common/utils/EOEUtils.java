@@ -15,11 +15,17 @@ import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtElement;
+import net.minecraft.nbt.NbtType;
+import net.minecraft.nbt.scanner.NbtScanner;
+import net.minecraft.nbt.visitor.NbtElementVisitor;
 import net.minecraft.tag.FluidTags;
 import net.minecraft.tag.TagKey;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
+import java.io.DataOutput;
+import java.io.IOException;
 import java.util.LinkedHashSet;
 
 public class EOEUtils {
@@ -54,6 +60,10 @@ public class EOEUtils {
 		public static final String ABILITY_COOLDOWN = "AbilityCooldown";
 		public static final String HAMON_BREATH = "HamonBreath";
 		public static final String ABILITY_LIST = "AbilityList";
+        public static final String STORED_CHARGED_HAMON = "StoredChargedHamon";
+		public static final String HAMON_LEVEL = "HamonLevel";
+		public static final String HAMON_KNOWLEDGE = "HamonKnowledge";
+		public static final String HAMON_TIMER = "HamonTimer";
 	}
 	public static class Identifiers {
 		public static final Identifier OVERLAY_OVERDRIVE = EyesOfEnder.id("textures/gui/ability_widgets/ability/overlay_overdrive.png");
@@ -118,4 +128,5 @@ public class EOEUtils {
 			case HEAD -> {}
 		}
 	}
+
 }

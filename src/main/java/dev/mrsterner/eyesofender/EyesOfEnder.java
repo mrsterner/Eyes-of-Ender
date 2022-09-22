@@ -84,36 +84,30 @@ public class EyesOfEnder implements ModInitializer {
 	}
 
 	private ActionResult hamonAttack(LivingEntity livingEntity, World world, Hand hand) {
-		EOEComponents.HAMON_COMPONENT.maybeGet(livingEntity).ifPresent(hamonUser -> {
-			if(hamonUser.getStoredChargedHamon() != null){
-				HamonKnowledge hamonKnowledge = hamonUser.getStoredChargedHamon();
-				hamonKnowledge.onChargedAbilityUsed(livingEntity ,null);
-				hamonUser.setStoredChargedHamon(null);
-			}
-		});
+		hamonAttackHelper(livingEntity, null);
 		return ActionResult.PASS;
 	}
 
 	private TypedActionResult<ItemStack> hamonAttack(PlayerEntity player, World world, Hand hand) {
-		EOEComponents.HAMON_COMPONENT.maybeGet(player).ifPresent(hamonUser -> {
-			if(hamonUser.getStoredChargedHamon() != null && player.getMainHandStack().isEmpty()){
-				HamonKnowledge hamonKnowledge = hamonUser.getStoredChargedHamon();
-				hamonKnowledge.onChargedAbilityUsed(player ,null);
-				hamonUser.setStoredChargedHamon(null);
-			}
-		});
+		hamonAttackHelper(player, null);
 		return TypedActionResult.pass(player.getMainHandStack());
 	}
 
 	private ActionResult hamonAttack(LivingEntity livingEntity, World world, Hand hand, Entity entity, @Nullable EntityHitResult entityHitResult) {
+		if(entity instanceof LivingEntity target){
+			hamonAttackHelper(livingEntity, target);
+		}
+		return ActionResult.PASS;
+	}
+
+	private void hamonAttackHelper(LivingEntity livingEntity, LivingEntity target){
 		EOEComponents.HAMON_COMPONENT.maybeGet(livingEntity).ifPresent(hamonUser -> {
-			if(hamonUser.getStoredChargedHamon() != null && entity instanceof LivingEntity target){
+			if(hamonUser.getStoredChargedHamon() != null && livingEntity.getMainHandStack().isEmpty()){
 				HamonKnowledge hamonKnowledge = hamonUser.getStoredChargedHamon();
 				hamonKnowledge.onChargedAbilityUsed(livingEntity,target);
 				hamonUser.setStoredChargedHamon(null);
 			}
 		});
-		return ActionResult.PASS;
 	}
 
 	/**
