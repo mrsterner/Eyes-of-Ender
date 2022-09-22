@@ -1,7 +1,7 @@
 package dev.mrsterner.eyesofender.client.model.entity;
 
 import dev.mrsterner.eyesofender.EyesOfEnder;
-import dev.mrsterner.eyesofender.common.entity.bound.HierophantGreenEntity;
+import dev.mrsterner.eyesofender.common.entity.stand.bound.HierophantGreenEntity;
 import net.minecraft.util.Identifier;
 import software.bernie.geckolib3.model.AnimatedGeoModel;
 

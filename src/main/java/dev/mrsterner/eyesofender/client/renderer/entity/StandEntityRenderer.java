@@ -1,7 +1,7 @@
 package dev.mrsterner.eyesofender.client.renderer.entity;
 
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import dev.mrsterner.eyesofender.common.entity.BaseStandEntity;
+import dev.mrsterner.eyesofender.common.entity.stand.BaseStandEntity;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRendererFactory;

@@ -1,6 +1,6 @@
 package dev.mrsterner.eyesofender.client.model.entity;
 
-import dev.mrsterner.eyesofender.common.entity.BaseStandEntity;
+import dev.mrsterner.eyesofender.common.entity.stand.BaseStandEntity;
 import net.minecraft.util.Identifier;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.processor.IBone;

@@ -2,8 +2,7 @@ package dev.mrsterner.eyesofender.client.renderer.entity;
 
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import dev.mrsterner.eyesofender.client.model.entity.HierophantGreenEntityModel;
-import dev.mrsterner.eyesofender.client.renderer.feature.LiquidEffectFeatureRenderer;
-import dev.mrsterner.eyesofender.common.entity.bound.HierophantGreenEntity;
+import dev.mrsterner.eyesofender.common.entity.stand.bound.HierophantGreenEntity;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRendererFactory;
@@ -15,7 +14,6 @@ import software.bernie.geckolib3.renderers.geo.GeoEntityRenderer;
 public class HierophantGreenEntityRenderer extends GeoEntityRenderer<HierophantGreenEntity> {
     public HierophantGreenEntityRenderer(EntityRendererFactory.Context ctx) {
         super(ctx, new HierophantGreenEntityModel());
-        this.addLayer(new LiquidEffectFeatureRenderer(this));
     }
 
 

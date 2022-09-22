@@ -12,9 +12,7 @@ import dev.onyxstudios.cca.api.v3.component.sync.AutoSyncedComponent;
 import dev.onyxstudios.cca.api.v3.component.tick.ServerTickingComponent;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtList;
-import net.minecraft.nbt.NbtString;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 
@@ -25,15 +23,16 @@ import java.util.*;
 public class HamonComponent implements ServerTickingComponent, AutoSyncedComponent {
     private final LivingEntity entity;
     private final World world;
+
+    private final List<HamonAbility> abilities = new ArrayList<>();
+    private final Set<HamonKnowledge> learnedKnowledge = new HashSet<>();
+    private Hamon hamonLevel = Hamon.BASIC; //TODO change to EMPTY
+    private HamonKnowledge storedHamonCharge = null;
+
     private int MAX_HAMON_ABILITIES = 10;
     private int MAX_ABILITY_COOLDOWN = 20 * 2;
     public final int MAX_HAMON_BREATH = 20 * 100;
-    private List<HamonAbility> abilities = new ArrayList<>();
-    private Set<HamonKnowledge> learnedKnowledge = new HashSet<>();
     private int hamonBreath = MAX_HAMON_BREATH;
-    private Hamon hamonLevel = Hamon.BASIC; //TODO change to EMPTY
-
-    private HamonKnowledge storedHamonCharge = null;
     private int hamonTimer = 0;
 
     public HamonComponent(LivingEntity entity) {

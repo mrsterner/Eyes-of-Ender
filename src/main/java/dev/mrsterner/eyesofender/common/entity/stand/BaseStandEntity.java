@@ -1,4 +1,4 @@
-package dev.mrsterner.eyesofender.common.entity;
+package dev.mrsterner.eyesofender.common.entity.stand;
 
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;

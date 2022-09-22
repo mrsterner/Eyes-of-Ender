@@ -2,7 +2,7 @@ package dev.mrsterner.eyesofender.mixin.client;
 
 import dev.mrsterner.eyesofender.api.enums.BodyPart;
 import dev.mrsterner.eyesofender.client.renderer.feature.HamonFeatureRenderer;
-import dev.mrsterner.eyesofender.common.entity.BaseStandEntity;
+import dev.mrsterner.eyesofender.common.entity.stand.BaseStandEntity;
 import dev.mrsterner.eyesofender.common.registry.EOEComponents;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;

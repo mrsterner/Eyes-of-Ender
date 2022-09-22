@@ -22,6 +22,8 @@ import net.minecraft.nbt.visitor.NbtElementVisitor;
 import net.minecraft.tag.FluidTags;
 import net.minecraft.tag.TagKey;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.registry.Registry;
 
 import java.io.DataOutput;
@@ -83,6 +85,24 @@ public class EOEUtils {
 			stack.setNbt(tagCompound);
 		}
 		return tagCompound;
+	}
+
+	public static Vec3d getYawRelativePos(Vec3d originPos, double distance, float yaw, float pitch) {
+		float yawRadians = yaw * (float) Math.toRadians(1);
+		float pitchRadians = pitch * (float) Math.toRadians(1);
+		double x = distance * (-MathHelper.sin(yawRadians) * MathHelper.cos(pitchRadians));
+		double y = distance * -MathHelper.sin(pitchRadians);
+		double z = distance * (MathHelper.cos(yawRadians) * MathHelper.cos(pitchRadians));
+		return originPos.add(x, y, z);
+	}
+
+	public static Vec3d getYawRelativePosRelatively(double distance, float yaw, float pitch) {
+		float yawRadians = yaw * (float) Math.toRadians(1);
+		float pitchRadians = pitch * (float) Math.toRadians(1);
+		double x = distance * (-MathHelper.sin(yawRadians) * MathHelper.cos(pitchRadians));
+		double y = distance * -MathHelper.sin(pitchRadians);
+		double z = distance * (MathHelper.cos(yawRadians) * MathHelper.cos(pitchRadians));
+		return new Vec3d(x, y, z);
 	}
 
 	public static boolean ifMissingArmsLegsTorso(PlayerEntity player){

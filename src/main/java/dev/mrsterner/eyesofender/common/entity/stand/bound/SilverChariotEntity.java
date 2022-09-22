@@ -1,6 +1,6 @@
-package dev.mrsterner.eyesofender.common.entity.bound;
+package dev.mrsterner.eyesofender.common.entity.stand.bound;
 
-import dev.mrsterner.eyesofender.common.entity.BoundStandEntity;
+import dev.mrsterner.eyesofender.common.entity.stand.BoundStandEntity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.world.World;
