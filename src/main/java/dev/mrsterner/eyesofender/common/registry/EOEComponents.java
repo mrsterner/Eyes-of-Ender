@@ -5,6 +5,7 @@ import dev.mrsterner.eyesofender.common.components.entity.BodyComponent;
 import dev.mrsterner.eyesofender.common.components.entity.HamonComponent;
 import dev.mrsterner.eyesofender.common.components.entity.StandComponent;
 import dev.mrsterner.eyesofender.common.components.entity.TimeStopComponent;
+import dev.mrsterner.eyesofender.common.entity.hamon.HamonUserEntity;
 import dev.onyxstudios.cca.api.v3.component.Component;
 import dev.onyxstudios.cca.api.v3.component.ComponentKey;
 import dev.onyxstudios.cca.api.v3.component.ComponentRegistry;
@@ -25,6 +26,7 @@ public class EOEComponents implements EntityComponentInitializer, WorldComponent
 	@Override
 	public void registerEntityComponentFactories(EntityComponentFactoryRegistry registry) {
 		registry.beginRegistration(PlayerEntity.class, HAMON_COMPONENT).respawnStrategy(RespawnCopyStrategy.ALWAYS_COPY).end(HamonComponent::new);
+
 		registry.beginRegistration(PlayerEntity.class, STAND_COMPONENT).respawnStrategy(RespawnCopyStrategy.ALWAYS_COPY).end(StandComponent::new);
 		registry.beginRegistration(PlayerEntity.class, BODY_COMPONENT).respawnStrategy(RespawnCopyStrategy.ALWAYS_COPY).end(BodyComponent::new);
 	}

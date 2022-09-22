@@ -58,6 +58,15 @@ public class EOEUtils {
 		public static final TagKey<EntityType<?>> HUMANOIDS = TagKey.of(Registry.ENTITY_TYPE_KEY, EyesOfEnder.id("humanoid"));
 		public static final TagKey<HamonKnowledge> HAMON_AURA = TagKey.of(EOERegistries.HAMON_ABILITY_TYPE, EyesOfEnder.id("hamon_aura"));//TODO
 
+		public static final TagKey<EntityType<?>> HUMANOID_STAND = TagKey.of(Registry.ENTITY_TYPE_KEY, EyesOfEnder.id("humanoid_stand"));
+		public static final TagKey<EntityType<?>> BOUND_STAND = TagKey.of(Registry.ENTITY_TYPE_KEY, EyesOfEnder.id("bound_stand"));
+		public static final TagKey<EntityType<?>> REMOTE_STAND = TagKey.of(Registry.ENTITY_TYPE_KEY, EyesOfEnder.id("remote_stand"));
+		public static final TagKey<EntityType<?>> COLONY_STAND = TagKey.of(Registry.ENTITY_TYPE_KEY, EyesOfEnder.id("colony_stand"));
+		public static final TagKey<EntityType<?>> AUTOMATIC_STAND = TagKey.of(Registry.ENTITY_TYPE_KEY, EyesOfEnder.id("automatic_stand"));
+		public static final TagKey<EntityType<?>> POSTHUMOUS_STAND = TagKey.of(Registry.ENTITY_TYPE_KEY, EyesOfEnder.id("posthumous_stand"));
+		public static final TagKey<EntityType<?>> STRUCTURAL_STAND = TagKey.of(Registry.ENTITY_TYPE_KEY, EyesOfEnder.id("structural_stand"));//TODO maybe change to block
+		public static final TagKey<EntityType<?>> SPECIAL_STAND = TagKey.of(Registry.ENTITY_TYPE_KEY, EyesOfEnder.id("special_stand"));
+
 	}
 	public static class Nbt {
 		public static final String MAX_ABILITIES = "MaxAbilities";
@@ -68,6 +77,9 @@ public class EOEUtils {
 		public static final String HAMON_LEVEL = "HamonLevel";
 		public static final String HAMON_KNOWLEDGE = "HamonKnowledge";
 		public static final String HAMON_TIMER = "HamonTimer";
+        public static final String STAND_UUID = "StandUUID";
+        public static final String STAND_ABILITY_LIST = "StandAbilityList";
+		public static final String STAND_ABILITY = "StandAbility";
 	}
 	public static class Identifiers {
 		public static final Identifier OVERLAY_OVERDRIVE = EyesOfEnder.id("textures/gui/ability_widgets/ability/overlay_overdrive.png");

@@ -5,6 +5,7 @@ import dev.mrsterner.eyesofender.common.ability.stand.killerqueen.KillerQueenEnt
 import net.fabricmc.fabric.api.event.player.AttackBlockCallback;
 import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
 
+@Deprecated(forRemoval = true)
 public class EOEStandAbilitiesCallback {
     public static void init(){
         AttackEntityCallback.EVENT.register(KillerQueenEntityTagCallback::tagEntity);

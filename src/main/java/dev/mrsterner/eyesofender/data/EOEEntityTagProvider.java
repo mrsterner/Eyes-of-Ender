@@ -13,5 +13,17 @@ public class EOEEntityTagProvider extends FabricTagProvider.EntityTypeTagProvide
 	@Override
 	protected void generateTags() {
 		getOrCreateTagBuilder(EOEUtils.Tags.HUMANOIDS).add(EntityType.PLAYER, EntityType.VILLAGER, EntityType.PIGLIN, EntityType.PIGLIN_BRUTE, EntityType.WITCH);
+
+
+
+		//Stands TODO maybe remove
+		getOrCreateTagBuilder(EOEUtils.Tags.HUMANOID_STAND);
+		getOrCreateTagBuilder(EOEUtils.Tags.BOUND_STAND);
+		getOrCreateTagBuilder(EOEUtils.Tags.REMOTE_STAND);
+		getOrCreateTagBuilder(EOEUtils.Tags.COLONY_STAND);
+		getOrCreateTagBuilder(EOEUtils.Tags.AUTOMATIC_STAND);
+		getOrCreateTagBuilder(EOEUtils.Tags.POSTHUMOUS_STAND);
+		getOrCreateTagBuilder(EOEUtils.Tags.STRUCTURAL_STAND);
+		getOrCreateTagBuilder(EOEUtils.Tags.SPECIAL_STAND);
 	}
 }

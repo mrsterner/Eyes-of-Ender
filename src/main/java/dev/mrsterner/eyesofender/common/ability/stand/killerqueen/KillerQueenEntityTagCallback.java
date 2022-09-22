@@ -8,6 +8,7 @@ import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
+@Deprecated(forRemoval = true)
 public class KillerQueenEntityTagCallback {
 
     public static ActionResult tagEntity(PlayerEntity player, World world, Hand hand, Entity entity, @Nullable EntityHitResult entityHitResult) {

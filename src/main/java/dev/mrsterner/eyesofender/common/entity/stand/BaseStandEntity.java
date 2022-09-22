@@ -1,5 +1,8 @@
 package dev.mrsterner.eyesofender.common.entity.stand;
 
+import dev.mrsterner.eyesofender.api.enums.StandType;
+import dev.mrsterner.eyesofender.api.registry.StandAbility;
+import dev.mrsterner.eyesofender.common.registry.EOEStandAbilities;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.control.FlightMoveControl;
@@ -16,6 +19,7 @@ import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import software.bernie.geckolib3.core.IAnimatable;
@@ -25,6 +29,9 @@ import software.bernie.geckolib3.core.controller.AnimationController;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class BaseStandEntity extends PathAwareEntity implements IAnimatable {
 	private final MoveControl airMoveControl;
@@ -36,6 +43,7 @@ public class BaseStandEntity extends PathAwareEntity implements IAnimatable {
 	private static final TrackedData<Boolean> IS_FLYING = DataTracker.registerData(BaseStandEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
 
 	private LivingEntity ownerEntity;
+	public static final List<StandAbility> standAbilities = List.of();
 
 	public Vec3d motionCalc = new Vec3d(0,0,0);
 	final AnimationFactory factory = new AnimationFactory(this);
@@ -50,6 +58,9 @@ public class BaseStandEntity extends PathAwareEntity implements IAnimatable {
 		this.navigation = groundNavigation;
 	}
 
+	public List<StandAbility> getStandAbilities(){
+		return standAbilities;
+	}
 
 	@Override
 	protected void mobTick() {

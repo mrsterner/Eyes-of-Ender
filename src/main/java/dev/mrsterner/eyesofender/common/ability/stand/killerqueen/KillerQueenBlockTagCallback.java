@@ -7,6 +7,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 
+@Deprecated(forRemoval = true)
 public class KillerQueenBlockTagCallback {
     public static ActionResult tagBlock(PlayerEntity player, World world, Hand hand, BlockPos blockPos, Direction direction) {
         /*
